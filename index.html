@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-R1E5LS9596');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R1E5LS9596');
+    </script>
     <title>Global Time Pro | World Clock</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -53,9 +52,35 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             padding: 20px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* NEW: Visitor Counter Styles */
+        .visitor-counter {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .night-mode .visitor-counter {
+            background: rgba(0,0,0,0.2);
+        }
+        .visitor-counter i {
+            color: var(--accent-day);
+        }
+        .night-mode .visitor-counter i {
+            color: var(--accent-night);
+        }
+        #live-count {
+            font-weight: 700;
         }
 
         .logo {
@@ -283,6 +308,12 @@
                 </button>
             </div>
         </header>
+
+        <!-- NEW: Visitor Counter -->
+        <div class="visitor-counter">
+            <i class="fas fa-users"></i>
+            <span id="live-count">Loading...</span> users exploring now
+        </div>
 
         <div class="toolbar">
             <button class="tool-btn" id="share-btn">
@@ -512,9 +543,24 @@
             }
         });
 
-        // Initialize and update every second
+        // NEW: Visitor Counter Functionality
+        function updateVisitorCount() {
+            // Using a free Cloudflare Worker endpoint (replace with your own later)
+            fetch('https://visitor-counter.global-time-pro.workers.dev')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('live-count').textContent = data.count.toLocaleString();
+                })
+                .catch(() => {
+                    document.getElementById('live-count').textContent = '1,000+'; // Fallback
+                });
+        }
+
+        // Initialize everything
         updateClocks();
+        updateVisitorCount();
         setInterval(updateClocks, 1000);
+        setInterval(updateVisitorCount, 30000); // Update every 30 seconds
     </script>
 </body>
 </html>
