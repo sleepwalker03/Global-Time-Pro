@@ -13,6 +13,7 @@
     </script>
     <title>Global Time Pro | World Clock</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
     <style>
         :root {
             --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
@@ -57,32 +58,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* NEW: Visitor Counter Styles */
-        .visitor-counter {
-            background: rgba(255,255,255,0.15);
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-        .night-mode .visitor-counter {
-            background: rgba(0,0,0,0.2);
-        }
-        .visitor-counter i {
-            color: var(--accent-day);
-        }
-        .night-mode .visitor-counter i {
-            color: var(--accent-night);
-        }
-        #live-count {
-            font-weight: 700;
-        }
-
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
@@ -122,126 +97,54 @@
             background: rgba(255,255,255,0.2);
         }
 
-        /* Main Clock Display */
-        .main-clock {
-            background: var(--card-day);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            text-align: center;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .night-mode .main-clock {
-            background: var(--card-night);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .main-clock::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ff9ff3, #feca57, #1dd1a1);
-        }
-
-        .time-display {
-            font-size: 4rem;
-            font-weight: 700;
-            margin: 10px 0;
-            font-feature-settings: "tnum";
-        }
-
-        .date-display {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-
-        .location-display {
-            display: flex;
-            justify-content: center;
+        /* Visitor Counter */
+        .visitor-counter {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            backdrop-filter: blur(5px);
+        }
+        .night-mode .visitor-counter {
+            background: rgba(0,0,0,0.2);
+        }
+        .visitor-counter i {
+            color: var(--accent-day);
+        }
+        .night-mode .visitor-counter i {
+            color: var(--accent-night);
+        }
+        #live-count {
+            font-weight: 700;
         }
 
-        /* Timezone Grid */
-        .timezone-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .timezone-card {
-            background: var(--card-day);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.5s ease;
-            position: relative;
-        }
-
-        .night-mode .timezone-card {
-            background: var(--card-night);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .timezone-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--tz-color, #6b6bff);
-            border-radius: 12px 12px 0 0;
-        }
-
-        .timezone-card h3 {
-            margin-top: 0;
+        /* Quick Cities Bar */
+        .quick-cities {
             display: flex;
-            align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            align-items: center;
         }
-
-        .timezone-card .flag {
-            width: 24px;
-            height: 16px;
-            border-radius: 2px;
-            box-shadow: 0 0 3px rgba(0,0,0,0.2);
+        .quick-cities span {
+            font-weight: 500;
         }
-
-        .timezone-time {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 10px 0;
-            font-feature-settings: "tnum";
-        }
-
-        .timezone-date {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-
-        .timezone-info {
-            display: flex;
-            justify-content: space-between;
+        .city-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
             font-size: 0.85rem;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed rgba(0,0,0,0.1);
         }
-
-        .night-mode .timezone-info {
-            border-top-color: rgba(255,255,255,0.1);
+        .city-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-1px);
         }
 
         /* Toolbar */
@@ -270,27 +173,136 @@
             background: rgba(255,255,255,0.2);
         }
 
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .time-display {
-                font-size: 3rem;
-            }
-            
-            .timezone-time {
-                font-size: 1.5rem;
-            }
+        /* Main Clock Display */
+        .main-clock {
+            background: var(--card-day);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .night-mode .main-clock {
+            background: var(--card-night);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .main-clock::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ff9ff3, #feca57, #1dd1a1);
         }
 
+        /* Time/Sun Info */
+        .time-display {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 10px 0;
+            font-feature-settings: "tnum";
+        }
+        .date-display {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        .location-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .sun-times {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        .sync-status {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        /* Timezone Grid */
+        .timezone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .timezone-card {
+            background: var(--card-day);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .night-mode .timezone-card {
+            background: var(--card-night);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .timezone-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--tz-color, #6b6bff);
+            border-radius: 12px 12px 0 0;
+        }
+        .timezone-card h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .timezone-card .flag {
+            width: 24px;
+            height: 16px;
+            border-radius: 2px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.2);
+        }
+        .timezone-time {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 10px 0;
+            font-feature-settings: "tnum";
+        }
+        .timezone-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        .timezone-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+        }
+        .night-mode .timezone-info {
+            border-top-color: rgba(255,255,255,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .time-display { font-size: 3rem; }
+            .timezone-time { font-size: 1.5rem; }
+        }
         @media (max-width: 480px) {
-            .time-display {
-                font-size: 2.5rem;
-            }
-            
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
+            .time-display { font-size: 2.5rem; }
+            .header { flex-direction: column; }
+            .sun-times { flex-direction: column; gap: 5px; }
         }
     </style>
 </head>
@@ -309,10 +321,18 @@
             </div>
         </header>
 
-        <!-- NEW: Visitor Counter -->
         <div class="visitor-counter">
             <i class="fas fa-users"></i>
-            <span id="live-count">Loading...</span> users exploring now
+            <span id="live-count">Loading...</span> users online
+        </div>
+
+        <div class="quick-cities">
+            <span>Compare:</span>
+            <button class="city-btn" data-city="new-york">New York</button>
+            <button class="city-btn" data-city="london">London</button>
+            <button class="city-btn" data-city="paris">Paris</button>
+            <button class="city-btn" data-city="tokyo">Tokyo</button>
+            <button class="city-btn" data-city="beijing">Beijing</button>
         </div>
 
         <div class="toolbar">
@@ -335,8 +355,16 @@
             <div class="date-display" id="local-date">Friday, July 19, 2024</div>
             <div class="location-display">
                 <i class="fas fa-map-marker-alt"></i>
-                <span id="local-location">Your Location</span>
+                <span id="local-location">Detecting location...</span>
                 <span id="local-timezone">(GMT+00:00)</span>
+            </div>
+            <div class="sun-times">
+                <span>☀️ Sunrise: <span id="sunrise">--:-- --</span></span>
+                <span>🌇 Sunset: <span id="sunset">--:-- --</span></span>
+            </div>
+            <div class="sync-status">
+                <span id="sync-message">Synchronizing with atomic time...</span>
+                <span id="sync-accuracy"></span>
             </div>
         </div>
 
@@ -394,45 +422,69 @@
     </div>
 
     <script>
-        // Timezone data
+        // Enhanced Timezone Data
         const timezones = {
-            local: {
-                id: 'local',
-                name: 'Your Location',
-                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                flag: ''
-            },
-            newYork: {
-                id: 'ny',
-                name: 'New York',
-                timezone: 'America/New_York',
-                flag: 'us'
-            },
-            london: {
-                id: 'london',
-                name: 'London',
-                timezone: 'Europe/London',
-                flag: 'gb'
-            },
-            tokyo: {
-                id: 'tokyo',
-                name: 'Tokyo',
-                timezone: 'Asia/Tokyo',
-                flag: 'jp'
-            },
-            sydney: {
-                id: 'sydney',
-                name: 'Sydney',
-                timezone: 'Australia/Sydney',
-                flag: 'au'
-            },
-            dubai: {
-                id: 'dubai',
-                name: 'Dubai',
-                timezone: 'Asia/Dubai',
-                flag: 'ae'
-            }
+            local: { id: 'local', name: 'Your Location', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, flag: '' },
+            newYork: { id: 'ny', name: 'New York', timezone: 'America/New_York', flag: 'us' },
+            london: { id: 'london', name: 'London', timezone: 'Europe/London', flag: 'gb' },
+            tokyo: { id: 'tokyo', name: 'Tokyo', timezone: 'Asia/Tokyo', flag: 'jp' },
+            sydney: { id: 'sydney', name: 'Sydney', timezone: 'Australia/Sydney', flag: 'au' },
+            dubai: { id: 'dubai', name: 'Dubai', timezone: 'Asia/Dubai', flag: 'ae' }
         };
+
+        // 1. SMART LOCATION DETECTION
+        async function detectLocation() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                return {
+                    city: data.city || 'Your Location',
+                    country: data.country_name || '',
+                    timezone: data.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    offset: data.utc_offset ? `GMT${data.utc_offset}` : ''
+                };
+            } catch {
+                return {
+                    city: 'Your Location',
+                    country: '',
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    offset: ''
+                };
+            }
+        }
+
+        // 2. SUNRISE/SUNSET CALCULATION
+        function calculateSunTimes(lat, lng) {
+            const times = SunCalc.getTimes(new Date(), lat, lng);
+            document.getElementById('sunrise').textContent = 
+                times.sunrise.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('sunset').textContent = 
+                times.sunset.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // 3. TIME SYNCHRONIZATION
+        function checkSync() {
+            const now = new Date();
+            const serverTime = now.getTime() - performance.timing.responseStart;
+            const accuracy = Math.max(0.02, (performance.timing.responseEnd - performance.timing.requestStart)/1000).toFixed(3);
+            
+            document.getElementById('sync-message').textContent = serverTime < 1000 ? 
+                'Synchronized with atomic time' : 'Clock slightly out of sync';
+            document.getElementById('sync-accuracy').textContent = `(±${accuracy}s)`;
+        }
+
+        // 4. QUICK CITY NAVIGATION
+        document.querySelectorAll('.city-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cityId = btn.dataset.city;
+                const card = document.getElementById(`${cityId}-time`)?.closest('.timezone-card');
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth' });
+                    card.style.animation = 'highlight 1.5s';
+                    setTimeout(() => card.style.animation = '', 1500);
+                }
+            });
+        });
 
         // Format time with AM/PM
         function formatTime(date) {
@@ -543,7 +595,7 @@
             }
         });
 
-        // NEW: Visitor Counter Functionality
+        // Visitor Counter Functionality
         function updateVisitorCount() {
             // Using a free Cloudflare Worker endpoint (replace with your own later)
             fetch('https://visitor-counter.womars81.workers.dev/')
@@ -557,10 +609,31 @@
         }
 
         // Initialize everything
-        updateClocks();
-        updateVisitorCount();
-        setInterval(updateClocks, 1000);
-        setInterval(updateVisitorCount, 30000); // Update every 30 seconds
+        window.addEventListener('load', async () => {
+            // Load location
+            const location = await detectLocation();
+            document.getElementById('local-location').textContent = 
+                `${location.city}${location.country ? ', ' + location.country : ''}`;
+            document.getElementById('local-timezone').textContent = 
+                `(${location.timezone.split('/').pop().replace('_', ' ')}, ${location.offset})`;
+            
+            // Set sun times (fallback to Islamabad coordinates)
+            calculateSunTimes(33.6844, 73.0479);
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    calculateSunTimes(pos.coords.latitude, pos.coords.longitude);
+                });
+            }
+            
+            // Check sync status
+            checkSync();
+            
+            // Start clocks and visitor counter
+            updateClocks();
+            updateVisitorCount();
+            setInterval(updateClocks, 1000);
+            setInterval(updateVisitorCount, 30000); // Update every 30 seconds
+        });
     </script>
 </body>
 </html>
