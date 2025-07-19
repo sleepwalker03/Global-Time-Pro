@@ -546,7 +546,7 @@
         // NEW: Visitor Counter Functionality
         function updateVisitorCount() {
             // Using a free Cloudflare Worker endpoint (replace with your own later)
-            fetch('https://visitor-counter.global-time-pro.workers.dev')
+            fetch('https://visitor-counter.womars81.workers.dev/')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('live-count').textContent = data.count.toLocaleString();
