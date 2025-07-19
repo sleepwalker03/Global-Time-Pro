@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Time Pro | World Clock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
+            --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --card-day: rgba(255, 255, 255, 0.9);
+            --card-night: rgba(30, 30, 40, 0.9);
+            --text-day: #333;
+            --text-night: #f0f0f0;
+            --accent-day: #4a6bff;
+            --accent-night: #6bd3ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--day-bg);
+            background-attachment: fixed;
+            color: var(--text-day);
+            transition: all 0.5s ease;
+        }
+
+        body.night-mode {
+            background: var(--night-bg);
+            color: var(--text-night);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent-day);
+        }
+
+        .night-mode .logo i {
+            color: var(--accent-night);
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            position: relative;
+        }
+
+        .toggle-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: currentColor;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Main Clock Display */
+        .main-clock {
+            background: var(--card-day);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .night-mode .main-clock {
+            background: var(--card-night);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .main-clock::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ff9ff3, #feca57, #1dd1a1);
+        }
+
+        .time-display {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 10px 0;
+            font-feature-settings: "tnum";
+        }
+
+        .date-display {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .location-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Timezone Grid */
+        .timezone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .timezone-card {
+            background: var(--card-day);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .night-mode .timezone-card {
+            background: var(--card-night);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .timezone-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--tz-color, #6b6bff);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .timezone-card h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timezone-card .flag {
+            width: 24px;
+            height: 16px;
+            border-radius: 2px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.2);
+        }
+
+        .timezone-time {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 10px 0;
+            font-feature-settings: "tnum";
+        }
+
+        .timezone-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .timezone-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        .night-mode .timezone-info {
+            border-top-color: rgba(255,255,255,0.1);
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: currentColor;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .time-display {
+                font-size: 3rem;
+            }
+            
+            .timezone-time {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .time-display {
+                font-size: 2.5rem;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>Global Time Pro</span>
+            </div>
+            <div class="theme-switcher">
+                <button class="toggle-btn" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="toolbar">
+            <button class="tool-btn" id="share-btn">
+                <i class="fas fa-share-alt"></i>
+                <span>Share</span>
+            </button>
+            <button class="tool-btn" id="meeting-planner-btn">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Meeting Planner</span>
+            </button>
+            <button class="tool-btn" id="quiz-btn">
+                <i class="fas fa-gamepad"></i>
+                <span>Time Quiz</span>
+            </button>
+        </div>
+
+        <div class="main-clock">
+            <div class="time-display" id="local-time">12:34:56</div>
+            <div class="date-display" id="local-date">Friday, July 19, 2024</div>
+            <div class="location-display">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="local-location">Your Location</span>
+                <span id="local-timezone">(GMT+00:00)</span>
+            </div>
+        </div>
+
+        <div class="timezone-grid">
+            <div class="timezone-card" style="--tz-color: #ff6b6b;">
+                <h3><img src="https://flagcdn.com/us.svg" class="flag" alt="US flag"> New York</h3>
+                <div class="timezone-time" id="ny-time">7:34:56 AM</div>
+                <div class="timezone-date" id="ny-date">Friday, July 19, 2024</div>
+                <div class="timezone-info">
+                    <span>EST/EDT</span>
+                    <span id="ny-difference">-5h from you</span>
+                </div>
+            </div>
+
+            <div class="timezone-card" style="--tz-color: #4ecdc4;">
+                <h3><img src="https://flagcdn.com/gb.svg" class="flag" alt="UK flag"> London</h3>
+                <div class="timezone-time" id="london-time">12:34:56 PM</div>
+                <div class="timezone-date" id="london-date">Friday, July 19, 2024</div>
+                <div class="timezone-info">
+                    <span>GMT/BST</span>
+                    <span id="london-difference">Same as you</span>
+                </div>
+            </div>
+
+            <div class="timezone-card" style="--tz-color: #ff9ff3;">
+                <h3><img src="https://flagcdn.com/jp.svg" class="flag" alt="Japan flag"> Tokyo</h3>
+                <div class="timezone-time" id="tokyo-time">9:34:56 PM</div>
+                <div class="timezone-date" id="tokyo-date">Friday, July 19, 2024</div>
+                <div class="timezone-info">
+                    <span>JST</span>
+                    <span id="tokyo-difference">+9h from you</span>
+                </div>
+            </div>
+
+            <div class="timezone-card" style="--tz-color: #feca57;">
+                <h3><img src="https://flagcdn.com/au.svg" class="flag" alt="Australia flag"> Sydney</h3>
+                <div class="timezone-time" id="sydney-time">10:34:56 PM</div>
+                <div class="timezone-date" id="sydney-date">Friday, July 19, 2024</div>
+                <div class="timezone-info">
+                    <span>AEST/AEDT</span>
+                    <span id="sydney-difference">+10h from you</span>
+                </div>
+            </div>
+
+            <div class="timezone-card" style="--tz-color: #1dd1a1;">
+                <h3><img src="https://flagcdn.com/ae.svg" class="flag" alt="UAE flag"> Dubai</h3>
+                <div class="timezone-time" id="dubai-time">4:34:56 PM</div>
+                <div class="timezone-date" id="dubai-date">Friday, July 19, 2024</div>
+                <div class="timezone-info">
+                    <span>GST</span>
+                    <span id="dubai-difference">+4h from you</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timezone data
+        const timezones = {
+            local: {
+                id: 'local',
+                name: 'Your Location',
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                flag: ''
+            },
+            newYork: {
+                id: 'ny',
+                name: 'New York',
+                timezone: 'America/New_York',
+                flag: 'us'
+            },
+            london: {
+                id: 'london',
+                name: 'London',
+                timezone: 'Europe/London',
+                flag: 'gb'
+            },
+            tokyo: {
+                id: 'tokyo',
+                name: 'Tokyo',
+                timezone: 'Asia/Tokyo',
+                flag: 'jp'
+            },
+            sydney: {
+                id: 'sydney',
+                name: 'Sydney',
+                timezone: 'Australia/Sydney',
+                flag: 'au'
+            },
+            dubai: {
+                id: 'dubai',
+                name: 'Dubai',
+                timezone: 'Asia/Dubai',
+                flag: 'ae'
+            }
+        };
+
+        // Format time with AM/PM
+        function formatTime(date) {
+            let hours = date.getHours();
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const seconds = date.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Convert 0 to 12
+            
+            return `${hours}:${minutes}:${seconds} ${ampm}`;
+        }
+
+        // Format date
+        function formatDate(date) {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return date.toLocaleDateString(undefined, options);
+        }
+
+        // Get timezone abbreviation
+        function getTimezoneAbbr(date, timezone) {
+            try {
+                const str = date.toLocaleString('en-US', { timeZone: timezone, timeZoneName: 'short' });
+                return str.split(' ').pop();
+            } catch {
+                return '';
+            }
+        }
+
+        // Calculate time difference between local and target timezone
+        function getTimeDifference(localDate, targetDate) {
+            const diffMs = targetDate - localDate;
+            const diffHrs = Math.round(diffMs / (1000 * 60 * 60));
+            
+            if (diffHrs === 0) return 'Same as you';
+            if (diffHrs > 0) return `+${diffHrs}h from you`;
+            return `${diffHrs}h from you`;
+        }
+
+        // Update all clocks
+        function updateClocks() {
+            const now = new Date();
+            
+            // Update local time
+            document.getElementById('local-time').textContent = formatTime(now);
+            document.getElementById('local-date').textContent = formatDate(now);
+            document.getElementById('local-timezone').textContent = `(${getTimezoneAbbr(now, timezones.local.timezone)})`;
+            
+            // Update other timezones
+            Object.keys(timezones).forEach(key => {
+                if (key !== 'local') {
+                    const tz = timezones[key];
+                    try {
+                        const tzDate = new Date(now.toLocaleString('en-US', { timeZone: tz.timezone }));
+                        
+                        document.getElementById(`${tz.id}-time`).textContent = formatTime(tzDate);
+                        document.getElementById(`${tz.id}-date`).textContent = formatDate(tzDate);
+                        
+                        // Calculate time difference
+                        const localDate = new Date(now.toLocaleString('en-US', { timeZone: timezones.local.timezone }));
+                        document.getElementById(`${tz.id}-difference`).textContent = getTimeDifference(localDate, tzDate);
+                    } catch (e) {
+                        console.error(`Error updating time for ${tz.name}:`, e);
+                    }
+                }
+            });
+        }
+
+        // Theme switcher
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('night-mode');
+            const icon = document.querySelector('#theme-toggle i');
+            const label = document.querySelector('#theme-toggle span');
+            
+            if (document.body.classList.contains('night-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                label.textContent = 'Light Mode';
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                label.textContent = 'Dark Mode';
+            }
+        });
+
+        // Auto-detect preferred color scheme
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('night-mode');
+            document.querySelector('#theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+            document.querySelector('#theme-toggle span').textContent = 'Light Mode';
+        }
+
+        // Share functionality
+        document.getElementById('share-btn').addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Current World Time',
+                    text: 'Check out these global times!',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                // Fallback for browsers without Web Share API
+                alert('Share this page using your browser\'s share options');
+            }
+        });
+
+        // Initialize and update every second
+        updateClocks();
+        setInterval(updateClocks, 1000);
+    </script>
+</body>
+</html>
