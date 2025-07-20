@@ -15,6 +15,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
     <style>
+        .quick-time-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.quick-time-card {
+  background-color: var(--card-day);
+  color: var(--text-day);
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 14px;
+  min-width: 90px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+body.night-mode .quick-time-card {
+  background-color: var(--card-night);
+  color: var(--text-night);
+}
+
         :root {
             --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
             --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
@@ -367,6 +393,21 @@
                 <span id="sync-accuracy"></span>
             </div>
         </div>
+        
+        <!-- Quick Time Row Start -->
+<div class="quick-time-row">
+  <div class="quick-time-card" data-timezone="Asia/Tokyo">Tokyo<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="Asia/Shanghai">Beijing<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="Europe/Paris">Paris<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="Europe/London">London<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="America/New_York">New York<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="America/Los_Angeles">Los Angeles<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="Asia/Kolkata">New Delhi<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="Europe/Berlin">Berlin<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="Asia/Karachi">Islamabad<br><span class="quick-time"></span></div>
+  <div class="quick-time-card" data-timezone="Australia/Sydney">Sydney<br><span class="quick-time"></span></div>
+</div>
+<!-- Quick Time Row End -->
 
         <div class="timezone-grid">
             <div class="timezone-card" style="--tz-color: #ff6b6b;">
@@ -634,6 +675,21 @@
             setInterval(updateClocks, 1000);
             setInterval(updateVisitorCount, 30000); // Update every 30 seconds
         });
+        function updateQuickTimeCards() {
+  document.querySelectorAll('.quick-time-card').forEach(card => {
+    const tz = card.dataset.timezone;
+    const time = new Date().toLocaleTimeString('en-US', {
+      timeZone: tz,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+    card.querySelector('.quick-time').textContent = time;
+  });
+}
+setInterval(updateQuickTimeCards, 1000);
+updateQuickTimeCards();
     </script>
     <footer style="background:#222; color:#ccc; padding:20px; text-align:center; margin-top: 40px;">
   <p>
