@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Planner | Global Time Pro</title>
+    <!-- Google tag (gtag.js) - matches your index.html -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R1E5LS9596');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* COPY OF YOUR EXISTING STYLES */
+        :root {
+            --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
+            --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --card-day: rgba(255, 255, 255, 0.9);
+            --card-night: rgba(30, 30, 40, 0.9);
+            --text-day: #333;
+            --text-night: #f0f0f0;
+            --accent-day: #4a6bff;
+            --accent-night: #6bd3ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--day-bg);
+            background-attachment: fixed;
+            color: var(--text-day);
+            transition: all 0.5s ease;
+        }
+
+        body.night-mode {
+            background: var(--night-bg);
+            color: var(--text-night);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles - matches your index.html */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* NEW MEETING PLANNER SPECIFIC STYLES */
+        .meeting-planner-container {
+            background: var(--card-day);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .night-mode .meeting-planner-container {
+            background: var(--card-night);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .timezone-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .timezone-selector input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .night-mode .timezone-selector input {
+            background: rgba(30,30,40,0.8);
+            color: var(--text-night);
+            border-color: rgba(255,255,255,0.1);
+        }
+        
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .time-slot {
+            padding: 8px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .time-slot:hover {
+            transform: scale(1.05);
+        }
+        
+        .time-slot.good {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid rgba(46, 204, 113, 0.5);
+        }
+        
+        .time-slot.bad {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.5);
+            opacity: 0.6;
+        }
+        
+        .timezone-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .remove-tz {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        
+        .remove-tz:hover {
+            opacity: 1;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .time-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>Global Time Pro</span>
+            </div>
+            <div class="theme-switcher">
+                <button class="toggle-btn" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="meeting-planner-container">
+            <h2><i class="fas fa-calendar-alt"></i> Meeting Planner</h2>
+            <p>Find the best time across different time zones</p>
+            
+            <div class="timezone-selector">
+                <input type="text" id="tz-input" placeholder="Enter city or timezone (e.g. New York)">
+                <button class="tool-btn" id="add-tz">
+                    <i class="fas fa-plus"></i> Add
+                </button>
+            </div>
+            
+            <div id="selected-timezones"></div>
+            
+            <div class="quick-cities" style="margin: 20px 0;">
+                <span>Quick add:</span>
+                <button class="city-btn" data-city="new-york">New York</button>
+                <button class="city-btn" data-city="london">London</button>
+                <button class="city-btn" data-city="tokyo">Tokyo</button>
+                <button class="city-btn" data-city="sydney">Sydney</button>
+                <button class="city-btn" data-city="dubai">Dubai</button>
+            </div>
+            
+            <button class="tool-btn" id="find-times" style="margin-bottom: 20px;">
+                <i class="fas fa-magic"></i> Find Best Times
+            </button>
+            
+            <div id="time-grid-container" style="display: none;">
+                <h3>Suggested Meeting Times</h3>
+                <p>Green slots work for all participants</p>
+                <div class="time-grid" id="time-grid"></div>
+                
+                <div style="margin-top: 30px;">
+                    <button class="tool-btn" id="share-meeting">
+                        <i class="fas fa-share-alt"></i> Share This Meeting Plan
+                    </button>
+                    <button class="tool-btn" id="add-to-calendar">
+                        <i class="far fa-calendar-plus"></i> Add to Google Calendar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // REUSED FROM YOUR INDEX.HTML WITH ADDITIONS
+        const timezones = {
+            local: { id: 'local', name: 'Your Location', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, flag: '' },
+            newYork: { id: 'ny', name: 'New York', timezone: 'America/New_York', flag: 'us' },
+            london: { id: 'london', name: 'London', timezone: 'Europe/London', flag: 'gb' },
+            tokyo: { id: 'tokyo', name: 'Tokyo', timezone: 'Asia/Tokyo', flag: 'jp' },
+            sydney: { id: 'sydney', name: 'Sydney', timezone: 'Australia/Sydney', flag: 'au' },
+            dubai: { id: 'dubai', name: 'Dubai', timezone: 'Asia/Dubai', flag: 'ae' },
+            mexico: { id: 'mexico', name: 'Mexico City', timezone: 'America/Mexico_City', flag: 'mx' },
+            greenland: { id: 'greenland', name: 'Nuuk', timezone: 'America/Nuuk', flag: 'gl' },
+            newZealand: { id: 'nz', name: 'Auckland', timezone: 'Pacific/Auckland', flag: 'nz' }
+        };
+
+        // MEETING PLANNER LOGIC
+        let selectedTimezones = [];
+        
+        // Theme switcher (copied from your index.html)
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('night-mode');
+            const icon = document.querySelector('#theme-toggle i');
+            const label = document.querySelector('#theme-toggle span');
+            
+            if (document.body.classList.contains('night-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                label.textContent = 'Light Mode';
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                label.textContent = 'Dark Mode';
+            }
+        });
+
+        // Initialize with preferred color scheme
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('night-mode');
+            document.querySelector('#theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+            document.querySelector('#theme-toggle span').textContent = 'Light Mode';
+        }
+
+        // Add timezone from input
+        document.getElementById('add-tz').addEventListener('click', addTimezone);
+        document.getElementById('tz-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTimezone();
+        });
+
+        // Quick city buttons
+        document.querySelectorAll('.city-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cityId = btn.dataset.city;
+                if (timezones[cityId] && !selectedTimezones.includes(timezones[cityId])) {
+                    selectedTimezones.push(timezones[cityId]);
+                    updateSelectedTimezones();
+                }
+            });
+        });
+
+        function addTimezone() {
+            const input = document.getElementById('tz-input');
+            const value = input.value.trim();
+            
+            if (!value) return;
+            
+            // Try to find matching timezone
+            const tz = Object.values(timezones).find(t => 
+                t.name.toLowerCase().includes(value.toLowerCase()) ||
+                t.timezone.toLowerCase().includes(value.toLowerCase())
+            );
+            
+            if (tz && !selectedTimezones.includes(tz)) {
+                selectedTimezones.push(tz);
+                updateSelectedTimezones();
+                input.value = '';
+            } else {
+                alert('Timezone not recognized. Try "New York", "London", etc.');
+            }
+        }
+
+        function updateSelectedTimezones() {
+            const container = document.getElementById('selected-timezones');
+            container.innerHTML = '';
+            
+            selectedTimezones.forEach((tz, index) => {
+                const chip = document.createElement('div');
+                chip.className = 'timezone-chip';
+                chip.innerHTML = `
+                    <img src="https://flagcdn.com/${tz.flag}.svg" width="16" height="12">
+                    ${tz.name}
+                    <span class="remove-tz" data-index="${index}"><i class="fas fa-times"></i></span>
+                `;
+                container.appendChild(chip);
+            });
+            
+            // Add remove handlers
+            document.querySelectorAll('.remove-tz').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    const index = parseInt(e.currentTarget.dataset.index);
+                    selectedTimezones.splice(index, 1);
+                    updateSelectedTimezones();
+                });
+            });
+        }
+
+        // Find best meeting times
+        document.getElementById('find-times').addEventListener('click', findBestTimes);
+
+        function findBestTimes() {
+            if (selectedTimezones.length < 2) {
+                alert('Please add at least 2 timezones to compare');
+                return;
+            }
+            
+            const grid = document.getElementById('time-grid');
+            grid.innerHTML = '';
+            
+            // Generate time slots for next 24 hours
+            const now = new Date();
+            const startHour = 8; // 8 AM
+            const endHour = 20;  // 8 PM
+            
+            for (let hour = startHour; hour <= endHour; hour++) {
+                const slot = document.createElement('div');
+                slot.className = 'time-slot';
+                
+                // Format time (e.g. "9:00 AM")
+                const timeStr = new Date(now.setHours(hour, 0, 0, 0)).toLocaleTimeString([], { 
+                    hour: 'numeric', 
+                    minute: '2-digit',
+                    hour12: true 
+                });
+                
+                slot.textContent = timeStr;
+                
+                // Check if this time works for all timezones
+                const isGoodTime = selectedTimezones.every(tz => {
+                    const localTime = new Date(now.toLocaleString('en-US', { timeZone: tz.timezone }));
+                    const localHour = localTime.getHours();
+                    return localHour >= 9 && localHour <= 17; // 9AM-5PM local time
+                });
+                
+                slot.classList.add(isGoodTime ? 'good' : 'bad');
+                grid.appendChild(slot);
+            }
+            
+            document.getElementById('time-grid-container').style.display = 'block';
+        }
+
+        // Share meeting plan
+        document.getElementById('share-meeting').addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Meeting Time Proposal',
+                    text: `Found a good meeting time across ${selectedTimezones.length} timezones!`,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback
+                const tzList = selectedTimezones.map(tz => tz.name).join(', ');
+                prompt('Share this meeting plan by copying the link below:', 
+                    `${window.location.origin}/meeting-planner.html?timezones=${encodeURIComponent(tzList)}`);
+            }
+        });
+
+        // Add to calendar
+        document.getElementById('add-to-calendar').addEventListener('click', () => {
+            alert('Calendar integration would go here in a production version');
+            // In a real implementation, this would open Google Calendar with prefilled details
+        });
+    </script>
+</body>
+</html>
