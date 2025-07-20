@@ -374,141 +374,146 @@
 
   <!-- TIME ZONE DATA SCRIPT -->
   <script>
-    // Sample time zone data (in a real app, this would be more comprehensive)
-    const timeZones = [
-      {
-        timezone: "Pacific/Honolulu",
-        country: "United States",
-        capital: "Honolulu",
-        cities: ["Honolulu", "Hilo", "Kailua"],
-        offset: "-10:00",
-        dst: false
-      },
-      {
-        timezone: "America/New_York",
-        country: "United States",
-        capital: "Washington, D.C.",
-        cities: ["New York", "Miami", "Atlanta", "Boston"],
-        offset: "-05:00",
-        dst: true
-      },
-      {
-        timezone: "America/Chicago",
-        country: "United States",
-        capital: "",
-        cities: ["Chicago", "Dallas", "Houston", "New Orleans"],
-        offset: "-06:00",
-        dst: true
-      },
-      {
-        timezone: "America/Denver",
-        country: "United States",
-        capital: "",
-        cities: ["Denver", "Phoenix", "Salt Lake City"],
-        offset: "-07:00",
-        dst: true
-      },
-      {
-        timezone: "America/Los_Angeles",
-        country: "United States",
-        capital: "",
-        cities: ["Los Angeles", "San Francisco", "Seattle", "Las Vegas"],
-        offset: "-08:00",
-        dst: true
-      },
-      {
-        timezone: "Europe/London",
-        country: "United Kingdom",
-        capital: "London",
-        cities: ["London", "Birmingham", "Manchester", "Edinburgh"],
-        offset: "+00:00",
-        dst: true
-      },
-      {
-        timezone: "Europe/Paris",
-        country: "France",
-        capital: "Paris",
-        cities: ["Paris", "Marseille", "Lyon", "Nice"],
-        offset: "+01:00",
-        dst: true
-      },
-      {
-        timezone: "Europe/Berlin",
-        country: "Germany",
-        capital: "Berlin",
-        cities: ["Berlin", "Munich", "Hamburg", "Frankfurt"],
-        offset: "+01:00",
-        dst: true
-      },
-      {
-        timezone: "Asia/Tokyo",
-        country: "Japan",
-        capital: "Tokyo",
-        cities: ["Tokyo", "Osaka", "Kyoto", "Yokohama"],
-        offset: "+09:00",
-        dst: false
-      },
-      {
-        timezone: "Asia/Shanghai",
-        country: "China",
-        capital: "Beijing",
-        cities: ["Shanghai", "Beijing", "Guangzhou", "Shenzhen"],
-        offset: "+08:00",
-        dst: false
-      },
-      {
-        timezone: "Australia/Sydney",
-        country: "Australia",
-        capital: "Canberra",
-        cities: ["Sydney", "Melbourne", "Brisbane", "Canberra"],
-        offset: "+10:00",
-        dst: true
-      },
-      {
-        timezone: "Africa/Cairo",
-        country: "Egypt",
-        capital: "Cairo",
-        cities: ["Cairo", "Alexandria", "Giza", "Shubra El-Kheima"],
-        offset: "+02:00",
-        dst: false
-      },
-      {
-        timezone: "America/Sao_Paulo",
-        country: "Brazil",
-        capital: "Brasília",
-        cities: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador"],
-        offset: "-03:00",
-        dst: false
-      }
-    ];
-
-    // Populate filters
-    function populateFilters() {
-      const timezoneFilter = document.getElementById('timezone-filter');
-      const countryFilter = document.getElementById('country-filter');
-      
-      // Get unique countries
-      const countries = [...new Set(timeZones.map(tz => tz.country))].sort();
-      
-      // Populate timezone filter
-      timeZones.forEach(tz => {
-        const option = document.createElement('option');
-        option.value = tz.timezone;
-        option.textContent = tz.timezone;
-        timezoneFilter.appendChild(option);
-      });
-      
-      // Populate country filter
-      countries.forEach(country => {
-        const option = document.createElement('option');
-        option.value = country;
-        option.textContent = country;
-        countryFilter.appendChild(option);
-      });
+  // Sample time zone data (in a real app, this would be more comprehensive)
+  const timeZones = [
+    {
+      timezone: "Pacific/Honolulu",
+      country: "United States",
+      capital: "Honolulu",
+      cities: ["Honolulu", "Hilo", "Kailua"],
+      offset: "-10:00",
+      dst: false
+    },
+    {
+      timezone: "America/New_York",
+      country: "United States",
+      capital: "Washington, D.C.",
+      cities: ["New York", "Miami", "Atlanta", "Boston"],
+      offset: "-05:00",
+      dst: true
+    },
+    {
+      timezone: "America/Chicago",
+      country: "United States",
+      capital: "",
+      cities: ["Chicago", "Dallas", "Houston", "New Orleans"],
+      offset: "-06:00",
+      dst: true
+    },
+    {
+      timezone: "America/Denver",
+      country: "United States",
+      capital: "",
+      cities: ["Denver", "Phoenix", "Salt Lake City"],
+      offset: "-07:00",
+      dst: true
+    },
+    {
+      timezone: "America/Los_Angeles",
+      country: "United States",
+      capital: "",
+      cities: ["Los Angeles", "San Francisco", "Seattle", "Las Vegas"],
+      offset: "-08:00",
+      dst: true
+    },
+    {
+      timezone: "Europe/London",
+      country: "United Kingdom",
+      capital: "London",
+      cities: ["London", "Birmingham", "Manchester", "Edinburgh"],
+      offset: "+00:00",
+      dst: true
+    },
+    {
+      timezone: "Europe/Paris",
+      country: "France",
+      capital: "Paris",
+      cities: ["Paris", "Marseille", "Lyon", "Nice"],
+      offset: "+01:00",
+      dst: true
+    },
+    {
+      timezone: "Europe/Berlin",
+      country: "Germany",
+      capital: "Berlin",
+      cities: ["Berlin", "Munich", "Hamburg", "Frankfurt"],
+      offset: "+01:00",
+      dst: true
+    },
+    {
+      timezone: "Asia/Tokyo",
+      country: "Japan",
+      capital: "Tokyo",
+      cities: ["Tokyo", "Osaka", "Kyoto", "Yokohama"],
+      offset: "+09:00",
+      dst: false
+    },
+    {
+      timezone: "Asia/Shanghai",
+      country: "China",
+      capital: "Beijing",
+      cities: ["Shanghai", "Beijing", "Guangzhou", "Shenzhen"],
+      offset: "+08:00",
+      dst: false
+    },
+    {
+      timezone: "Australia/Sydney",
+      country: "Australia",
+      capital: "Canberra",
+      cities: ["Sydney", "Melbourne", "Brisbane", "Canberra"],
+      offset: "+10:00",
+      dst: true
+    },
+    {
+      timezone: "Africa/Cairo",
+      country: "Egypt",
+      capital: "Cairo",
+      cities: ["Cairo", "Alexandria", "Giza", "Shubra El-Kheima"],
+      offset: "+02:00",
+      dst: false
+    },
+    {
+      timezone: "America/Sao_Paulo",
+      country: "Brazil",
+      capital: "Brasília",
+      cities: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador"],
+      offset: "-03:00",
+      dst: false
     }
+  ];
+
+  // Populate filters
+  function populateFilters() {
+    const timezoneFilter = document.getElementById('timezone-filter');
+    const countryFilter = document.getElementById('country-filter');
     
-    // Format current time for a timezone
-    function getCurrentTime(timezone) {
+    // Clear existing options (keep first option)
+    timezoneFilter.innerHTML = '<option value="">All Time Zones</option>';
+    countryFilter.innerHTML = '<option value="">All Countries</option>';
+    
+    // Get unique countries
+    const countries = [...new Set(timeZones.map(tz => tz.country))].sort();
+    
+    // Populate timezone filter
+    timeZones.forEach(tz => {
+      const option = document.createElement('option');
+      option.value = tz.timezone;
+      option.textContent = tz.timezone;
+      timezoneFilter.appendChild(option);
+    });
+    
+    // Populate country filter
+    countries.forEach(country => {
+      const option = document.createElement('option');
+      option.value = country;
+      option.textContent = country;
+      countryFilter.appendChild(option);
+    });
+  }
+  
+  // Format current time for a timezone
+  function getCurrentTime(timezone) {
+    try {
       const options = {
         timeZone: timezone,
         hour12: true,
@@ -517,118 +522,129 @@
         second: '2-digit'
       };
       return new Date().toLocaleTimeString('en-US', options);
+    } catch (e) {
+      console.error("Error getting time for", timezone, e);
+      return "Error";
+    }
+  }
+  
+  // Display time zone data
+  function displayTimeZones(filteredData = timeZones) {
+    const tbody = document.getElementById('timezone-data');
+    tbody.innerHTML = '';
+    
+    filteredData.forEach(tz => {
+      const row = document.createElement('tr');
+      
+      // Format cities list
+      const citiesList = tz.cities.join(', ');
+      
+      row.innerHTML = `
+        <td>${tz.timezone}</td>
+        <td>${tz.country}</td>
+        <td class="capital">${tz.capital || 'N/A'}</td>
+        <td>${citiesList}</td>
+        <td class="time-display">${getCurrentTime(tz.timezone)}</td>
+        <td>UTC${tz.offset} ${tz.dst ? '(DST)' : ''}</td>
+      `;
+      
+      tbody.appendChild(row);
+    });
+  }
+  
+  // Filter time zones based on selections
+  function filterTimeZones() {
+    const timezoneFilter = document.getElementById('timezone-filter').value;
+    const countryFilter = document.getElementById('country-filter').value;
+    const citySearch = document.getElementById('city-search').value.toLowerCase();
+    
+    let filtered = timeZones;
+    
+    if (timezoneFilter) {
+      filtered = filtered.filter(tz => tz.timezone === timezoneFilter);
     }
     
-    // Display time zone data
-    function displayTimeZones(filteredData = timeZones) {
-      const tbody = document.getElementById('timezone-data');
-      tbody.innerHTML = '';
-      
-      filteredData.forEach(tz => {
-        const row = document.createElement('tr');
-        
-        // Format cities list
-        const citiesList = tz.cities.join(', ');
-        
-        row.innerHTML = `
-          <td>${tz.timezone}</td>
-          <td>${tz.country}</td>
-          <td class="capital">${tz.capital || 'N/A'}</td>
-          <td>${citiesList}</td>
-          <td class="time-display">${getCurrentTime(tz.timezone)}</td>
-          <td>UTC${tz.offset} ${tz.dst ? '(DST)' : ''}</td>
-        `;
-        
-        tbody.appendChild(row);
-      });
+    if (countryFilter) {
+      filtered = filtered.filter(tz => tz.country === countryFilter);
     }
     
-    // Filter time zones based on selections
-    function filterTimeZones() {
-      const timezoneFilter = document.getElementById('timezone-filter').value;
-      const countryFilter = document.getElementById('country-filter').value;
-      const citySearch = document.getElementById('city-search').value.toLowerCase();
-      
-      let filtered = timeZones;
-      
-      if (timezoneFilter) {
-        filtered = filtered.filter(tz => tz.timezone === timezoneFilter);
-      }
-      
-      if (countryFilter) {
-        filtered = filtered.filter(tz => tz.country === countryFilter);
-      }
-      
-      if (citySearch) {
-        filtered = filtered.filter(tz => 
-          tz.capital.toLowerCase().includes(citySearch) || 
-          tz.cities.some(city => city.toLowerCase().includes(citySearch))
-      }
-      
-      displayTimeZones(filtered);
+    if (citySearch) {
+      filtered = filtered.filter(tz => 
+        (tz.capital && tz.capital.toLowerCase().includes(citySearch)) || 
+        tz.cities.some(city => city.toLowerCase().includes(citySearch))
+      );
     }
     
-    // Sort table
-    function sortTable(column, direction) {
-      const tbody = document.getElementById('timezone-data');
-      const rows = Array.from(tbody.querySelectorAll('tr'));
+    displayTimeZones(filtered);
+  }
+  
+  // Sort table
+  function sortTable(column, direction) {
+    const tbody = document.getElementById('timezone-data');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    rows.sort((a, b) => {
+      const aValue = a.querySelector(`td:nth-child(${column + 1})`).textContent;
+      const bValue = b.querySelector(`td:nth-child(${column + 1})`).textContent;
       
-      rows.sort((a, b) => {
-        const aValue = a.querySelector(`td:nth-child(${column + 1})`).textContent;
-        const bValue = b.querySelector(`td:nth-child(${column + 1})`).textContent;
-        
-        if (direction === 'asc') {
-          return aValue.localeCompare(bValue);
-        } else {
-          return bValue.localeCompare(aValue);
+      if (direction === 'asc') {
+        return aValue.localeCompare(bValue);
+      } else {
+        return bValue.localeCompare(aValue);
+      }
+    });
+    
+    // Clear and re-add sorted rows
+    tbody.innerHTML = '';
+    rows.forEach(row => tbody.appendChild(row));
+  }
+  
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    populateFilters();
+    displayTimeZones();
+    
+    // Update times every second
+    setInterval(() => {
+      const rows = document.querySelectorAll('#timezone-data tr');
+      rows.forEach(row => {
+        const timezone = row.querySelector('td:first-child').textContent;
+        const timeDisplay = row.querySelector('.time-display');
+        if (timeDisplay) {
+          timeDisplay.textContent = getCurrentTime(timezone);
         }
       });
-      
-      // Clear and re-add sorted rows
-      tbody.innerHTML = '';
-      rows.forEach(row => tbody.appendChild(row));
-    }
+    }, 1000);
     
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      populateFilters();
-      displayTimeZones();
-      
-      // Update times every second
-      setInterval(() => {
-        const rows = document.querySelectorAll('#timezone-data tr');
-        rows.forEach(row => {
-          const timezone = row.querySelector('td:first-child').textContent;
-          row.querySelector('.time-display').textContent = getCurrentTime(timezone);
+    // Add event listeners for filters
+    document.getElementById('timezone-filter').addEventListener('change', filterTimeZones);
+    document.getElementById('country-filter').addEventListener('change', filterTimeZones);
+    document.getElementById('city-search').addEventListener('input', filterTimeZones);
+    
+    // Add sorting to table headers
+    document.querySelectorAll('.timezone-table th').forEach((th, index) => {
+      th.addEventListener('click', () => {
+        const currentDir = th.getAttribute('data-sort-dir') || 'asc';
+        const newDir = currentDir === 'asc' ? 'desc' : 'asc';
+        
+        // Reset all headers
+        document.querySelectorAll('.timezone-table th').forEach(h => {
+          h.setAttribute('data-sort-dir', '');
+          const icon = h.querySelector('i');
+          if (icon) icon.className = 'fas fa-sort';
         });
-      }, 1000);
-      
-      // Add event listeners for filters
-      document.getElementById('timezone-filter').addEventListener('change', filterTimeZones);
-      document.getElementById('country-filter').addEventListener('change', filterTimeZones);
-      document.getElementById('city-search').addEventListener('input', filterTimeZones);
-      
-      // Add sorting to table headers
-      document.querySelectorAll('.timezone-table th').forEach((th, index) => {
-        th.addEventListener('click', () => {
-          const currentDir = th.getAttribute('data-sort-dir') || 'asc';
-          const newDir = currentDir === 'asc' ? 'desc' : 'asc';
-          
-          // Reset all headers
-          document.querySelectorAll('.timezone-table th').forEach(h => {
-            h.setAttribute('data-sort-dir', '');
-            h.querySelector('i').className = 'fas fa-sort';
-          });
-          
-          // Set current header
-          th.setAttribute('data-sort-dir', newDir);
-          th.querySelector('i').className = newDir === 'asc' ? 
-            'fas fa-sort-up' : 'fas fa-sort-down';
-          
-          sortTable(index, newDir);
-        });
+        
+        // Set current header
+        th.setAttribute('data-sort-dir', newDir);
+        const icon = th.querySelector('i');
+        if (icon) {
+          icon.className = newDir === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+        }
+        
+        sortTable(index, newDir);
       });
     });
-  </script>
+  });
+</script>
 </body>
 </html>
