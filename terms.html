@@ -2,31 +2,224 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Terms of Use - Global Time Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
-      background-color: #f4f4f4;
-      color: #333;
+    :root {
+      --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
+      --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      --card-day: rgba(255, 255, 255, 0.9);
+      --card-night: rgba(30, 30, 40, 0.9);
+      --text-day: #333;
+      --text-night: #f0f0f0;
+      --accent-day: #4a6bff;
+      --accent-night: #6bd3ff;
     }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      background: var(--day-bg);
+      background-attachment: fixed;
+      color: var(--text-day);
+      transition: all 0.5s ease;
+    }
+
+    body.night-mode {
+      background: var(--night-bg);
+      color: var(--text-night);
+    }
+
+    header {
+      padding: 15px;
+      background-color: #222;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    header .logo {
+      font-size: 1.5em;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .logo i {
+      color: var(--accent-day);
+    }
+
+    body.night-mode header .logo i {
+      color: var(--accent-night);
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    button#mode-toggle {
+      background: none;
+      border: 2px solid white;
+      border-radius: 20px;
+      padding: 5px 12px;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    button#mode-toggle:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: var(--card-day);
+      border-radius: 12px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    body.night-mode .container {
+      background-color: var(--card-night);
+      color: var(--text-night);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+
     h1 {
-      color: #2c3e50;
+      margin-top: 0;
+      font-weight: 900;
+      font-size: 2.4rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      line-height: 1.6;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: var(--accent-day);
+      font-weight: 600;
+    }
+
+    body.night-mode a {
+      color: var(--accent-night);
+    }
+
+    footer {
+      background:#222;
+      color:#ccc;
+      padding:20px;
+      text-align:center;
+      margin-top: 40px;
+      border-radius: 8px;
+    }
+
+    footer a {
+      color:#ccc;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    body.night-mode footer a {
+      color: #aabbee;
     }
   </style>
 </head>
 <body>
-  <h1>Terms of Use</h1>
-  <p>By using Global Time Pro, you agree to the following terms:</p>
-  <ul>
-    <li>This site is provided for informational purposes only.</li>
-    <li>You may not use this site for any illegal or harmful activity.</li>
-    <li>We are not responsible for the accuracy or reliability of time data, though we strive to keep it updated.</li>
-    <li>We reserve the right to update these terms at any time.</li>
-  </ul>
-  <p>Continued use of the site implies acceptance of the current terms.</p>
+  <header>
+    <div class="logo">
+      <i class="fas fa-globe-americas"></i>
+      <span>Global Time Pro</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button id="mode-toggle" aria-label="Toggle dark/light mode">
+      <i class="fas fa-moon"></i> Dark Mode
+    </button>
+  </header>
+
+  <div class="container">
+    <h1>Terms of Use</h1>
+    <p>Welcome to Global Time Pro. By accessing or using this website, you agree to comply with and be bound by the following terms and conditions.</p>
+    <p>All content provided is for informational purposes only. We make no guarantees about the accuracy, completeness, or reliability of any information presented.</p>
+    <p>You agree not to misuse the website or interfere with its operation, including any unauthorized access attempts or actions that may damage or disrupt the service.</p>
+    <p>We reserve the right to modify or discontinue the website or any part thereof at any time without prior notice.</p>
+    <p>If you have any questions about these terms, please <a href="contact.html">contact us</a>.</p>
+  </div>
+
+  <footer>
+    <p>
+      <a href="about.html">About</a> |
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms of Use</a> |
+      <a href="contact.html">Contact</a>
+    </p>
+    <p>&copy; 2025 Global Time Pro. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const modeToggle = document.getElementById('mode-toggle');
+    const modeIcon = modeToggle.querySelector('i');
+
+    function updateModeText(isDark) {
+      if (isDark) {
+        modeIcon.classList.replace('fa-moon', 'fa-sun');
+        modeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+      } else {
+        modeIcon.classList.replace('fa-sun', 'fa-moon');
+        modeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+      }
+    }
+
+    function loadMode() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.body.classList.add('night-mode');
+        updateModeText(true);
+      } else {
+        updateModeText(false);
+      }
+    }
+
+    modeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('night-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateModeText(isDark);
+    });
+
+    window.addEventListener('DOMContentLoaded', loadMode);
+  </script>
 </body>
 </html>
