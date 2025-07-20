@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meeting Planner | Global Time Pro</title>
-    <!-- Google tag (gtag.js) - matches your index.html -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -14,7 +14,6 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* COPY OF YOUR EXISTING STYLES */
         :root {
             --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
             --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
@@ -48,7 +47,6 @@
             padding: 20px;
         }
 
-        /* Header Styles - matches your index.html */
         .header {
             display: flex;
             justify-content: space-between;
@@ -66,7 +64,6 @@
             gap: 10px;
         }
 
-        /* NEW MEETING PLANNER SPECIFIC STYLES */
         .meeting-planner-container {
             background: var(--card-day);
             border-radius: 15px;
@@ -80,14 +77,14 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
-        .timezone-selector {
+        .location-selector {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
         
-        .timezone-selector input {
+        .location-selector select {
             flex: 1;
             min-width: 200px;
             padding: 10px 15px;
@@ -96,10 +93,34 @@
             background: rgba(255,255,255,0.8);
         }
         
-        .night-mode .timezone-selector input {
+        .night-mode .location-selector select {
             background: rgba(30,30,40,0.8);
             color: var(--text-night);
             border-color: rgba(255,255,255,0.1);
+        }
+        
+        .add-button {
+            padding: 10px 20px;
+            background: var(--accent-day);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .night-mode .add-button {
+            background: var(--accent-night);
+        }
+        
+        .add-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        .add-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
         
         .time-grid {
@@ -152,10 +173,30 @@
             opacity: 1;
         }
         
-        /* Responsive adjustments */
+        .tool-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: currentColor;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
         @media (max-width: 768px) {
             .time-grid {
                 grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+            .location-selector {
+                flex-direction: column;
             }
         }
     </style>
@@ -168,7 +209,7 @@
                 <span>Global Time Pro</span>
             </div>
             <div class="theme-switcher">
-                <button class="toggle-btn" id="theme-toggle">
+                <button class="tool-btn" id="theme-toggle">
                     <i class="fas fa-moon"></i>
                     <span>Dark Mode</span>
                 </button>
@@ -179,10 +220,18 @@
             <h2><i class="fas fa-calendar-alt"></i> Meeting Planner</h2>
             <p>Find the best time across different time zones</p>
             
-            <div class="timezone-selector">
-                <input type="text" id="tz-input" placeholder="Enter city or timezone (e.g. New York)">
-                <button class="tool-btn" id="add-tz">
-                    <i class="fas fa-plus"></i> Add
+            <div class="location-selector">
+                <select id="country-select">
+                    <option value="">Select Country</option>
+                    <!-- Filled by JavaScript -->
+                </select>
+                
+                <select id="city-select" disabled>
+                    <option value="">Select City</option>
+                </select>
+                
+                <button class="add-button" id="add-location" disabled>
+                    <i class="fas fa-plus"></i> Add Location
                 </button>
             </div>
             
@@ -190,11 +239,11 @@
             
             <div class="quick-cities" style="margin: 20px 0;">
                 <span>Quick add:</span>
-                <button class="city-btn" data-city="new-york">New York</button>
-                <button class="city-btn" data-city="london">London</button>
-                <button class="city-btn" data-city="tokyo">Tokyo</button>
-                <button class="city-btn" data-city="sydney">Sydney</button>
-                <button class="city-btn" data-city="dubai">Dubai</button>
+                <button class="tool-btn" data-city="new-york">New York</button>
+                <button class="tool-btn" data-city="london">London</button>
+                <button class="tool-btn" data-city="tokyo">Tokyo</button>
+                <button class="tool-btn" data-city="sydney">Sydney</button>
+                <button class="tool-btn" data-city="dubai">Dubai</button>
             </div>
             
             <button class="tool-btn" id="find-times" style="margin-bottom: 20px;">
@@ -219,17 +268,99 @@
     </div>
 
     <script>
-        // REUSED FROM YOUR INDEX.HTML WITH ADDITIONS
-        const timezones = {
-            local: { id: 'local', name: 'Your Location', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, flag: '' },
-            newYork: { id: 'ny', name: 'New York', timezone: 'America/New_York', flag: 'us' },
-            london: { id: 'london', name: 'London', timezone: 'Europe/London', flag: 'gb' },
-            tokyo: { id: 'tokyo', name: 'Tokyo', timezone: 'Asia/Tokyo', flag: 'jp' },
-            sydney: { id: 'sydney', name: 'Sydney', timezone: 'Australia/Sydney', flag: 'au' },
-            dubai: { id: 'dubai', name: 'Dubai', timezone: 'Asia/Dubai', flag: 'ae' },
-            mexico: { id: 'mexico', name: 'Mexico City', timezone: 'America/Mexico_City', flag: 'mx' },
-            greenland: { id: 'greenland', name: 'Nuuk', timezone: 'America/Nuuk', flag: 'gl' },
-            newZealand: { id: 'nz', name: 'Auckland', timezone: 'Pacific/Auckland', flag: 'nz' }
+        // Enhanced Timezone Data (Country-City)
+        const timezoneData = {
+            "US": {
+                name: "United States",
+                flag: "us",
+                cities: [
+                    { name: "New York", timezone: "America/New_York" },
+                    { name: "Los Angeles", timezone: "America/Los_Angeles" },
+                    { name: "Chicago", timezone: "America/Chicago" },
+                    { name: "Houston", timezone: "America/Chicago" },
+                    { name: "Phoenix", timezone: "America/Phoenix" }
+                ]
+            },
+            "GB": {
+                name: "United Kingdom",
+                flag: "gb",
+                cities: [
+                    { name: "London", timezone: "Europe/London" },
+                    { name: "Manchester", timezone: "Europe/London" },
+                    { name: "Edinburgh", timezone: "Europe/London" }
+                ]
+            },
+            "JP": {
+                name: "Japan",
+                flag: "jp",
+                cities: [
+                    { name: "Tokyo", timezone: "Asia/Tokyo" },
+                    { name: "Osaka", timezone: "Asia/Tokyo" },
+                    { name: "Kyoto", timezone: "Asia/Tokyo" }
+                ]
+            },
+            "AU": {
+                name: "Australia",
+                flag: "au",
+                cities: [
+                    { name: "Sydney", timezone: "Australia/Sydney" },
+                    { name: "Melbourne", timezone: "Australia/Melbourne" },
+                    { name: "Brisbane", timezone: "Australia/Brisbane" }
+                ]
+            },
+            "AE": {
+                name: "United Arab Emirates",
+                flag: "ae",
+                cities: [
+                    { name: "Dubai", timezone: "Asia/Dubai" },
+                    { name: "Abu Dhabi", timezone: "Asia/Dubai" }
+                ]
+            },
+            "CA": {
+                name: "Canada",
+                flag: "ca",
+                cities: [
+                    { name: "Toronto", timezone: "America/Toronto" },
+                    { name: "Vancouver", timezone: "America/Vancouver" },
+                    { name: "Montreal", timezone: "America/Toronto" }
+                ]
+            },
+            "DE": {
+                name: "Germany",
+                flag: "de",
+                cities: [
+                    { name: "Berlin", timezone: "Europe/Berlin" },
+                    { name: "Munich", timezone: "Europe/Berlin" },
+                    { name: "Frankfurt", timezone: "Europe/Berlin" }
+                ]
+            },
+            "FR": {
+                name: "France",
+                flag: "fr",
+                cities: [
+                    { name: "Paris", timezone: "Europe/Paris" },
+                    { name: "Lyon", timezone: "Europe/Paris" },
+                    { name: "Marseille", timezone: "Europe/Paris" }
+                ]
+            },
+            "IN": {
+                name: "India",
+                flag: "in",
+                cities: [
+                    { name: "Mumbai", timezone: "Asia/Kolkata" },
+                    { name: "Delhi", timezone: "Asia/Kolkata" },
+                    { name: "Bangalore", timezone: "Asia/Kolkata" }
+                ]
+            },
+            "CN": {
+                name: "China",
+                flag: "cn",
+                cities: [
+                    { name: "Beijing", timezone: "Asia/Shanghai" },
+                    { name: "Shanghai", timezone: "Asia/Shanghai" },
+                    { name: "Hong Kong", timezone: "Asia/Hong_Kong" }
+                ]
+            }
         };
 
         // MEETING PLANNER LOGIC
@@ -257,43 +388,85 @@
             document.querySelector('#theme-toggle span').textContent = 'Light Mode';
         }
 
-        // Add timezone from input
-        document.getElementById('add-tz').addEventListener('click', addTimezone);
-        document.getElementById('tz-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addTimezone();
+        // Initialize Country Dropdown
+        const countrySelect = document.getElementById('country-select');
+        const citySelect = document.getElementById('city-select');
+        const addButton = document.getElementById('add-location');
+
+        // Populate countries
+        for (const [code, country] of Object.entries(timezoneData)) {
+            const option = document.createElement('option');
+            option.value = code;
+            option.textContent = country.name;
+            countrySelect.appendChild(option);
+        }
+
+        // Update cities when country changes
+        countrySelect.addEventListener('change', function() {
+            citySelect.innerHTML = '<option value="">Select City</option>';
+            citySelect.disabled = !this.value;
+            
+            if (this.value) {
+                timezoneData[this.value].cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.timezone;
+                    option.textContent = city.name;
+                    citySelect.appendChild(option);
+                });
+            }
+            
+            updateAddButton();
+        });
+
+        // Enable add button when city selected
+        citySelect.addEventListener('change', updateAddButton);
+
+        function updateAddButton() {
+            addButton.disabled = !citySelect.value;
+        }
+
+        // Add location to meeting planner
+        addButton.addEventListener('click', function() {
+            const selectedCountry = countrySelect.options[countrySelect.selectedIndex].text;
+            const selectedCity = citySelect.options[citySelect.selectedIndex].text;
+            const timezone = citySelect.value;
+            const countryCode = countrySelect.value;
+            
+            // Add to selected timezones if not already present
+            if (!selectedTimezones.some(tz => tz.timezone === timezone)) {
+                selectedTimezones.push({
+                    name: `${selectedCity}, ${selectedCountry}`,
+                    timezone: timezone,
+                    flag: countryCode.toLowerCase()
+                });
+                updateSelectedTimezones();
+                
+                // Reset selectors
+                countrySelect.value = '';
+                citySelect.innerHTML = '<option value="">Select City</option>';
+                citySelect.disabled = true;
+                addButton.disabled = true;
+            }
         });
 
         // Quick city buttons
-        document.querySelectorAll('.city-btn').forEach(btn => {
+        document.querySelectorAll('.tool-btn[data-city]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const cityId = btn.dataset.city;
-                if (timezones[cityId] && !selectedTimezones.includes(timezones[cityId])) {
-                    selectedTimezones.push(timezones[cityId]);
+                const cityMap = {
+                    'new-york': { name: 'New York, United States', timezone: 'America/New_York', flag: 'us' },
+                    'london': { name: 'London, United Kingdom', timezone: 'Europe/London', flag: 'gb' },
+                    'tokyo': { name: 'Tokyo, Japan', timezone: 'Asia/Tokyo', flag: 'jp' },
+                    'sydney': { name: 'Sydney, Australia', timezone: 'Australia/Sydney', flag: 'au' },
+                    'dubai': { name: 'Dubai, United Arab Emirates', timezone: 'Asia/Dubai', flag: 'ae' }
+                };
+                
+                if (cityMap[cityId] && !selectedTimezones.some(tz => tz.timezone === cityMap[cityId].timezone)) {
+                    selectedTimezones.push(cityMap[cityId]);
                     updateSelectedTimezones();
                 }
             });
         });
-
-        function addTimezone() {
-            const input = document.getElementById('tz-input');
-            const value = input.value.trim();
-            
-            if (!value) return;
-            
-            // Try to find matching timezone
-            const tz = Object.values(timezones).find(t => 
-                t.name.toLowerCase().includes(value.toLowerCase()) ||
-                t.timezone.toLowerCase().includes(value.toLowerCase())
-            );
-            
-            if (tz && !selectedTimezones.includes(tz)) {
-                selectedTimezones.push(tz);
-                updateSelectedTimezones();
-                input.value = '';
-            } else {
-                alert('Timezone not recognized. Try "New York", "London", etc.');
-            }
-        }
 
         function updateSelectedTimezones() {
             const container = document.getElementById('selected-timezones');
@@ -303,7 +476,7 @@
                 const chip = document.createElement('div');
                 chip.className = 'timezone-chip';
                 chip.innerHTML = `
-                    <img src="https://flagcdn.com/${tz.flag}.svg" width="16" height="12">
+                    ${tz.flag ? `<img src="https://flagcdn.com/${tz.flag}.svg" width="16" height="12">` : ''}
                     ${tz.name}
                     <span class="remove-tz" data-index="${index}"><i class="fas fa-times"></i></span>
                 `;
@@ -370,20 +543,44 @@
                 navigator.share({
                     title: 'Meeting Time Proposal',
                     text: `Found a good meeting time across ${selectedTimezones.length} timezones!`,
-                    url: window.location.href
+                    url: generateShareableLink()
                 });
             } else {
                 // Fallback
-                const tzList = selectedTimezones.map(tz => tz.name).join(', ');
-                prompt('Share this meeting plan by copying the link below:', 
-                    `${window.location.origin}/meeting-planner.html?timezones=${encodeURIComponent(tzList)}`);
+                prompt('Share this meeting plan by copying the link below:', generateShareableLink());
             }
         });
+
+        function generateShareableLink() {
+            const tzData = selectedTimezones.map(tz => ({
+                n: tz.name,
+                tz: tz.timezone,
+                f: tz.flag
+            }));
+            return `${window.location.origin}${window.location.pathname}?meeting=${encodeURIComponent(JSON.stringify(tzData))}`;
+        }
 
         // Add to calendar
         document.getElementById('add-to-calendar').addEventListener('click', () => {
             alert('Calendar integration would go here in a production version');
             // In a real implementation, this would open Google Calendar with prefilled details
+        });
+
+        // Load shared meeting if URL has parameters
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const meetingData = urlParams.get('meeting');
+            
+            if (meetingData) {
+                try {
+                    const tzData = JSON.parse(decodeURIComponent(meetingData));
+                    selectedTimezones = tzData;
+                    updateSelectedTimezones();
+                    findBestTimes();
+                } catch (e) {
+                    console.error('Error parsing meeting data:', e);
+                }
+            }
         });
     </script>
 </body>
