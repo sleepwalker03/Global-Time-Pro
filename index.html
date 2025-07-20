@@ -459,18 +459,53 @@ body.night-mode .quick-time-card {
                     <span id="dubai-difference">+4h from you</span>
                 </div>
             </div>
+            <!-- MEXICO -->
+<div class="timezone-card" style="--tz-color: #2ecc71;">
+    <h3><img src="https://flagcdn.com/mx.svg" class="flag" alt="Mexico flag"> Mexico City</h3>
+    <div class="timezone-time" id="mexico-time">6:34:56 AM</div>
+    <div class="timezone-date" id="mexico-date">Friday, July 19, 2024</div>
+    <div class="timezone-info">
+        <span>CST/CDT</span>
+        <span id="mexico-difference">-1h from you</span>
+    </div>
+</div>
+
+<!-- GREENLAND -->
+<div class="timezone-card" style="--tz-color: #1abc9c;">
+    <h3><img src="https://flagcdn.com/gl.svg" class="flag" alt="Greenland flag"> Nuuk</h3>
+    <div class="timezone-time" id="greenland-time">10:34:56 AM</div>
+    <div class="timezone-date" id="greenland-date">Friday, July 19, 2024</div>
+    <div class="timezone-info">
+        <span>WGT/WGST</span>
+        <span id="greenland-difference">+3h from you</span>
+    </div>
+</div>
+
+<!-- NEW ZEALAND -->
+<div class="timezone-card" style="--tz-color: #e67e22;">
+    <h3><img src="https://flagcdn.com/nz.svg" class="flag" alt="New Zealand flag"> Auckland</h3>
+    <div class="timezone-time" id="nz-time">11:34:56 PM</div>
+    <div class="timezone-date" id="nz-date">Friday, July 19, 2024</div>
+    <div class="timezone-info">
+        <span>NZST/NZDT</span>
+        <span id="nz-difference">+16h from you</span>
+    </div>
+</div>
         </div>
     </div>
 
     <script>
         // Enhanced Timezone Data
-        const timezones = {
+                const timezones = {
             local: { id: 'local', name: 'Your Location', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, flag: '' },
             newYork: { id: 'ny', name: 'New York', timezone: 'America/New_York', flag: 'us' },
             london: { id: 'london', name: 'London', timezone: 'Europe/London', flag: 'gb' },
             tokyo: { id: 'tokyo', name: 'Tokyo', timezone: 'Asia/Tokyo', flag: 'jp' },
             sydney: { id: 'sydney', name: 'Sydney', timezone: 'Australia/Sydney', flag: 'au' },
-            dubai: { id: 'dubai', name: 'Dubai', timezone: 'Asia/Dubai', flag: 'ae' }
+            dubai: { id: 'dubai', name: 'Dubai', timezone: 'Asia/Dubai', flag: 'ae' },
+            mexico: { id: 'mexico', name: 'Mexico City', timezone: 'America/Mexico_City', flag: 'mx' },
+            greenland: { id: 'greenland', name: 'Nuuk', timezone: 'America/Nuuk', flag: 'gl' },
+            newZealand: { id: 'nz', name: 'Auckland', timezone: 'Pacific/Auckland', flag: 'nz' }
         };
 
         // 1. SMART LOCATION DETECTION
