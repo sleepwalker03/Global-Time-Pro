@@ -2,58 +2,283 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact Us - Global Time Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
+    :root {
+      --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
+      --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      --card-day: rgba(255, 255, 255, 0.9);
+      --card-night: rgba(30, 30, 40, 0.9);
+      --text-day: #333;
+      --text-night: #f0f0f0;
+      --accent-day: #4a6bff;
+      --accent-night: #6bd3ff;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
-      background-color: #f4f4f4;
-      color: #333;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      background: var(--day-bg);
+      background-attachment: fixed;
+      color: var(--text-day);
+      transition: all 0.5s ease;
     }
+
+    body.night-mode {
+      background: var(--night-bg);
+      color: var(--text-night);
+    }
+
+    header {
+      padding: 15px;
+      background-color: #222;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    header .logo {
+      font-size: 1.5em;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .logo i {
+      color: var(--accent-day);
+    }
+
+    body.night-mode header .logo i {
+      color: var(--accent-night);
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    button#mode-toggle {
+      background: none;
+      border: 2px solid white;
+      border-radius: 20px;
+      padding: 5px 12px;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    button#mode-toggle:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background-color: var(--card-day);
+      border-radius: 12px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    body.night-mode .container {
+      background-color: var(--card-night);
+      color: var(--text-night);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+
     h1 {
-      color: #2c3e50;
+      margin-top: 0;
+      font-weight: 900;
+      font-size: 2.4rem;
+      margin-bottom: 15px;
     }
+
     form {
       display: flex;
       flex-direction: column;
+      gap: 15px;
     }
+
     label {
-      margin-top: 10px;
-      font-weight: bold;
+      font-weight: 600;
+      margin-bottom: 5px;
     }
-    input, textarea {
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
       padding: 10px;
-      margin-top: 5px;
-      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.3s ease;
     }
-    button {
-      margin-top: 15px;
-      padding: 10px;
-      font-size: 16px;
-      background-color: #2c3e50;
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: var(--accent-day);
+      outline: none;
+    }
+
+    body.night-mode input[type="text"],
+    body.night-mode input[type="email"],
+    body.night-mode textarea {
+      background-color: #222;
+      color: var(--text-night);
+      border-color: #555;
+    }
+
+    body.night-mode input[type="text"]:focus,
+    body.night-mode input[type="email"]:focus,
+    body.night-mode textarea:focus {
+      border-color: var(--accent-night);
+    }
+
+    button[type="submit"] {
+      padding: 12px 20px;
+      background-color: var(--accent-day);
       color: white;
       border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: 700;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #3356ff;
+    }
+
+    body.night-mode button[type="submit"] {
+      background-color: var(--accent-night);
+    }
+
+    body.night-mode button[type="submit"]:hover {
+      background-color: #32b6db;
+    }
+
+    footer {
+      background:#222;
+      color:#ccc;
+      padding:20px;
+      text-align:center;
+      margin-top: 40px;
+      border-radius: 8px;
+    }
+
+    footer a {
+      color:#ccc;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    body.night-mode footer a {
+      color: #aabbee;
     }
   </style>
 </head>
 <body>
-  <h1>Contact Us</h1>
-  <p>If you have questions, feedback, or suggestions, please contact us using the form below:</p>
-  <form action="mailto:your-email@example.com" method="POST" enctype="text/plain">
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" name="name" required>
+  <header>
+    <div class="logo">
+      <i class="fas fa-globe-americas"></i>
+      <span>Global Time Pro</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button id="mode-toggle" aria-label="Toggle dark/light mode">
+      <i class="fas fa-moon"></i> Dark Mode
+    </button>
+  </header>
 
-    <label for="email">Your Email:</label>
-    <input type="email" id="email" name="email" required>
+  <div class="container">
+    <h1>Contact Us</h1>
+    <form id="contact-form" action="mailto:womars81@gmail.com" method="POST" enctype="text/plain">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="Name" required />
 
-    <label for="message">Your Message:</label>
-    <textarea id="message" name="message" rows="6" required></textarea>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="Email" required />
 
-    <button type="submit">Send Message</button>
-  </form>
+      <label for="message">Message</label>
+      <textarea id="message" name="Message" rows="6" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>
+      <a href="about.html">About</a> |
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms of Use</a> |
+      <a href="contact.html">Contact</a>
+    </p>
+    <p>&copy; 2025 Global Time Pro. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const modeToggle = document.getElementById('mode-toggle');
+    const modeIcon = modeToggle.querySelector('i');
+
+    function updateModeText(isDark) {
+      if (isDark) {
+        modeIcon.classList.replace('fa-moon', 'fa-sun');
+        modeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+      } else {
+        modeIcon.classList.replace('fa-sun', 'fa-moon');
+        modeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+      }
+    }
+
+    function loadMode() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.body.classList.add('night-mode');
+        updateModeText(true);
+      } else {
+        updateModeText(false);
+      }
+    }
+
+    modeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('night-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateModeText(isDark);
+    });
+
+    window.addEventListener('DOMContentLoaded', loadMode);
+  </script>
 </body>
 </html>
