@@ -560,10 +560,56 @@
             return `${window.location.origin}${window.location.pathname}?meeting=${encodeURIComponent(JSON.stringify(tzData))}`;
         }
 
-        // Add to calendar
+        // Add to calendar - REAL IMPLEMENTATION
         document.getElementById('add-to-calendar').addEventListener('click', () => {
-            alert('Calendar integration would go here in a production version');
-            // In a real implementation, this would open Google Calendar with prefilled details
+            if (selectedTimezones.length === 0) {
+                alert('Please add timezones and find meeting times first');
+                return;
+            }
+
+            // Find the first "good" time slot
+            const goodSlot = document.querySelector('.time-slot.good');
+            if (!goodSlot) {
+                alert('No suitable meeting times found. Please adjust your timezones.');
+                return;
+            }
+
+            const meetingTime = goodSlot.textContent;
+            const meetingDate = new Date();
+            
+            // Set meeting time (using the first good slot found)
+            const [time, period] = meetingTime.split(' ');
+            let [hours, minutes] = time.split(':').map(Number);
+            
+            if (period === 'PM' && hours < 12) hours += 12;
+            if (period === 'AM' && hours === 12) hours = 0;
+            
+            meetingDate.setHours(hours, minutes, 0, 0);
+            
+            // Format for Google Calendar
+            const formatDate = (date) => {
+                return date.toISOString().replace(/-|:|\.\d\d\d/g,'');
+            };
+            
+            const startTime = formatDate(meetingDate);
+            const endTime = formatDate(new Date(meetingDate.getTime() + 60*60*1000)); // 1 hour duration
+            
+            // Create participants list
+            const participants = selectedTimezones.map(tz => 
+                `${tz.name} (${tz.timezone.split('/')[1].replace('_', ' ')})`
+            ).join('\n');
+            
+            // Create Google Calendar URL
+            const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE` +
+                `&text=Meeting%20with%20Global%20Time%20Pro` +
+                `&dates=${startTime}/${endTime}` +
+                `&details=Participants:%0A${encodeURIComponent(participants)}` +
+                `&location=Online%20Meeting` +
+                `&sf=true` +
+                `&output=xml`;
+            
+            // Open in new tab
+            window.open(calendarUrl, '_blank');
         });
 
         // Load shared meeting if URL has parameters
