@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-R1E5LS9596');
+  </script>
+
+  <title>Stopwatch - Time Today</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
+      --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      --card-day: rgba(255, 255, 255, 0.9);
+      --card-night: rgba(30, 30, 40, 0.9);
+      --text-day: #333;
+      --text-night: #f0f0f0;
+      --accent-day: #4a6bff;
+      --accent-night: #6bd3ff;
+      --primary-color: #4CAF50;
+      --primary-hover: #45a049;
+      --secondary-color: #f44336;
+      --secondary-hover: #d32f2f;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: var(--day-bg);
+      background-attachment: fixed;
+      color: var(--text-day);
+      transition: all 0.5s ease;
+    }
+
+    body.night-mode {
+      background: var(--night-bg);
+      color: var(--text-night);
+    }
+
+    /* Header */
+    header {
+      padding: 15px;
+      background-color: #222;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    header .logo {
+      font-size: 1.5em;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .logo i {
+      color: var(--accent-day);
+    }
+
+    body.night-mode header .logo i {
+      color: var(--accent-night);
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    button#mode-toggle {
+      background: none;
+      border: 2px solid white;
+      border-radius: 20px;
+      padding: 5px 12px;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    button#mode-toggle:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    /* Content container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: var(--card-day);
+      border-radius: 12px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: background-color 0.5s ease, color 0.5s ease;
+      margin-bottom: 20px;
+    }
+
+    body.night-mode .container {
+      background-color: var(--card-night);
+      color: var(--text-night);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-weight: 900;
+      font-size: 2.4rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Stopwatch specific styles */
+    .timer-display {
+      font-size: 48px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+    }
+
+    .split-timer {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #666;
+      font-family: 'Courier New', monospace;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .start-btn {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .start-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .pause-btn {
+      background-color: var(--secondary-color);
+      color: white;
+      display: none;
+    }
+
+    .pause-btn:hover {
+      background-color: var(--secondary-hover);
+    }
+
+    .split-btn, .reset-btn {
+      background-color: var(--accent-day);
+      color: white;
+    }
+
+    body.night-mode .split-btn,
+    body.night-mode .reset-btn {
+      background-color: var(--accent-night);
+    }
+
+    .split-btn:hover {
+      opacity: 0.9;
+    }
+
+    .reset-btn {
+      background-color: #ff9800;
+    }
+
+    .reset-btn:hover {
+      background-color: #e68a00;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: rgba(0,0,0,0.1);
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: rgba(0,0,0,0.05);
+    }
+
+    body.night-mode tr:hover {
+      background-color: rgba(255,255,255,0.05);
+    }
+
+    .editable-label {
+      cursor: pointer;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+
+    .editable-label:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .editable-label:focus {
+      outline: none;
+      background-color: white;
+      border: 1px solid var(--accent-day);
+    }
+
+    body.night-mode .editable-label:focus {
+      background-color: var(--card-night);
+      border-color: var(--accent-night);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      justify-content: flex-end;
+    }
+
+    .toolbar-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text-day);
+      padding: 5px;
+    }
+
+    body.night-mode .toolbar-btn {
+      color: var(--text-night);
+    }
+
+    .restore-banner {
+      background-color: #ffeb3b;
+      color: #000;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      display: none;
+    }
+
+    .restore-btn {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    .restore-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .delete-btn {
+      color: var(--secondary-color);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .delete-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      background:#222;
+      color:#ccc;
+      padding:20px;
+      text-align:center;
+      margin-top: 40px;
+      border-radius: 8px;
+    }
+
+    footer a {
+      color:#ccc;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Dark mode link colors */
+    body.night-mode footer a {
+      color: #aabbee;
+    }
+
+    @media (max-width: 600px) {
+      .timer-display {
+        font-size: 36px;
+      }
+      
+      .split-timer {
+        font-size: 20px;
+      }
+      
+      .controls {
+        flex-wrap: wrap;
+      }
+      
+      button {
+        flex: 1 1 40%;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <a href="https://www.timetoday.online">
+        <img src="timetodaysmall.png" alt="Time Today Logo" class="logo-image">
+      </a>
+      <span>Time Today</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="aroundtheworld.html">Around the World</a>
+      <a href="stopwatch.html">Stopwatch</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button id="mode-toggle" aria-label="Toggle dark/light mode">
+      <i class="fas fa-moon"></i> Dark Mode
+    </button>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <div class="restore-banner" id="restoreBanner">
+      <span>Previous session detected. Would you like to restore it?</span>
+      <button class="restore-btn" id="restoreBtn">Restore</button>
+    </div>
+
+    <h1><i class="fas fa-stopwatch"></i> Stopwatch</h1>
+
+    <div class="toolbar">
+      <button class="toolbar-btn" id="fullscreenBtn" title="Fullscreen"><i class="fas fa-expand"></i></button>
+      <button class="toolbar-btn" id="soundBtn" title="Toggle sound"><i class="fas fa-volume-up"></i></button>
+      <button class="toolbar-btn" id="exportBtn" title="Export data"><i class="fas fa-download"></i></button>
+    </div>
+
+    <div class="timer-display" id="mainTimer">00:00:00.000</div>
+    <div class="split-timer" id="splitTimer">00:00:00.000</div>
+
+    <div class="controls">
+      <button class="start-btn" id="startBtn">Start</button>
+      <button class="pause-btn" id="pauseBtn">Pause</button>
+      <button class="split-btn" id="splitBtn" disabled><i class="fas fa-flag"></i> Split</button>
+      <button class="reset-btn" id="resetBtn" disabled><i class="fas fa-redo"></i> Reset</button>
+    </div>
+
+    <div class="options">
+      <div class="checkbox-option">
+        <input type="checkbox" id="showDetails">
+        <label for="showDetails">Show more details</label>
+      </div>
+      <div class="checkbox-option">
+        <input type="checkbox" id="reverseOrder">
+        <label for="reverseOrder">Reverse order</label>
+      </div>
+    </div>
+
+    <table id="lapTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Label</th>
+          <th>Interval</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="lapTableBody">
+        <!-- Laps will be added here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      <a href="index.html">Home</a> |
+      <a href="aroundtheworld.html">Around the World</a> |
+      <a href="stopwatch.html">Stopwatch</a> |
+      <a href="about.html">About</a> |
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms of Use</a> |
+      <a href="contact.html">Contact</a>
+    </p>
+    <p>&copy; 2025 Time Today. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // DOM Elements
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const splitBtn = document.getElementById('splitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const mainTimer = document.getElementById('mainTimer');
+    const splitTimer = document.getElementById('splitTimer');
+    const lapTableBody = document.getElementById('lapTableBody');
+    const showDetails = document.getElementById('showDetails');
+    const reverseOrder = document.getElementById('reverseOrder');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const soundBtn = document.getElementById('soundBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const restoreBanner = document.getElementById('restoreBanner');
+    const restoreBtn = document.getElementById('restoreBtn');
+    const modeToggle = document.getElementById('mode-toggle');
+
+    // State variables
+    let startTime = 0;
+    let elapsedTime = 0;
+    let splitElapsedTime = 0;
+    let splitStartTime = 0;
+    let timerInterval;
+    let isRunning = false;
+    let laps = [];
+    let soundEnabled = true;
+
+    // Audio elements
+    const startSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3');
+    const pauseSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
+    const splitSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3');
+    const resetSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-game-over-213.mp3');
+
+    // Initialize
+    function init() {
+      // Load saved state
+      const savedState = localStorage.getItem('stopwatchState');
+      if (savedState) {
+        restoreBanner.style.display = 'flex';
+      }
+
+      // Load settings
+      const settings = JSON.parse(localStorage.getItem('stopwatchSettings')) || {};
+      soundEnabled = settings.soundEnabled !== false;
+      updateSoundButton();
+
+      // Event listeners
+      startBtn.addEventListener('click', startTimer);
+      pauseBtn.addEventListener('click', pauseTimer);
+      splitBtn.addEventListener('click', recordSplit);
+      resetBtn.addEventListener('click', resetTimer);
+      showDetails.addEventListener('change', updateTable);
+      reverseOrder.addEventListener('change', updateTable);
+      fullscreenBtn.addEventListener('click', toggleFullscreen);
+      soundBtn.addEventListener('click', toggleSound);
+      exportBtn.addEventListener('click', exportData);
+      restoreBtn.addEventListener('click', restoreSession);
+
+      // Initialize dark mode from your existing implementation
+      loadMode();
+    }
+
+    // Timer functions
+    function startTimer() {
+      if (!isRunning) {
+        startTime = Date.now() - elapsedTime;
+        splitStartTime = Date.now() - splitElapsedTime;
+        timerInterval = setInterval(updateTimer, 10);
+        isRunning = true;
+        toggleButtons();
+        playSound(startSound);
+      }
+    }
+
+    function pauseTimer() {
+      if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        toggleButtons();
+        recordPause();
+        playSound(pauseSound);
+      }
+    }
+
+    function updateTimer() {
+      const now = Date.now();
+      elapsedTime = now - startTime;
+      splitElapsedTime = now - splitStartTime;
+      displayTime(mainTimer, elapsedTime);
+      displayTime(splitTimer, splitElapsedTime);
+    }
+
+    function displayTime(element, time) {
+      const hours = Math.floor(time / 3600000);
+      const minutes = Math.floor((time % 3600000) / 60000);
+      const seconds = Math.floor((time % 60000) / 1000);
+      const milliseconds = time % 1000;
+      
+      element.textContent = 
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+    }
+
+    // Split and lap functions
+    function recordSplit() {
+      if (isRunning) {
+        const now = Date.now();
+        const totalTime = now - startTime;
+        const splitTime = now - splitStartTime;
+        
+        laps.push({
+          type: 'split',
+          label: `Split ${laps.filter(lap => lap.type === 'split').length + 1}`,
+          interval: splitTime,
+          total: totalTime,
+          timestamp: now
+        });
+        
+        splitStartTime = now;
+        splitElapsedTime = 0;
+        updateTable();
+        playSound(splitSound);
+      }
+    }
+
+    function recordPause() {
+      const now = Date.now();
+      const totalTime = elapsedTime;
+      const splitTime = splitElapsedTime;
+      
+      laps.push({
+        type: 'pause',
+        label: 'Pause',
+        interval: splitTime,
+        total: totalTime,
+        timestamp: now
+      });
+      
+      updateTable();
+    }
+
+    function updateTable() {
+      lapTableBody.innerHTML = '';
+      
+      const displayLaps = [...laps];
+      if (reverseOrder.checked) {
+        displayLaps.reverse();
+      }
+      
+      displayLaps.forEach((lap, index) => {
+        const row = document.createElement('tr');
+        
+        // Calculate the display index based on order
+        const displayIndex = reverseOrder.checked ? laps.length - index : index + 1;
+        
+        row.innerHTML = `
+          <td>${displayIndex}</td>
+          <td><span class="editable-label" contenteditable="true">${lap.label}</span></td>
+          <td>${formatTime(lap.interval)}</td>
+          <td>${formatTime(lap.total)}</td>
+        `;
+        
+        if (showDetails.checked) {
+          const dateCell = document.createElement('td');
+          dateCell.textContent = new Date(lap.timestamp).toLocaleString();
+          row.appendChild(dateCell);
+          
+          const deleteCell = document.createElement('td');
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'delete-btn';
+          deleteBtn.textContent = 'Delete';
+          deleteBtn.addEventListener('click', () => deleteLap(index));
+          deleteCell.appendChild(deleteBtn);
+          row.appendChild(deleteCell);
+        }
+        
+        lapTableBody.appendChild(row);
+      });
+    }
+
+    function formatTime(time) {
+      const hours = Math.floor(time / 3600000);
+      const minutes = Math.floor((time % 3600000) / 60000);
+      const seconds = Math.floor((time % 60000) / 1000);
+      const milliseconds = time % 1000;
+      
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+    }
+
+    function deleteLap(index) {
+      laps.splice(index, 1);
+      updateTable();
+      saveState();
+    }
+
+    // Reset function
+    function resetTimer() {
+      if (confirm('Are you sure you want to reset the stopwatch? All data will be lost.')) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        elapsedTime = 0;
+        splitElapsedTime = 0;
+        startTime = 0;
+        splitStartTime = 0;
+        laps = [];
+        
+        displayTime(mainTimer, 0);
+        displayTime(splitTimer, 0);
+        updateTable();
+        toggleButtons();
+        playSound(resetSound);
+        
+        // Clear saved state
+        localStorage.removeItem('stopwatchState');
+      }
+    }
+
+    // Button state management
+    function toggleButtons() {
+      startBtn.style.display = isRunning ? 'none' : 'block';
+      pauseBtn.style.display = isRunning ? 'block' : 'none';
+      splitBtn.disabled = !isRunning;
+      resetBtn.disabled = isRunning && laps.length === 0;
+    }
+
+    // Settings functions
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      updateSoundButton();
+      saveSettings();
+    }
+
+    function updateSoundButton() {
+      soundBtn.innerHTML = soundEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+    }
+
+    function playSound(sound) {
+      if (soundEnabled) {
+        sound.currentTime = 0;
+        sound.play().catch(e => console.log('Audio play failed:', e));
+      }
+    }
+
+    // Data export
+    function exportData() {
+      let exportText = "Stopwatch Data\n\n";
+      exportText += "No.,Label,Interval,Total,Timestamp\n";
+      
+      laps.forEach((lap, index) => {
+        exportText += `${index + 1},"${lap.label}",${formatTime(lap.interval)},${formatTime(lap.total)},${new Date(lap.timestamp).toLocaleString()}\n`;
+      });
+      
+      // Create download link
+      const blob = new Blob([exportText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `stopwatch_data_${new Date().toISOString().slice(0, 10)}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Session management
+    function saveState() {
+      const state = {
+        elapsedTime,
+        splitElapsedTime,
+        startTime: isRunning ? startTime : null,
+        splitStartTime: isRunning ? splitStartTime : null,
+        laps,
+        isRunning,
+        lastUpdated: Date.now()
+      };
+      localStorage.setItem('stopwatchState', JSON.stringify(state));
+    }
+
+    function restoreSession() {
+      const savedState = JSON.parse(localStorage.getItem('stopwatchState'));
+      if (savedState) {
+        elapsedTime = savedState.elapsedTime;
+        splitElapsedTime = savedState.splitElapsedTime;
+        laps = savedState.laps || [];
+        
+        if (savedState.isRunning) {
+          // Calculate time passed while the page was closed
+          const timePassed = Date.now() - savedState.lastUpdated;
+          elapsedTime += timePassed;
+          splitElapsedTime += timePassed;
+          
+          startTime = Date.now() - elapsedTime;
+          splitStartTime = Date.now() - splitElapsedTime;
+          
+          timerInterval = setInterval(updateTimer, 10);
+          isRunning = true;
+        } else {
+          displayTime(mainTimer, elapsedTime);
+          displayTime(splitTimer, splitElapsedTime);
+          isRunning = false;
+        }
+        
+        updateTable();
+        toggleButtons();
+        restoreBanner.style.display = 'none';
+      }
+    }
+
+    function saveSettings() {
+      const settings = {
+        soundEnabled
+      };
+      localStorage.setItem('stopwatchSettings', JSON.stringify(settings));
+    }
+
+    // Dark mode functions from your about page
+    function loadMode() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.body.classList.add('night-mode');
+        updateModeText(true);
+      } else {
+        updateModeText(false);
+      }
+    }
+
+    function updateModeText(isDark) {
+      if (isDark) {
+        modeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+      } else {
+        modeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+      }
+    }
+
+    // Toggle mode & save preference
+    modeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('night-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateModeText(isDark);
+    });
+
+    // Auto-save every 5 seconds when running
+    setInterval(() => {
+      if (isRunning) {
+        saveState();
+      }
+    }, 5000);
+
+    // Initialize on load
+    window.addEventListener('load', init);
+    window.addEventListener('beforeunload', () => {
+      if (isRunning || laps.length > 0) {
+        saveState();
+      }
+    });
+  </script>
+</body>
+</html>
