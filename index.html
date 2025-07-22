@@ -31,22 +31,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
     <style>
-        #header-menu nav {
+        #header-menu {
+  position: sticky; /* Makes it stick when scrolling */
+  top: 0;          /* Stick to the top of the viewport */
+  z-index: 1000;   /* Ensures it stays above other content */
+  width: 100%;     /* Full width */
+  backdrop-filter: blur(50px); /* Optional: Frosted glass effect */
+  padding: 10px 0; /* Adjust padding as needed */
+}
+
+#header-menu nav {
   display: flex;
   gap: 15px;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2); /* Slightly darker for better visibility */
   justify-content: center;
+  max-width: 1500px; /* Optional: Limits width for large screens */
+  margin: 0 auto;    /* Centers the nav */
 }
 
 #header-menu nav a {
   color: white;
   text-decoration: none;
   font-weight: 500;
+  padding: 5px 10px; /* Better click area */
 }
 
 #header-menu nav a:hover {
-  color: #6bd3ff; /* Accent color */
+  color: #6bd3ff;
 }
         .quick-time-row {
   display: flex;
