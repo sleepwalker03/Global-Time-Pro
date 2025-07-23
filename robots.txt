@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /       # Allows all bots to crawl everything
+Disallow: /private/  # Blocks a specific directory (optional)
+
+# Block AI bots (optional)
+User-agent: GPTBot
+Disallow: /
