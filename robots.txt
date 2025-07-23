@@ -1,7 +1,6 @@
 User-agent: *
-Allow: /       # Allows all bots to crawl everything
-Disallow: /private/  # Blocks a specific directory (optional)
+Allow: /
+Disallow: /private/  # Example: Block a directory
+Disallow: /temp/     # Example: Block another directory
 
-# Block AI bots (optional)
-User-agent: GPTBot
-Disallow: /
+Sitemap: https://www.timetoday.online/sitemap.xml
