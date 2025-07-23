@@ -1,6 +1,7 @@
+User-agent: Googlebot
+Disallow: /nogooglebot/
+
 User-agent: *
 Allow: /
-Disallow: /private/  # Example: Block a directory
-Disallow: /temp/     # Example: Block another directory
 
 Sitemap: https://www.timetoday.online/sitemap.xml
