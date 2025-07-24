@@ -12,10 +12,11 @@
     gtag('config', 'G-R1E5LS9596');
   </script>
 
-  <title>Time Zones - Time Today</title>
+  <title>World Time Zones with Analog Clocks - Time Today</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
+
   <style>
     :root {
       --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
@@ -44,7 +45,7 @@
       color: var(--text-night);
     }
 
-    /* Header */
+    /* Header - From About Page */
     header {
       padding: 15px;
       background-color: #222;
@@ -100,8 +101,8 @@
     button#mode-toggle:hover {
       background-color: rgba(255,255,255,0.2);
     }
-
-    /* Content container */
+	
+    /* Main Content Container - Styled like About Page */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -109,12 +110,11 @@
       border-radius: 12px;
       padding: 25px 30px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      transition: background-color 0.5s ease, color 0.5s ease;
+      transition: background-color 0.5s ease;
     }
 
     body.night-mode .container {
       background-color: var(--card-night);
-      color: var(--text-night);
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
 
@@ -138,79 +138,39 @@
 
     body.night-mode a {
       color: var(--accent-night);
-    }
+    } 
 
-    /* Filter Controls */
-    .filter-controls {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .filter-controls select, .filter-controls input {
-      padding: 10px 15px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      background-color: white;
-      font-size: 1rem;
-      flex: 1;
-      min-width: 200px;
-    }
-
-    body.night-mode .filter-controls select, 
-    body.night-mode .filter-controls input {
-      background-color: #333;
-      color: white;
-      border-color: #555;
-    }
-
-    /* Time Zone Table */
-    .timezone-table {
-      width: 100%;
-      border-collapse: collapse;
+    /* Timezone Cards - Restyled */
+    .timezone-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
       margin-top: 20px;
     }
 
-    .timezone-table th {
-      background-color: var(--accent-day);
-      color: white;
-      padding: 12px 15px;
-      text-align: left;
-      cursor: pointer;
+    .timezone-card {
+      background: var(--card-day);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, background-color 0.5s;
     }
 
-    body.night-mode .timezone-table th {
-      background-color: var(--accent-night);
+    body.night-mode .timezone-card {
+      background: var(--card-night);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
-    .timezone-table td {
-      padding: 12px 15px;
-      border-bottom: 1px solid #ddd;
+    /* Clock styles - Adjusted for theme */
+    .clock {
+      border: 8px solid var(--text-day);
     }
 
-    body.night-mode .timezone-table td {
-      border-bottom: 1px solid #444;
+    body.night-mode .clock {
+      border-color: var(--text-night);
     }
 
-    .timezone-table tr:hover {
-      background-color: rgba(0,0,0,0.05);
-    }
-
-    body.night-mode .timezone-table tr:hover {
-      background-color: rgba(255,255,255,0.05);
-    }
-
-    .time-display {
-      font-family: monospace;
-      font-size: 1.1em;
-    }
-
-    .capital {
-      font-weight: bold;
-    }
-
-    /* Footer */
+    /* Keep your original footer styles */
     footer {
       background:#222;
       color:#ccc;
@@ -219,7 +179,7 @@
       margin-top: 40px;
       border-radius: 8px;
     }
-
+    
     footer a {
       color:#ccc;
       margin: 0 15px;
@@ -234,41 +194,207 @@
     /* Dark mode link colors */
     body.night-mode footer a {
       color: #aabbee;
-    }
+    }				
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-      }
-      
-      .filter-controls {
-        flex-direction: column;
-      }
-      
-      .timezone-table {
-        display: block;
-        overflow-x: auto;
-      }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .timezone-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .timezone-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .timezone-card:hover {
+            transform: translateY(-5px);
+        }
+        .timezone-header {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ddd;
+            text-align: center;
+        }
+        .clock-container {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        .clock {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 8px solid #2c3e50;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .hour-hand {
+            width: 6px;
+            height: 40px;
+            margin-left: -3px;
+            margin-top: -40px;
+            background-color: #2c3e50;
+            z-index: 3;
+        }
+        .minute-hand {
+            width: 4px;
+            height: 55px;
+            margin-left: -2px;
+            margin-top: -55px;
+            background-color: #2c3e50;
+            z-index: 4;
+        }
+        .second-hand {
+            width: 2px;
+            height: 60px;
+            margin-left: -1px;
+            margin-top: -60px;
+            background-color: #e74c3c;
+            z-index: 5;
+        }
+        .center-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            margin-left: -6px;
+            margin-top: -6px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            z-index: 6;
+        }
+        .clock-number {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        font-size: 12px;
+        font-weight: bold;
+	color: var(--text-day);
+        text-shadow: 0 0 2px rgba(255,255,255,0.3);
     }
-  </style>
+    
+    .clock-number span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: inline-block;
+    transform-origin: center center;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px; /* Half of width to center horizontally */
+    margin-top: -10px; /* Half of height to center vertically */
+    line-height: 20px; /* Center text vertically */
+}
+    
+    .hand {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: 50% 100%;
+        background-color: #333;
+    }
+        .current-time {
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 10px 0;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        .location {
+            margin-left: 15px;
+            margin-bottom: 5px;
+        }
+        .country {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .notes {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 10px;
+            padding-top: 5px;
+            border-top: 1px dashed #eee;
+        }
+        .search-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        #searchInput {
+            padding: 12px;
+            width: 80%;
+            max-width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .timezone-container {
+                grid-template-columns: 1fr;
+            }
+            .clock {
+                width: 100px;
+                height: 100px;
+                border-width: 6px;
+            }
+            .hour-hand {
+                width: 5px;
+                height: 30px;
+                margin-left: -2.5px;
+                margin-top: -30px;
+            }
+            .minute-hand {
+                width: 3px;
+                height: 45px;
+                margin-left: -1.5px;
+                margin-top: -45px;
+            }
+            .second-hand {
+                width: 1px;
+                height: 50px;
+                margin-left: -0.5px;
+                margin-top: -50px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
+<header>
     <div class="logo">
-    <a href="https://www.timetoday.online">
+      <a href="https://www.timetoday.online">
         <img src="timetodaysmall.png" alt="Time Today Logo" class="logo-image">
-    </a>
-    <span>Time Today</span>
+      </a>
+      <span>Time Today</span>
     </div>
     <nav>
       <a href="index.html">Home</a>
@@ -284,53 +410,1512 @@
       <i class="fas fa-moon"></i> Dark Mode
     </button>
   </header>
+     <div class="container">
+    <h1>World Time Zones with Analog Clocks - Current UTC Time: <span id="currentUTC"></span></h1>
+    
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search for a country or city...">
+    </div>
+    
+    <div class="timezone-container">
+        <!-- UTC-12 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-12 (Baker Island Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-utc-12">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-utc-12"></div>
+                        <div class="hand minute-hand" id="minute-utc-12"></div>
+                        <div class="hand second-hand" id="second-utc-12"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-utc-12"></div>
+            <div class="location"><span class="country">United States:</span> Baker Island, Howland Island</div>
+            <div class="notes">Last time zone before the International Date Line. Uninhabited.</div>
+        </div>
 
-  <!-- MAIN CONTENT -->
-  <div class="container">
-    <h1>World Time Zones</h1>
-    <p>Explore all time zones around the world. Filter by country, city, or time zone to find the current time anywhere.</p>
-    
-    <div class="filter-controls">
-      <select id="timezone-filter">
-        <option value="">All Time Zones</option>
-        <!-- Will be populated by JavaScript -->
-      </select>
-      
-      <select id="country-filter">
-        <option value="">All Countries</option>
-        <!-- Will be populated by JavaScript -->
-      </select>
-      
-      <input type="text" id="city-search" placeholder="Search by city..." />
-    </div>
-    
-    <div class="table-responsive">
-      <table class="timezone-table">
-        <thead>
-          <tr>
-            <th data-sort="timezone">Time Zone <i class="fas fa-sort"></i></th>
-            <th data-sort="country">Country <i class="fas fa-sort"></i></th>
-            <th data-sort="capital">Capital <i class="fas fa-sort"></i></th>
-            <th data-sort="cities">Major Cities <i class="fas fa-sort"></i></th>
-            <th data-sort="currentTime">Current Time <i class="fas fa-sort"></i></th>
-            <th data-sort="offset">UTC Offset <i class="fas fa-sort"></i></th>
-          </tr>
-        </thead>
-        <tbody id="timezone-data">
-          <!-- Will be populated by JavaScript -->
-        </tbody>
-      </table>
-    </div>
-    
-    <div class="mt-4">
-      <p><strong>Note:</strong> Times are automatically updated. DST (Daylight Saving Time) adjustments are included where applicable.</p>
-    </div>
-  </div>
+        <!-- UTC-11 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-11 (Samoa Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-pacific/pago_pago">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-pacific/pago_pago"></div>
+                        <div class="hand minute-hand" id="minute-pacific/pago_pago"></div>
+                        <div class="hand second-hand" id="second-pacific/pago_pago"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-pacific/pago_pago"></div>
+            <div class="location"><span class="country">American Samoa:</span> Pago Pago</div>
+            <div class="location"><span class="country">Niue:</span> Alofi</div>
+            <div class="location"><span class="country">United States Minor Outlying Islands:</span> Midway Atoll</div>
+            <div class="location"><span class="country">New Zealand:</span> Niue</div>
+            <div class="notes">American Samoa is the only permanently inhabited territory in this zone.</div>
+        </div>
 
-  <!-- FOOTER -->
-  <footer>
+        <!-- UTC-10 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-10 (Hawaii-Aleutian Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-pacific/honolulu">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-pacific/honolulu"></div>
+                        <div class="hand minute-hand" id="minute-pacific/honolulu"></div>
+                        <div class="hand second-hand" id="second-pacific/honolulu"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-pacific/honolulu"></div>
+            <div class="location"><span class="country">United States:</span> Hawaii (Honolulu)</div>
+            <div class="location"><span class="country">Cook Islands:</span> Avarua</div>
+            <div class="location"><span class="country">French Polynesia:</span> Tahiti (Papeete)</div>
+            <div class="location"><span class="country">United States Minor Outlying Islands:</span> Johnston Atoll</div>
+            <div class="location"><span class="country">New Zealand:</span> Tokelau</div>
+            <div class="notes">Hawaii does not observe Daylight Saving Time.</div>
+        </div>
+
+        <!-- UTC-9:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-9:30 (Marquesas Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-pacific/marquesas">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-pacific/marquesas"></div>
+                        <div class="hand minute-hand" id="minute-pacific/marquesas"></div>
+                        <div class="hand second-hand" id="second-pacific/marquesas"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-pacific/marquesas"></div>
+            <div class="location"><span class="country">French Polynesia:</span> Marquesas Islands (Taiohae)</div>
+            <div class="notes">One of the few half-hour offset time zones in the world.</div>
+        </div>
+
+        <!-- UTC-9 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-9 (Alaska Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/anchorage">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/anchorage"></div>
+                        <div class="hand minute-hand" id="minute-america/anchorage"></div>
+                        <div class="hand second-hand" id="second-america/anchorage"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/anchorage"></div>
+            <div class="location"><span class="country">United States:</span> Alaska (Anchorage, Juneau)</div>
+            <div class="location"><span class="country">French Polynesia:</span> Gambier Islands</div>
+            <div class="location"><span class="country">France:</span> Clipperton Island</div>
+            <div class="notes">Most of Alaska observes UTC-9, but some regions use UTC-8 (DST).</div>
+        </div>
+
+        <!-- UTC-8 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-8 (Pacific Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/los_angeles">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/los_angeles"></div>
+                        <div class="hand minute-hand" id="minute-america/los_angeles"></div>
+                        <div class="hand second-hand" id="second-america/los_angeles"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/los_angeles"></div>
+            <div class="location"><span class="country">United States:</span> California (Los Angeles), Washington (Seattle)</div>
+            <div class="location"><span class="country">Canada:</span> British Columbia (Vancouver)</div>
+            <div class="location"><span class="country">Mexico:</span> Baja California (Tijuana)</div>
+            <div class="location"><span class="country">Pitcairn Islands (UK):</span> Adamstown</div>
+            <div class="notes">Observes Daylight Saving Time in most regions.</div>
+        </div>
+
+        <!-- UTC-7 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-7 (Mountain Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/denver">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/denver"></div>
+                        <div class="hand minute-hand" id="minute-america/denver"></div>
+                        <div class="hand second-hand" id="second-america/denver"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/denver"></div>
+            <div class="location"><span class="country">United States:</span> Arizona (Phoenix), Colorado (Denver)</div>
+            <div class="location"><span class="country">Canada:</span> Alberta (Calgary), Northwest Territories</div>
+            <div class="location"><span class="country">Mexico:</span> Sonora (Hermosillo)</div>
+            <div class="notes">Arizona (except Navajo Nation) does not observe DST.</div>
+        </div>
+
+        <!-- UTC-6 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-6 (Central Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/chicago">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/chicago"></div>
+                        <div class="hand minute-hand" id="minute-america/chicago"></div>
+                        <div class="hand second-hand" id="second-america/chicago"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/chicago"></div>
+            <div class="location"><span class="country">United States:</span> Illinois (Chicago), Texas (Dallas)</div>
+            <div class="location"><span class="country">Canada:</span> Manitoba (Winnipeg), Saskatchewan</div>
+            <div class="location"><span class="country">Mexico:</span> Mexico City, Monterrey</div>
+            <div class="location"><span class="country">Belize:</span> Belmopan</div>
+            <div class="location"><span class="country">Costa Rica:</span> San José</div>
+            <div class="location"><span class="country">El Salvador:</span> San Salvador</div>
+            <div class="location"><span class="country">Guatemala:</span> Guatemala City</div>
+            <div class="location"><span class="country">Honduras:</span> Tegucigalpa</div>
+            <div class="location"><span class="country">Nicaragua:</span> Managua</div>
+            <div class="location"><span class="country">Ecuador:</span> Galápagos Islands</div>
+            <div class="notes">Most regions observe DST except parts of Mexico and Central America.</div>
+        </div>
+
+        <!-- UTC-5 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-5 (Eastern Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/new_york">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/new_york"></div>
+                        <div class="hand minute-hand" id="minute-america/new_york"></div>
+                        <div class="hand second-hand" id="second-america/new_york"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/new_york"></div>
+            <div class="location"><span class="country">United States:</span> New York, Miami, Washington D.C.</div>
+            <div class="location"><span class="country">Canada:</span> Ontario (Toronto), Quebec (Montreal)</div>
+            <div class="location"><span class="country">Mexico:</span> Quintana Roo (Cancún)</div>
+            <div class="location"><span class="country">Bahamas:</span> Nassau</div>
+            <div class="location"><span class="country">Cuba:</span> Havana</div>
+            <div class="location"><span class="country">Haiti:</span> Port-au-Prince</div>
+            <div class="location"><span class="country">Jamaica:</span> Kingston</div>
+            <div class="location"><span class="country">Panama:</span> Panama City</div>
+            <div class="location"><span class="country">Colombia:</span> Bogotá</div>
+            <div class="location"><span class="country">Peru:</span> Lima</div>
+            <div class="location"><span class="country">Ecuador:</span> Quito</div>
+            <div class="notes">Major financial markets (e.g., NYSE) operate in this zone.</div>
+        </div>
+
+        <!-- UTC-4:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-4:30 (Venezuela Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/caracas">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/caracas"></div>
+                        <div class="hand minute-hand" id="minute-america/caracas"></div>
+                        <div class="hand second-hand" id="second-america/caracas"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/caracas"></div>
+            <div class="location"><span class="country">Venezuela:</span> Caracas</div>
+            <div class="notes">One of the few countries with a half-hour offset.</div>
+        </div>
+
+        <!-- UTC-4 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-4 (Atlantic Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/halifax">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/halifax"></div>
+                        <div class="hand minute-hand" id="minute-america/halifax"></div>
+                        <div class="hand second-hand" id="second-america/halifax"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/halifax"></div>
+            <div class="location"><span class="country">Canada:</span> Nova Scotia (Halifax), New Brunswick</div>
+            <div class="location"><span class="country">United States:</span> Puerto Rico (San Juan), Virgin Islands</div>
+            <div class="location"><span class="country">Dominican Republic:</span> Santo Domingo</div>
+            <div class="location"><span class="country">Barbados:</span> Bridgetown</div>
+            <div class="location"><span class="country">Bolivia:</span> La Paz</div>
+            <div class="location"><span class="country">Brazil:</span> Amazonas (Manaus), Roraima</div>
+            <div class="location"><span class="country">Chile:</span> Santiago (Mainland)</div>
+            <div class="location"><span class="country">Paraguay:</span> Asunción</div>
+            <div class="location"><span class="country">Trinidad and Tobago:</span> Port of Spain</div>
+            <div class="location"><span class="country">Guyana:</span> Georgetown</div>
+            <div class="location"><span class="country">Antigua and Barbuda:</span> St. John's</div>
+            <div class="location"><span class="country">Anguilla (UK):</span> The Valley</div>
+            <div class="location"><span class="country">Aruba (Netherlands):</span> Oranjestad</div>
+            <div class="location"><span class="country">Bermuda (UK):</span> Hamilton</div>
+            <div class="location"><span class="country">Bonaire (Netherlands):</span> Kralendijk</div>
+            <div class="location"><span class="country">British Virgin Islands (UK):</span> Road Town</div>
+            <div class="location"><span class="country">Curaçao (Netherlands):</span> Willemstad</div>
+            <div class="location"><span class="country">Dominica:</span> Roseau</div>
+            <div class="location"><span class="country">Grenada:</span> St. George's</div>
+            <div class="location"><span class="country">Guadeloupe (France):</span> Basse-Terre</div>
+            <div class="location"><span class="country">Martinique (France):</span> Fort-de-France</div>
+            <div class="location"><span class="country">Montserrat (UK):</span> Plymouth</div>
+            <div class="location"><span class="country">Saint Kitts and Nevis:</span> Basseterre</div>
+            <div class="location"><span class="country">Saint Lucia:</span> Castries</div>
+            <div class="location"><span class="country">Saint Vincent and the Grenadines:</span> Kingstown</div>
+            <div class="location"><span class="country">Sint Maarten (Netherlands):</span> Philipsburg</div>
+            <div class="location"><span class="country">Turks and Caicos Islands (UK):</span> Cockburn Town</div>
+            <div class="notes">Observes DST in Chile, Paraguay, and parts of Canada.</div>
+        </div>
+
+        <!-- UTC-3:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-3:30 (Newfoundland Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/st_johns">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/st_johns"></div>
+                        <div class="hand minute-hand" id="minute-america/st_johns"></div>
+                        <div class="hand second-hand" id="second-america/st_johns"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/st_johns"></div>
+            <div class="location"><span class="country">Canada:</span> Newfoundland and Labrador (St. John's)</div>
+            <div class="notes">Unique half-hour time zone in North America.</div>
+        </div>
+
+        <!-- UTC-3 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-3 (Brasília Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/argentina/buenos_aires">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/argentina/buenos_aires"></div>
+                        <div class="hand minute-hand" id="minute-america/argentina/buenos_aires"></div>
+                        <div class="hand second-hand" id="second-america/argentina/buenos_aires"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/argentina/buenos_aires"></div>
+            <div class="location"><span class="country">Argentina:</span> Buenos Aires</div>
+            <div class="location"><span class="country">Brazil:</span> Rio de Janeiro, São Paulo, Brasília</div>
+            <div class="location"><span class="country">Chile:</span> Punta Arenas</div>
+            <div class="location"><span class="country">Falkland Islands (UK):</span> Stanley</div>
+            <div class="location"><span class="country">French Guiana (France):</span> Cayenne</div>
+            <div class="location"><span class="country">Greenland (Denmark):</span> Nuuk (most areas)</div>
+            <div class="location"><span class="country">Suriname:</span> Paramaribo</div>
+            <div class="location"><span class="country">Uruguay:</span> Montevideo</div>
+            <div class="notes">Major economic hub for South America.</div>
+        </div>
+
+        <!-- UTC-2 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-2 (Fernando de Noronha Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-america/noronha">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-america/noronha"></div>
+                        <div class="hand minute-hand" id="minute-america/noronha"></div>
+                        <div class="hand second-hand" id="second-america/noronha"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-america/noronha"></div>
+            <div class="location"><span class="country">Brazil:</span> Fernando de Noronha</div>
+            <div class="location"><span class="country">South Georgia and South Sandwich Islands (UK):</span> Grytviken</div>
+            <div class="notes">Few inhabited regions use this time zone.</div>
+        </div>
+
+        <!-- UTC-1 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC-1 (Cape Verde Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-atlantic/cape_verde">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-atlantic/cape_verde"></div>
+                        <div class="hand minute-hand" id="minute-atlantic/cape_verde"></div>
+                        <div class="hand second-hand" id="second-atlantic/cape_verde"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-atlantic/cape_verde"></div>
+            <div class="location"><span class="country">Cape Verde:</span> Praia</div>
+            <div class="location"><span class="country">Portugal:</span> Azores (Ponta Delgada)</div>
+            <div class="location"><span class="country">Greenland (Denmark):</span> Ittoqqortoormiit</div>
+            <div class="notes">Azores observes DST (UTC+0 in summer).</div>
+        </div>
+
+        <!-- UTC±0 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC±0 (GMT/WET)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-europe/london">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-europe/london"></div>
+                        <div class="hand minute-hand" id="minute-europe/london"></div>
+                        <div class="hand second-hand" id="second-europe/london"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-europe/london"></div>
+            <div class="location"><span class="country">United Kingdom:</span> London</div>
+            <div class="location"><span class="country">Iceland:</span> Reykjavík</div>
+            <div class="location"><span class="country">Portugal:</span> Lisbon, Madeira</div>
+            <div class="location"><span class="country">Ireland:</span> Dublin</div>
+            <div class="location"><span class="country">Faroe Islands (Denmark):</span> Tórshavn</div>
+            <div class="location"><span class="country">Ghana:</span> Accra</div>
+            <div class="location"><span class="country">Senegal:</span> Dakar</div>
+            <div class="location"><span class="country">Mali:</span> Bamako</div>
+            <div class="location"><span class="country">Burkina Faso:</span> Ouagadougou</div>
+            <div class="location"><span class="country">Guinea:</span> Conakry</div>
+            <div class="location"><span class="country">Guinea-Bissau:</span> Bissau</div>
+            <div class="location"><span class="country">Liberia:</span> Monrovia</div>
+            <div class="location"><span class="country">Mauritania:</span> Nouakchott</div>
+            <div class="location"><span class="country">Saint Helena, Ascension and Tristan da Cunha (UK):</span> Jamestown</div>
+            <div class="location"><span class="country">Sierra Leone:</span> Freetown</div>
+            <div class="location"><span class="country">Togo:</span> Lomé</div>
+            <div class="location"><span class="country">Greenland (Denmark):</span> Danmarkshavn</div>
+            <div class="notes">Greenwich Mean Time (GMT) is the basis for UTC.</div>
+        </div>
+
+        <!-- UTC+1 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+1 (CET)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-europe/paris">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-europe/paris"></div>
+                        <div class="hand minute-hand" id="minute-europe/paris"></div>
+                        <div class="hand second-hand" id="second-europe/paris"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-europe/paris"></div>
+            <div class="location"><span class="country">Albania:</span> Tirana</div>
+            <div class="location"><span class="country">Algeria:</span> Algiers</div>
+            <div class="location"><span class="country">Andorra:</span> Andorra la Vella</div>
+            <div class="location"><span class="country">Austria:</span> Vienna</div>
+            <div class="location"><span class="country">Belgium:</span> Brussels</div>
+            <div class="location"><span class="country">Benin:</span> Porto-Novo</div>
+            <div class="location"><span class="country">Bosnia and Herzegovina:</span> Sarajevo</div>
+            <div class="location"><span class="country">Cameroon:</span> Yaoundé</div>
+            <div class="location"><span class="country">Central African Republic:</span> Bangui</div>
+            <div class="location"><span class="country">Chad:</span> N'Djamena</div>
+            <div class="location"><span class="country">Congo:</span> Brazzaville</div>
+            <div class="location"><span class="country">Croatia:</span> Zagreb</div>
+            <div class="location"><span class="country">Czech Republic:</span> Prague</div>
+            <div class="location"><span class="country">Denmark:</span> Copenhagen</div>
+            <div class="location"><span class="country">Equatorial Guinea:</span> Malabo</div>
+            <div class="location"><span class="country">France:</span> Paris</div>
+            <div class="location"><span class="country">Gabon:</span> Libreville</div>
+            <div class="location"><span class="country">Germany:</span> Berlin</div>
+            <div class="location"><span class="country">Hungary:</span> Budapest</div>
+            <div class="location"><span class="country">Italy:</span> Rome</div>
+            <div class="location"><span class="country">Kosovo:</span> Pristina</div>
+            <div class="location"><span class="country">Liechtenstein:</span> Vaduz</div>
+            <div class="location"><span class="country">Luxembourg:</span> Luxembourg</div>
+            <div class="location"><span class="country">Malta:</span> Valletta</div>
+            <div class="location"><span class="country">Monaco:</span> Monaco</div>
+            <div class="location"><span class="country">Montenegro:</span> Podgorica</div>
+            <div class="location"><span class="country">Morocco:</span> Rabat</div>
+            <div class="location"><span class="country">Netherlands:</span> Amsterdam</div>
+            <div class="location"><span class="country">Niger:</span> Niamey</div>
+            <div class="location"><span class="country">Nigeria:</span> Lagos</div>
+            <div class="location"><span class="country">North Macedonia:</span> Skopje</div>
+            <div class="location"><span class="country">Norway:</span> Oslo</div>
+            <div class="location"><span class="country">Poland:</span> Warsaw</div>
+            <div class="location"><span class="country">San Marino:</span> San Marino</div>
+            <div class="location"><span class="country">Serbia:</span> Belgrade</div>
+            <div class="location"><span class="country">Slovakia:</span> Bratislava</div>
+            <div class="location"><span class="country">Slovenia:</span> Ljubljana</div>
+            <div class="location"><span class="country">Spain:</span> Madrid (Mainland)</div>
+            <div class="location"><span class="country">Sweden:</span> Stockholm</div>
+            <div class="location"><span class="country">Switzerland:</span> Bern</div>
+            <div class="location"><span class="country">Tunisia:</span> Tunis</div>
+            <div class="location"><span class="country">Vatican City:</span> Vatican City</div>
+            <div class="location"><span class="country">Western Sahara:</span> El Aaiún</div>
+            <div class="notes">Most of Western/Central Europe observes DST (UTC+2 in summer).</div>
+        </div>
+
+        <!-- UTC+2 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+2 (EET)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-europe/athens">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-europe/athens"></div>
+                        <div class="hand minute-hand" id="minute-europe/athens"></div>
+                        <div class="hand second-hand" id="second-europe/athens"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-europe/athens"></div>
+            <div class="location"><span class="country">Bulgaria:</span> Sofia</div>
+            <div class="location"><span class="country">Cyprus:</span> Nicosia</div>
+            <div class="location"><span class="country">Egypt:</span> Cairo</div>
+            <div class="location"><span class="country">Estonia:</span> Tallinn</div>
+            <div class="location"><span class="country">Finland:</span> Helsinki</div>
+            <div class="location"><span class="country">Greece:</span> Athens</div>
+            <div class="location"><span class="country">Israel:</span> Jerusalem</div>
+            <div class="location"><span class="country">Jordan:</span> Amman</div>
+            <div class="location"><span class="country">Latvia:</span> Riga</div>
+            <div class="location"><span class="country">Lebanon:</span> Beirut</div>
+            <div class="location"><span class="country">Libya:</span> Tripoli</div>
+            <div class="location"><span class="country">Lithuania:</span> Vilnius</div>
+            <div class="location"><span class="country">Moldova:</span> Chișinău</div>
+            <div class="location"><span class="country">Palestine:</span> Ramallah</div>
+            <div class="location"><span class="country">Romania:</span> Bucharest</div>
+            <div class="location"><span class="country">Russia:</span> Kaliningrad</div>
+            <div class="location"><span class="country">South Sudan:</span> Juba</div>
+            <div class="location"><span class="country">Sudan:</span> Khartoum</div>
+            <div class="location"><span class="country">Syria:</span> Damascus</div>
+            <div class="location"><span class="country">Ukraine:</span> Kyiv</div>
+            <div class="location"><span class="country">Botswana:</span> Gaborone</div>
+            <div class="location"><span class="country">Burundi:</span> Bujumbura</div>
+            <div class="location"><span class="country">Democratic Republic of the Congo:</span> Lubumbashi</div>
+            <div class="location"><span class="country">Eswatini:</span> Mbabane</div>
+            <div class="location"><span class="country">Lesotho:</span> Maseru</div>
+            <div class="location"><span class="country">Malawi:</span> Lilongwe</div>
+            <div class="location"><span class="country">Mozambique:</span> Maputo</div>
+            <div class="location"><span class="country">Namibia:</span> Windhoek</div>
+            <div class="location"><span class="country">Rwanda:</span> Kigali</div>
+            <div class="location"><span class="country">South Africa:</span> Johannesburg</div>
+            <div class="location"><span class="country">Zambia:</span> Lusaka</div>
+            <div class="location"><span class="country">Zimbabwe:</span> Harare</div>
+            <div class="notes">Egypt and Libya sometimes cancel DST.</div>
+        </div>
+
+        <!-- UTC+3 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+3 (Arabia Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-europe/moscow">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-europe/moscow"></div>
+                        <div class="hand minute-hand" id="minute-europe/moscow"></div>
+                        <div class="hand second-hand" id="second-europe/moscow"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-europe/moscow"></div>
+            <div class="location"><span class="country">Bahrain:</span> Manama</div>
+            <div class="location"><span class="country">Belarus:</span> Minsk</div>
+            <div class="location"><span class="country">Comoros:</span> Moroni</div>
+            <div class="location"><span class="country">Djibouti:</span> Djibouti</div>
+            <div class="location"><span class="country">Eritrea:</span> Asmara</div>
+            <div class="location"><span class="country">Ethiopia:</span> Addis Ababa</div>
+            <div class="location"><span class="country">Iraq:</span> Baghdad</div>
+            <div class="location"><span class="country">Kenya:</span> Nairobi</div>
+            <div class="location"><span class="country">Kuwait:</span> Kuwait City</div>
+            <div class="location"><span class="country">Madagascar:</span> Antananarivo</div>
+            <div class="location"><span class="country">Mayotte (France):</span> Mamoudzou</div>
+            <div class="location"><span class="country">Qatar:</span> Doha</div>
+            <div class="location"><span class="country">Russia:</span> Moscow, St. Petersburg</div>
+            <div class="location"><span class="country">Saudi Arabia:</span> Riyadh</div>
+            <div class="location"><span class="country">Somalia:</span> Mogadishu</div>
+            <div class="location"><span class="country">Tanzania:</span> Dar es Salaam</div>
+            <div class="location"><span class="country">Turkey:</span> Istanbul</div>
+            <div class="location"><span class="country">Uganda:</span> Kampala</div>
+            <div class="location"><span class="country">Yemen:</span> Sana'a</div>
+            <div class="location"><span class="country">Réunion (France):</span> Saint-Denis</div>
+            <div class="location"><span class="country">Seychelles:</span> Victoria</div>
+            <div class="notes">Moscow Time is used across western Russia.</div>
+        </div>
+
+        <!-- UTC+3:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+3:30 (Iran Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/tehran">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/tehran"></div>
+                        <div class="hand minute-hand" id="minute-asia/tehran"></div>
+                        <div class="hand second-hand" id="second-asia/tehran"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/tehran"></div>
+            <div class="location"><span class="country">Iran:</span> Tehran</div>
+            <div class="notes">Observes DST (UTC+4:30 in summer).</div>
+        </div>
+
+        <!-- UTC+4 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+4 (Gulf Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/dubai">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/dubai"></div>
+                        <div class="hand minute-hand" id="minute-asia/dubai"></div>
+                        <div class="hand second-hand" id="second-asia/dubai"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/dubai"></div>
+            <div class="location"><span class="country">Armenia:</span> Yerevan</div>
+            <div class="location"><span class="country">Azerbaijan:</span> Baku</div>
+            <div class="location"><span class="country">Georgia:</span> Tbilisi</div>
+            <div class="location"><span class="country">Mauritius:</span> Port Louis</div>
+            <div class="location"><span class="country">Oman:</span> Muscat</div>
+            <div class="location"><span class="country">Russia:</span> Samara, Ulyanovsk</div>
+            <div class="location"><span class="country">United Arab Emirates:</span> Dubai, Abu Dhabi</div>
+            <div class="location"><span class="country">French Southern and Antarctic Lands:</span> Port-aux-Français</div>
+            <div class="location"><span class="country">British Indian Ocean Territory (UK):</span> Diego Garcia</div>
+            <div class="notes">United Arab Emirates does not observe DST.</div>
+        </div>
+
+        <!-- UTC+4:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+4:30 (Afghanistan Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/kabul">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/kabul"></div>
+                        <div class="hand minute-hand" id="minute-asia/kabul"></div>
+                        <div class="hand second-hand" id="second-asia/kabul"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/kabul"></div>
+            <div class="location"><span class="country">Afghanistan:</span> Kabul</div>
+            <div class="notes">One of three global time zones with a +4:30 offset.</div>
+        </div>
+
+        <!-- UTC+5 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+5 (Pakistan Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/karachi">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/karachi"></div>
+                        <div class="hand minute-hand" id="minute-asia/karachi"></div>
+                        <div class="hand second-hand" id="second-asia/karachi"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/karachi"></div>
+            <div class="location"><span class="country">Pakistan:</span> Islamabad, Karachi</div>
+            <div class="location"><span class="country">Kazakhstan:</span> Aktobe, Atyrau</div>
+            <div class="location"><span class="country">Maldives:</span> Malé</div>
+            <div class="location"><span class="country">Tajikistan:</span> Dushanbe</div>
+            <div class="location"><span class="country">Turkmenistan:</span> Ashgabat</div>
+            <div class="location"><span class="country">Uzbekistan:</span> Tashkent, Samarkand</div>
+            <div class="location"><span class="country">Russia:</span> Yekaterinburg</div>
+            <div class="location"><span class="country">French Southern and Antarctic Lands:</span> Amsterdam Island</div>
+            <div class="notes">Western China unofficially follows this zone despite spanning multiple longitudes.</div>
+        </div>
+
+        <!-- UTC+5:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+5:30 (India Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/kolkata">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/kolkata"></div>
+                        <div class="hand minute-hand" id="minute-asia/kolkata"></div>
+                        <div class="hand second-hand" id="second-asia/kolkata"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/kolkata"></div>
+            <div class="location"><span class="country">India:</span> New Delhi, Mumbai, Kolkata</div>
+            <div class="location"><span class="country">Sri Lanka:</span> Colombo</div>
+            <div class="notes">India uses a single time zone nationwide.</div>
+        </div>
+
+        <!-- UTC+5:45 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+5:45 (Nepal Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/katmandu">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/katmandu"></div>
+                        <div class="hand minute-hand" id="minute-asia/katmandu"></div>
+                        <div class="hand second-hand" id="second-asia/katmandu"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/katmandu"></div>
+            <div class="location"><span class="country">Nepal:</span> Kathmandu</div>
+            <div class="notes">Only Nepal uses this unique offset.</div>
+        </div>
+
+        <!-- UTC+6 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+6 (Bangladesh Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/dhaka">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/dhaka"></div>
+                        <div class="hand minute-hand" id="minute-asia/dhaka"></div>
+                        <div class="hand second-hand" id="second-asia/dhaka"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/dhaka"></div>
+            <div class="location"><span class="country">Bangladesh:</span> Dhaka</div>
+            <div class="location"><span class="country">Bhutan:</span> Thimphu</div>
+            <div class="location"><span class="country">Kazakhstan:</span> Almaty, Nur-Sultan</div>
+            <div class="location"><span class="country">Kyrgyzstan:</span> Bishkek</div>
+            <div class="location"><span class="country">Russia:</span> Omsk</div>
+            <div class="location"><span class="country">British Indian Ocean Territory (UK):</span> Chagos Archipelago</div>
+            <div class="notes">Bangladesh observes DST during certain years.</div>
+        </div>
+
+        <!-- UTC+6:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+6:30 (Myanmar Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/yangon">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/yangon"></div>
+                        <div class="hand minute-hand" id="minute-asia/yangon"></div>
+                        <div class="hand second-hand" id="second-asia/yangon"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/yangon"></div>
+            <div class="location"><span class="country">Myanmar:</span> Yangon, Naypyidaw</div>
+            <div class="location"><span class="country">Cocos (Keeling) Islands (Australia):</span> West Island</div>
+            <div class="notes">One of two time zones with a +6:30 offset.</div>
+        </div>
+
+        <!-- UTC+7 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+7 (Indochina Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/bangkok">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/bangkok"></div>
+                        <div class="hand minute-hand" id="minute-asia/bangkok"></div>
+                        <div class="hand second-hand" id="second-asia/bangkok"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/bangkok"></div>
+            <div class="location"><span class="country">Cambodia:</span> Phnom Penh</div>
+            <div class="location"><span class="country">Indonesia:</span> Jakarta, Bali</div>
+            <div class="location"><span class="country">Laos:</span> Vientiane</div>
+            <div class="location"><span class="country">Mongolia:</span> Ulaanbaatar (most areas)</div>
+            <div class="location"><span class="country">Russia:</span> Krasnoyarsk, Novosibirsk</div>
+            <div class="location"><span class="country">Thailand:</span> Bangkok</div>
+            <div class="location"><span class="country">Vietnam:</span> Hanoi</div>
+            <div class="location"><span class="country">Christmas Island (Australia):</span> Flying Fish Cove</div>
+            <div class="notes">Thailand and Vietnam do not observe DST.</div>
+        </div>
+
+        <!-- UTC+8 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+8 (China Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/shanghai">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/shanghai"></div>
+                        <div class="hand minute-hand" id="minute-asia/shanghai"></div>
+                        <div class="hand second-hand" id="second-asia/shanghai"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/shanghai"></div>
+            <div class="location"><span class="country">Australia:</span> Western Australia (Perth)</div>
+            <div class="location"><span class="country">Brunei:</span> Bandar Seri Begawan</div>
+            <div class="location"><span class="country">China:</span> Beijing, Shanghai, Hong Kong</div>
+            <div class="location"><span class="country">Indonesia:</span> Makassar</div>
+            <div class="location"><span class="country">Malaysia:</span> Kuala Lumpur</div>
+            <div class="location"><span class="country">Mongolia:</span> Ulaanbaatar (western areas)</div>
+            <div class="location"><span class="country">Philippines:</span> Manila</div>
+            <div class="location"><span class="country">Russia:</span> Irkutsk</div>
+            <div class="location"><span class="country">Singapore:</span> Singapore</div>
+            <div class="location"><span class="country">Taiwan:</span> Taipei</div>
+            <div class="location"><span class="country">Macau (China):</span> Macau</div>
+            <div class="notes">China uses a single time zone despite its width.</div>
+        </div>
+
+        <!-- UTC+8:45 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+8:45 (Central Western Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-australia/eucla">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-australia/eucla"></div>
+                        <div class="hand minute-hand" id="minute-australia/eucla"></div>
+                        <div class="hand second-hand" id="second-australia/eucla"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-australia/eucla"></div>
+            <div class="location"><span class="country">Australia:</span> Border towns in WA/SA (Eucla, Caiguna)</div>
+            <div class="notes">Unofficial "Central Western Time" in Australia.</div>
+        </div>
+
+        <!-- UTC+9 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+9 (Japan Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-asia/tokyo">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-asia/tokyo"></div>
+                        <div class="hand minute-hand" id="minute-asia/tokyo"></div>
+                        <div class="hand second-hand" id="second-asia/tokyo"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-asia/tokyo"></div>
+            <div class="location"><span class="country">Japan:</span> Tokyo, Osaka</div>
+            <div class="location"><span class="country">North Korea:</span> Pyongyang</div>
+            <div class="location"><span class="country">South Korea:</span> Seoul</div>
+            <div class="location"><span class="country">Indonesia:</span> Jayapura</div>
+            <div class="location"><span class="country">Russia:</span> Yakutsk</div>
+            <div class="location"><span class="country">East Timor:</span> Dili</div>
+            <div class="location"><span class="country">Palau:</span> Ngerulmud</div>
+            <div class="notes">North Korea briefly used UTC+8:30 (2015–2018).</div>
+        </div>
+
+        <!-- UTC+9:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+9:30 (Australian Central Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-australia/adelaide">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-australia/adelaide"></div>
+                        <div class="hand minute-hand" id="minute-australia/adelaide"></div>
+                        <div class="hand second-hand" id="second-australia/adelaide"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-australia/adelaide"></div>
+            <div class="location"><span class="country">Australia:</span> South Australia (Adelaide), Northern Territory (Darwin)</div>
+            <div class="notes">Observes DST in some regions (UTC+10:30).</div>
+        </div>
+
+        <!-- UTC+10 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+10 (Australian Eastern Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-australia/sydney">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-australia/sydney"></div>
+                        <div class="hand minute-hand" id="minute-australia/sydney"></div>
+                        <div class="hand second-hand" id="second-australia/sydney"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-australia/sydney"></div>
+            <div class="location"><span class="country">Australia:</span> New South Wales (Sydney), Victoria (Melbourne), Queensland (Brisbane)</div>
+            <div class="location"><span class="country">Guam (USA):</span> Hagåtña</div>
+            <div class="location"><span class="country">Northern Mariana Islands (USA):</span> Saipan</div>
+            <div class="location"><span class="country">Papua New Guinea:</span> Port Moresby</div>
+            <div class="location"><span class="country">Russia:</span> Vladivostok</div>
+            <div class="location"><span class="country">Federated States of Micronesia:</span> Chuuk</div>
+            <div class="notes">Eastern Australia observes DST (UTC+11 in summer).</div>
+        </div>
+
+        <!-- UTC+10:30 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+10:30 (Lord Howe Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-australia/lord_howe">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-australia/lord_howe"></div>
+                        <div class="hand minute-hand" id="minute-australia/lord_howe"></div>
+                        <div class="hand second-hand" id="second-australia/lord_howe"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-australia/lord_howe"></div>
+            <div class="location"><span class="country">Australia:</span> Lord Howe Island</div>
+            <div class="notes">Only 30-minute DST shift (from UTC+10:00).</div>
+        </div>
+
+        <!-- UTC+11 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+11 (Solomon Islands Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-pacific/guadalcanal">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-pacific/guadalcanal"></div>
+                        <div class="hand minute-hand" id="minute-pacific/guadalcanal"></div>
+                        <div class="hand second-hand" id="second-pacific/guadalcanal"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-pacific/guadalcanal"></div>
+            <div class="location"><span class="country">Australia:</span> Norfolk Island</div>
+            <div class="location"><span class="country">Federated States of Micronesia:</span> Kosrae, Pohnpei</div>
+            <div class="location"><span class="country">New Caledonia (France):</span> Nouméa</div>
+            <div class="location"><span class="country">Russia:</span> Magadan</div>
+            <div class="location"><span class="country">Solomon Islands:</span> Honiara</div>
+            <div class="location"><span class="country">Vanuatu:</span> Port Vila</div>
+            <div class="notes">Norfolk Island (Australia) also uses this zone.</div>
+        </div>
+
+        <!-- UTC+12 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+12 (New Zealand Standard Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-pacific/auckland">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-pacific/auckland"></div>
+                        <div class="hand minute-hand" id="minute-pacific/auckland"></div>
+                        <div class="hand second-hand" id="second-pacific/auckland"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-pacific/auckland"></div>
+            <div class="location"><span class="country">New Zealand:</span> Auckland, Wellington</div>
+            <div class="location"><span class="country">Fiji:</span> Suva</div>
+            <div class="location"><span class="country">Kiribati:</span> Tarawa (Gilbert Islands)</div>
+            <div class="location"><span class="country">Russia:</span> Petropavlovsk-Kamchatsky</div>
+            <div class="location"><span class="country">Tuvalu:</span> Funafuti</div>
+            <div class="location"><span class="country">Wallis and Futuna (France):</span> Mata-Utu</div>
+            <div class="location"><span class="country">Nauru:</span> Yaren</div>
+            <div class="location"><span class="country">Marshall Islands:</span> Majuro</div>
+            <div class="location"><span class="country">Wake Island (USA):</span> Wake Island</div>
+            <div class="notes">First time zone to greet a new calendar day.</div>
+        </div>
+
+        <!-- UTC+12:45 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+12:45 (Chatham Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-pacific/chatham">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-pacific/chatham"></div>
+                        <div class="hand minute-hand" id="minute-pacific/chatham"></div>
+                        <div class="hand second-hand" id="second-pacific/chatham"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-pacific/chatham"></div>
+            <div class="location"><span class="country">New Zealand:</span> Chatham Islands (Waitangi)</div>
+            <div class="notes">Only inhabited time zone with a +12:45 offset.</div>
+        </div>
+
+        <!-- UTC+13 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+13 (Tonga Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-pacific/tongatapu">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-pacific/tongatapu"></div>
+                        <div class="hand minute-hand" id="minute-pacific/tongatapu"></div>
+                        <div class="hand second-hand" id="second-pacific/tongatapu"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-pacific/tongatapu"></div>
+            <div class="location"><span class="country">Kiribati:</span> Kanton (Phoenix Islands)</div>
+            <div class="location"><span class="country">Samoa:</span> Apia</div>
+            <div class="location"><span class="country">Tonga:</span> Nukuʻalofa</div>
+            <div class="location"><span class="country">Tokelau (New Zealand):</span> Fakaofo</div>
+            <div class="location"><span class="country">Fiji:</span> During DST</div>
+            <div class="notes">Samoa skipped a day in 2011 to align with Australia/NZ.</div>
+        </div>
+
+        <!-- UTC+14 -->
+        <div class="timezone-card">
+            <div class="timezone-header">UTC+14 (Line Islands Time)</div>
+            <div class="clock-container">
+                <div class="clock" id="clock-pacific/kiritimati">
+                    <div class="clock-face">
+                        <div class="clock-number">
+    <span style="transform: rotate(0deg) translate(0, -45px) rotate(0deg);">12</span>
+    <span style="transform: rotate(30deg) translate(0, -45px) rotate(-30deg);">1</span>
+    <span style="transform: rotate(60deg) translate(0, -45px) rotate(-60deg);">2</span>
+    <span style="transform: rotate(90deg) translate(0, -45px) rotate(-90deg);">3</span>
+    <span style="transform: rotate(120deg) translate(0, -45px) rotate(-120deg);">4</span>
+    <span style="transform: rotate(150deg) translate(0, -45px) rotate(-150deg);">5</span>
+    <span style="transform: rotate(180deg) translate(0, -45px) rotate(-180deg);">6</span>
+    <span style="transform: rotate(210deg) translate(0, -45px) rotate(-210deg);">7</span>
+    <span style="transform: rotate(240deg) translate(0, -45px) rotate(-240deg);">8</span>
+    <span style="transform: rotate(270deg) translate(0, -45px) rotate(-270deg);">9</span>
+    <span style="transform: rotate(300deg) translate(0, -45px) rotate(-300deg);">10</span>
+    <span style="transform: rotate(330deg) translate(0, -45px) rotate(-330deg);">11</span>
+</div>
+                        <div class="hand hour-hand" id="hour-pacific/kiritimati"></div>
+                        <div class="hand minute-hand" id="minute-pacific/kiritimati"></div>
+                        <div class="hand second-hand" id="second-pacific/kiritimati"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-time" id="time-pacific/kiritimati"></div>
+            <div class="location"><span class="country">Kiribati:</span> Kiritimati (Line Islands)</div>
+            <div class="location"><span class="country">Samoa:</span> During DST</div>
+            <div class="location"><span class="country">Tonga:</span> During DST</div>
+            <div class="notes">First time zone to experience New Year's Day.</div>
+        </div>
+    </div>
+    <footer>
     <p>
-      <a href="index.html" style="color:#ccc; margin: 0 15px;">Home</a> |
+    <a href="index.html" style="color:#ccc; margin: 0 15px;">Home</a> |
     <a href="aroundtheworld.html" style="color:#ccc; margin: 0 15px;">Around the World</a> |
     <a href="stopwatch.html" style="color:#ccc; margin: 0 15px;">Stopwatch</a> |
     <a href="worldholidaycalendar.html" style="color:#ccc; margin: 0 15px;">World Holiday Calendar</a> |
@@ -379,279 +1964,211 @@
     window.addEventListener('DOMContentLoaded', loadMode);
   </script>
 
-  <!-- TIME ZONE DATA SCRIPT -->
-  <script>
-  // Sample time zone data (in a real app, this would be more comprehensive)
-  const timeZones = [
-    {
-      timezone: "Pacific/Honolulu",
-      country: "United States",
-      capital: "Honolulu",
-      cities: ["Honolulu", "Hilo", "Kailua"],
-      offset: "-10:00",
-      dst: false
-    },
-    {
-      timezone: "America/New_York",
-      country: "United States",
-      capital: "Washington, D.C.",
-      cities: ["New York", "Miami", "Atlanta", "Boston"],
-      offset: "-05:00",
-      dst: true
-    },
-    {
-      timezone: "America/Chicago",
-      country: "United States",
-      capital: "",
-      cities: ["Chicago", "Dallas", "Houston", "New Orleans"],
-      offset: "-06:00",
-      dst: true
-    },
-    {
-      timezone: "America/Denver",
-      country: "United States",
-      capital: "",
-      cities: ["Denver", "Phoenix", "Salt Lake City"],
-      offset: "-07:00",
-      dst: true
-    },
-    {
-      timezone: "America/Los_Angeles",
-      country: "United States",
-      capital: "",
-      cities: ["Los Angeles", "San Francisco", "Seattle", "Las Vegas"],
-      offset: "-08:00",
-      dst: true
-    },
-    {
-      timezone: "Europe/London",
-      country: "United Kingdom",
-      capital: "London",
-      cities: ["London", "Birmingham", "Manchester", "Edinburgh"],
-      offset: "+00:00",
-      dst: true
-    },
-    {
-      timezone: "Europe/Paris",
-      country: "France",
-      capital: "Paris",
-      cities: ["Paris", "Marseille", "Lyon", "Nice"],
-      offset: "+01:00",
-      dst: true
-    },
-    {
-      timezone: "Europe/Berlin",
-      country: "Germany",
-      capital: "Berlin",
-      cities: ["Berlin", "Munich", "Hamburg", "Frankfurt"],
-      offset: "+01:00",
-      dst: true
-    },
-    {
-      timezone: "Asia/Tokyo",
-      country: "Japan",
-      capital: "Tokyo",
-      cities: ["Tokyo", "Osaka", "Kyoto", "Yokohama"],
-      offset: "+09:00",
-      dst: false
-    },
-    {
-      timezone: "Asia/Shanghai",
-      country: "China",
-      capital: "Beijing",
-      cities: ["Shanghai", "Beijing", "Guangzhou", "Shenzhen"],
-      offset: "+08:00",
-      dst: false
-    },
-    {
-      timezone: "Australia/Sydney",
-      country: "Australia",
-      capital: "Canberra",
-      cities: ["Sydney", "Melbourne", "Brisbane", "Canberra"],
-      offset: "+10:00",
-      dst: true
-    },
-    {
-      timezone: "Africa/Cairo",
-      country: "Egypt",
-      capital: "Cairo",
-      cities: ["Cairo", "Alexandria", "Giza", "Shubra El-Kheima"],
-      offset: "+02:00",
-      dst: false
-    },
-    {
-      timezone: "America/Sao_Paulo",
-      country: "Brazil",
-      capital: "Brasília",
-      cities: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador"],
-      offset: "-03:00",
-      dst: false
-    }
-  ];
+    <script>
+        // Time zone mapping - connects each card to its proper time zone
+        const timeZoneMap = {
+            // UTC-12 (Baker Island, Howland Island) - No IANA timezone, using Etc/GMT+12
+            "time-utc-12": "Etc/GMT+12",
+            
+            // UTC-11
+            "time-pacific/pago_pago": "Pacific/Pago_Pago",
+            
+            // UTC-10
+            "time-pacific/honolulu": "Pacific/Honolulu",
+            
+            // UTC-9:30
+            "time-pacific/marquesas": "Pacific/Marquesas",
+            
+            // UTC-9
+            "time-america/anchorage": "America/Anchorage",
+            
+            // UTC-8
+            "time-america/los_angeles": "America/Los_Angeles",
+            
+            // UTC-7
+            "time-america/denver": "America/Denver",
+            
+            // UTC-6
+            "time-america/chicago": "America/Chicago",
+            
+            // UTC-5
+            "time-america/new_york": "America/New_York",
+            
+            // UTC-4:30
+            "time-america/caracas": "America/Caracas",
+            
+            // UTC-4
+            "time-america/halifax": "America/Halifax",
+            
+            // UTC-3:30
+            "time-america/st_johns": "America/St_Johns",
+            
+            // UTC-3
+            "time-america/argentina/buenos_aires": "America/Argentina/Buenos_Aires",
+            
+            // UTC-2
+            "time-america/noronha": "America/Noronha",
+            
+            // UTC-1
+            "time-atlantic/cape_verde": "Atlantic/Cape_Verde",
+            
+            // UTC±0
+            "time-europe/london": "Europe/London",
+            
+            // UTC+1
+            "time-europe/paris": "Europe/Paris",
+            
+            // UTC+2
+            "time-europe/athens": "Europe/Athens",
+            
+            // UTC+3
+            "time-europe/moscow": "Europe/Moscow",
+            
+            // UTC+3:30
+            "time-asia/tehran": "Asia/Tehran",
+            
+            // UTC+4
+            "time-asia/dubai": "Asia/Dubai",
+            
+            // UTC+4:30
+            "time-asia/kabul": "Asia/Kabul",
+            
+            // UTC+5
+            "time-asia/karachi": "Asia/Karachi",
+            
+            // UTC+5:30
+            "time-asia/kolkata": "Asia/Kolkata",
+            
+            // UTC+5:45
+            "time-asia/katmandu": "Asia/Kathmandu",
+            
+            // UTC+6
+            "time-asia/dhaka": "Asia/Dhaka",
+            
+            // UTC+6:30
+            "time-asia/yangon": "Asia/Yangon",
+            
+            // UTC+7
+            "time-asia/bangkok": "Asia/Bangkok",
+            
+            // UTC+8
+            "time-asia/shanghai": "Asia/Shanghai",
+            
+            // UTC+8:45
+            "time-australia/eucla": "Australia/Eucla",
+            
+            // UTC+9
+            "time-asia/tokyo": "Asia/Tokyo",
+            
+            // UTC+9:30
+            "time-australia/adelaide": "Australia/Adelaide",
+            
+            // UTC+10
+            "time-australia/sydney": "Australia/Sydney",
+            
+            // UTC+10:30
+            "time-australia/lord_howe": "Australia/Lord_Howe",
+            
+            // UTC+11
+            "time-pacific/guadalcanal": "Pacific/Guadalcanal",
+            
+            // UTC+12
+            "time-pacific/auckland": "Pacific/Auckland",
+            
+            // UTC+12:45
+            "time-pacific/chatham": "Pacific/Chatham",
+            
+            // UTC+13
+            "time-pacific/tongatapu": "Pacific/Tongatapu",
+            
+            // UTC+14
+            "time-pacific/kiritimati": "Pacific/Kiritimati"
+        };
 
-  // Populate filters
-  function populateFilters() {
-    const timezoneFilter = document.getElementById('timezone-filter');
-    const countryFilter = document.getElementById('country-filter');
-    
-    // Clear existing options (keep first option)
-    timezoneFilter.innerHTML = '<option value="">All Time Zones</option>';
-    countryFilter.innerHTML = '<option value="">All Countries</option>';
-    
-    // Get unique countries
-    const countries = [...new Set(timeZones.map(tz => tz.country))].sort();
-    
-    // Populate timezone filter
-    timeZones.forEach(tz => {
-      const option = document.createElement('option');
-      option.value = tz.timezone;
-      option.textContent = tz.timezone;
-      timezoneFilter.appendChild(option);
-    });
-    
-    // Populate country filter
-    countries.forEach(country => {
-      const option = document.createElement('option');
-      option.value = country;
-      option.textContent = country;
-      countryFilter.appendChild(option);
-    });
-  }
-  
-  // Format current time for a timezone
-  function getCurrentTime(timezone) {
-    try {
-      const options = {
-        timeZone: timezone,
-        hour12: true,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      };
-      return new Date().toLocaleTimeString('en-US', options);
-    } catch (e) {
-      console.error("Error getting time for", timezone, e);
-      return "Error";
-    }
-  }
-  
-  // Display time zone data
-  function displayTimeZones(filteredData = timeZones) {
-    const tbody = document.getElementById('timezone-data');
-    tbody.innerHTML = '';
-    
-    filteredData.forEach(tz => {
-      const row = document.createElement('tr');
-      
-      // Format cities list
-      const citiesList = tz.cities.join(', ');
-      
-      row.innerHTML = `
-        <td>${tz.timezone}</td>
-        <td>${tz.country}</td>
-        <td class="capital">${tz.capital || 'N/A'}</td>
-        <td>${citiesList}</td>
-        <td class="time-display">${getCurrentTime(tz.timezone)}</td>
-        <td>UTC${tz.offset} ${tz.dst ? '(DST)' : ''}</td>
-      `;
-      
-      tbody.appendChild(row);
-    });
-  }
-  
-  // Filter time zones based on selections
-  function filterTimeZones() {
-    const timezoneFilter = document.getElementById('timezone-filter').value;
-    const countryFilter = document.getElementById('country-filter').value;
-    const citySearch = document.getElementById('city-search').value.toLowerCase();
-    
-    let filtered = timeZones;
-    
-    if (timezoneFilter) {
-      filtered = filtered.filter(tz => tz.timezone === timezoneFilter);
-    }
-    
-    if (countryFilter) {
-      filtered = filtered.filter(tz => tz.country === countryFilter);
-    }
-    
-    if (citySearch) {
-      filtered = filtered.filter(tz => 
-        (tz.capital && tz.capital.toLowerCase().includes(citySearch)) || 
-        tz.cities.some(city => city.toLowerCase().includes(citySearch))
-      );
-    }
-    
-    displayTimeZones(filtered);
-  }
-  
-  // Sort table
-  function sortTable(column, direction) {
-    const tbody = document.getElementById('timezone-data');
-    const rows = Array.from(tbody.querySelectorAll('tr'));
-    
-    rows.sort((a, b) => {
-      const aValue = a.querySelector(`td:nth-child(${column + 1})`).textContent;
-      const bValue = b.querySelector(`td:nth-child(${column + 1})`).textContent;
-      
-      if (direction === 'asc') {
-        return aValue.localeCompare(bValue);
-      } else {
-        return bValue.localeCompare(aValue);
-      }
-    });
-    
-    // Clear and re-add sorted rows
-    tbody.innerHTML = '';
-    rows.forEach(row => tbody.appendChild(row));
-  }
-  
-  // Initialize
-  document.addEventListener('DOMContentLoaded', () => {
-    populateFilters();
-    displayTimeZones();
-    
-    // Update times every second
-    setInterval(() => {
-      const rows = document.querySelectorAll('#timezone-data tr');
-      rows.forEach(row => {
-        const timezone = row.querySelector('td:first-child').textContent;
-        const timeDisplay = row.querySelector('.time-display');
-        if (timeDisplay) {
-          timeDisplay.textContent = getCurrentTime(timezone);
+        // Function to format time for a specific time zone
+        function getTimeInTimeZone(timeZone) {
+            try {
+                const options = {
+                    timeZone: timeZone,
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    timeZoneName: 'short'
+                };
+                return new Date().toLocaleString('en-US', options);
+            } catch (e) {
+                console.error(`Error with timezone ${timeZone}:`, e);
+                return "Time unavailable";
+            }
         }
-      });
-    }, 1000);
-    
-    // Add event listeners for filters
-    document.getElementById('timezone-filter').addEventListener('change', filterTimeZones);
-    document.getElementById('country-filter').addEventListener('change', filterTimeZones);
-    document.getElementById('city-search').addEventListener('input', filterTimeZones);
-    
-    // Add sorting to table headers
-    document.querySelectorAll('.timezone-table th').forEach((th, index) => {
-      th.addEventListener('click', () => {
-        const currentDir = th.getAttribute('data-sort-dir') || 'asc';
-        const newDir = currentDir === 'asc' ? 'desc' : 'asc';
-        
-        // Reset all headers
-        document.querySelectorAll('.timezone-table th').forEach(h => {
-          h.setAttribute('data-sort-dir', '');
-          const icon = h.querySelector('i');
-          if (icon) icon.className = 'fas fa-sort';
+
+        // Function to update clock hands
+        function updateClockHands(elementId, timeZone) {
+            try {
+                const now = new Date();
+                const options = { timeZone: timeZone };
+                const hours = now.toLocaleString('en-US', { ...options, hour: '2-digit', hour12: false });
+                const minutes = now.toLocaleString('en-US', { ...options, minute: '2-digit' });
+                const seconds = now.toLocaleString('en-US', { ...options, second: '2-digit' });
+
+                // Convert to numbers
+                const hours12 = parseInt(hours) % 12;
+                const mins = parseInt(minutes);
+                const secs = parseInt(seconds);
+                
+                // Calculate degrees for clock hands
+                const hourDegrees = (hours12 * 30) + (mins * 0.5);
+                const minuteDegrees = mins * 6;
+                const secondDegrees = secs * 6;
+                
+                // Update clock hands
+                document.getElementById(`hour-${elementId}`).style.transform = `rotate(${hourDegrees}deg)`;
+                document.getElementById(`minute-${elementId}`).style.transform = `rotate(${minuteDegrees}deg)`;
+                document.getElementById(`second-${elementId}`).style.transform = `rotate(${secondDegrees}deg)`;
+            } catch (e) {
+                console.error(`Error updating clock for ${elementId}:`, e);
+            }
+        }
+
+        // Function to update all clocks
+        function updateAllClocks() {
+            // Update UTC time display
+            const utcTime = new Date().toUTCString();
+            document.getElementById('currentUTC').textContent = utcTime;
+            
+            // Update each time zone card
+            for (const [elementId, timeZone] of Object.entries(timeZoneMap)) {
+                // Update the digital time display
+                const timeString = getTimeInTimeZone(timeZone);
+                document.getElementById(elementId).textContent = timeString;
+                
+                // Update the analog clock
+                updateClockHands(elementId.replace('time-', ''), timeZone);
+            }
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.timezone-card');
+            
+            cards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                if (cardText.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         });
-        
-        // Set current header
-        th.setAttribute('data-sort-dir', newDir);
-        const icon = th.querySelector('i');
-        if (icon) {
-          icon.className = newDir === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
-        }
-        
-        sortTable(index, newDir);
-      });
-    });
-  });
-</script>
+
+        // Update all clocks immediately and then every second
+        updateAllClocks();
+        setInterval(updateAllClocks, 1000);
+    </script>
 </body>
 </html>
