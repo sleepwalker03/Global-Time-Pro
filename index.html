@@ -519,6 +519,16 @@
             transition: all 0.3s;
         }
 
+        .quick-time-link {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Inherits text color */
+  display: inline-block; /* Ensures proper spacing */
+}
+.quick-time-card:hover {
+  cursor: pointer; /* Changes cursor to pointer */
+  opacity: 0.9; /* Optional hover effect */
+}
+
         body.night-mode .quick-time-card {
             background-color: var(--card-night);
             color: var(--text-night);
@@ -1033,7 +1043,14 @@
             <div class="quick-time-card" data-timezone="Asia/Tokyo">Tokyo<br><span class="quick-time"></span></div>
             <div class="quick-time-card" data-timezone="Asia/Shanghai">Beijing<br><span class="quick-time"></span></div>
             <div class="quick-time-card" data-timezone="Europe/Paris">Paris<br><span class="quick-time"></span></div>
-            <div class="quick-time-card" data-timezone="Europe/London">London<br><span class="quick-time"></span></div>
+            <div 
+            class="quick-time-card" 
+            data-timezone="Europe/London" 
+            onclick="window.location.href='https://www.timetoday.online/london'"
+            >
+            London<br>
+            <span class="quick-time"></span>
+            </div>
             <div class="quick-time-card" data-timezone="America/New_York">New York<br><span class="quick-time"></span></div>
             <div class="quick-time-card" data-timezone="America/Los_Angeles">Los Angeles<br><span class="quick-time"></span></div>
             <div class="quick-time-card" data-timezone="Asia/Kolkata">New Delhi<br><span class="quick-time"></span></div>
