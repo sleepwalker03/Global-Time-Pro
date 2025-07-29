@@ -996,7 +996,9 @@
 
         <div class="quick-cities">
             <span>Compare:</span>
+            <a href="https://www.timetoday.online/newyork">
             <button class="city-btn" data-city="new-york">New York</button>
+            </a>
             <a href="https://www.timetoday.online/london">
             <button class="city-btn" data-city="london">London</button>
             </a>
@@ -1056,7 +1058,19 @@
     <span class="quick-time"></span>
   </a>
 </div>
-            <div class="quick-time-card" data-timezone="America/New_York">New York<br><span class="quick-time"></span></div>
+            <div 
+  class="quick-time-card" 
+  data-timezone="America/New_York"
+  onclick="window.location.href='https://www.timetoday.online/newyork'"
+>
+  <a 
+    href="https://www.timetoday.online/newyork" 
+    style="display: block; text-decoration: none; color: inherit;"
+  >
+    New York<br>
+    <span class="quick-time"></span>
+  </a>
+</div>
             <div class="quick-time-card" data-timezone="America/Los_Angeles">Los Angeles<br><span class="quick-time"></span></div>
             <div class="quick-time-card" data-timezone="Asia/Kolkata">New Delhi<br><span class="quick-time"></span></div>
             <div class="quick-time-card" data-timezone="Europe/Berlin">Berlin<br><span class="quick-time"></span></div>
