@@ -4,30 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Time Today">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.timetoday.online/" />
+    
+    <!-- Favicons -->
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-
-    <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-
-    <!-- Android/Chrome -->
     <link rel="manifest" href="/site.webmanifest">
-
+    
+    <!-- Preloads -->
+    <link rel="preload" href="timetodaysmall.png" as="image">
+    <link rel="preload" href="timetodaysmall1.png" as="image">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Primary Meta Tags -->
     <meta name="description" content="Accurate world clock, timezone converter, and time tools. Track global times with our intuitive interface.">
-<meta name="keywords" content="world clock, timezone converter, live time, global time, time tools">
-
-<!-- Open Graph / Twitter -->
-<meta property="og:url" content="https://www.timetoday.online/">
-<meta property="og:title" content="Time Today - World Clock & Timezone Tools">
-<meta property="og:description" content="Accurate world clock and timezone tools for professionals and travelers.">
-<meta property="og:image" content="https://www.timetoday.online/og-home.jpg">
-<meta name="twitter:title" content="Time Today - World Clock & Timezone Tools">
-<meta name="twitter:description" content="Accurate world clock and timezone tools for professionals and travelers.">
-<meta name="twitter:image" content="https://www.timetoday.online/og-home.jpg">
+    <meta name="keywords" content="world clock, timezone converter, live time, global time, time tools">
+    
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.timetoday.online/">
+    <meta property="og:title" content="Time Today - World Clock & Timezone Tools">
+    <meta property="og:description" content="Accurate world clock and timezone tools for professionals and travelers.">
+    <meta property="og:image" content="https://www.timetoday.online/og-home.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Time Today - World Clock & Timezone Tools">
+    <meta name="twitter:description" content="Accurate world clock and timezone tools for professionals and travelers.">
+    <meta name="twitter:image" content="https://www.timetoday.online/og-home.jpg">
     
     <!-- Microsoft Tiles -->
     <meta name="msapplication-TileImage" content="/mstile-150x150.png">
-    <!-- Google tag (gtag.js) -->
+    
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -35,12 +47,33 @@
       gtag('js', new Date());
       gtag('config', 'G-R1E5LS9596');
     </script>
+    
+    <!-- Redirect Old Domain -->
     <script>
       if (window.location.hostname === 'global-time-pro.pages.dev') {
         window.location.replace('https://www.timetoday.online');
       }
     </script>
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Time Today",
+      "url": "https://www.timetoday.online/",
+      "description": "Accurate world clock, timezone converter, and time tools for professionals and travelers.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.timetoday.online/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    }
+    </script>
+    
     <title>Time Today | World Clock</title>
+    
+    <!-- CSS & JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
     <style>
