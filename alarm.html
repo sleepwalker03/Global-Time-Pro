@@ -3,7 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Google tag (gtag.js) -->
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.timetoday.online/alarm" />
+  
+  <!-- Primary Meta Tags -->
+  <meta name="description" content="Free online alarm clock with customizable sounds. Set, save, and manage multiple alarms with snooze functionality.">
+  <meta name="keywords" content="online alarm clock, set alarm, timer, stopwatch, alarm sounds, snooze alarm">
+  <meta name="author" content="Time Today">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.timetoday.online/alarm">
+  <meta property="og:title" content="Online Alarm Clock - Time Today">
+  <meta property="og:description" content="Set customizable alarms with snooze. Works in your browser - no downloads needed!">
+  <meta property="og:image" content="https://www.timetoday.online/og-alarm.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Online Alarm Clock - Time Today">
+  <meta name="twitter:description" content="Set customizable alarms with snooze. Works in your browser - no downloads needed!">
+  <meta name="twitter:image" content="https://www.timetoday.online/og-alarm.jpg">
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <!-- Preloads for Critical Assets -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" href="timetodaysmall.png" as="image">
+  <link rel="preload" href="timetodaysmall1.png" as="image">
+  <link rel="preload" href="alarm-sound.mp3" as="audio"> <!-- Preload alarm sound if used -->
+  
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,9 +47,34 @@
     gtag('js', new Date());
     gtag('config', 'G-R1E5LS9596');
   </script>
-
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Online Alarm Clock - Time Today",
+    "description": "Free browser-based alarm clock with customizable sounds and snooze functionality.",
+    "url": "https://www.timetoday.online/alarm",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.timetoday.online/"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Alarm Clock"
+      }]
+    }
+  }
+  </script>
+  
   <title>Online Alarm Clock - Time Today</title>
-
+  
+  <!-- CSS & JS Libraries -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
 
