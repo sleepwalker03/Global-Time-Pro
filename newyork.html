@@ -40,36 +40,36 @@
     <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
     
     <link rel="preconnect" href="https://api.open-meteo.com">
-<link rel="preconnect" href="https://api.sunrise-sunset.org">
-<link rel="preload" href="timetodaysmall.png" as="image">
-<link rel="preload" href="timetodaysmall1.png" as="image">
+    <link rel="preconnect" href="https://api.sunrise-sunset.org">
+    <link rel="preload" href="timetodaysmall.png" as="image">
+    <link rel="preload" href="timetodaysmall1.png" as="image">
 
-<!-- Add canonical URL -->
-<link rel="canonical" href="https://www.timetoday.online/newyork.html">
+    <!-- Add canonical URL -->
+    <link rel="canonical" href="https://www.timetoday.online/newyork.html">
 
-<!-- Structured data for better SEO -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Current Time in New York - Time Today",
-  "description": "Check the current time in New York with timezone details, weather information, and local facts",
-  "url": "https://www.timetoday.online/newyork.html",
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.timetoday.online/index.html"
-    },{
-      "@type": "ListItem",
-      "position": 2,
-      "name": "New York Time"
-    }]
-  }
-}
-</script>
+    <!-- Structured data for better SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Current Time in New York - Time Today",
+      "description": "Check the current time in New York with timezone details, weather information, and local facts",
+      "url": "https://www.timetoday.online/newyork.html",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.timetoday.online/index.html"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "New York Time"
+        }]
+      }
+    }
+    </script>
 	
     <style>
       :root {
@@ -522,6 +522,7 @@
         padding: 25px 30px;
         box-shadow: var(--box-shadow);
         transition: background-color 0.5s ease, color 0.5s ease;
+        position: relative;
       }
 
       body.night-mode .container {
@@ -556,7 +557,7 @@
         left: 0;
         right: 0;
         height: 5px;
-        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ff9ff3, #feca57, #1dd1a1);
       }
 
       .time-display {
@@ -1009,6 +1010,62 @@
       .time-update {
         animation: pulse 0.5s ease;
       }
+
+      /* Help section styles */
+      .help-section {
+        margin-top: 40px;
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+      
+      body.night-mode .help-section {
+        background: rgba(30, 30, 40, 0.8);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      .help-section h2 {
+        color: var(--primary-color);
+        border-bottom: 2px solid rgba(0,0,0,0.1);
+        padding-bottom: 10px;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      body.night-mode .help-section h2 {
+        color: var(--accent-night);
+        border-bottom: 2px solid rgba(255,255,255,0.1);
+      }
+      
+      .help-link {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        z-index: 10;
+      }
+      
+      body.night-mode .help-link {
+        color: var(--accent-night);
+      }
+      
+      .help-link i {
+        transition: transform 0.3s ease;
+      }
+      
+      .help-link:hover i {
+        transform: translateX(3px);
+      }
     </style>
 </head>
 <body>
@@ -1050,6 +1107,11 @@
 
   <!-- MAIN CONTENT -->
   <div class="container">
+    <!-- Need Help link at the top -->
+    <a href="#how-to-use" class="help-link">
+      <i class="fas fa-question-circle"></i> Need Help?
+    </a>
+
     <div class="time-container">
       <h1><i class="fas fa-city"></i> Current Time in New York</h1>
       <div class="time-display" id="localTime">00:00:00</div>
@@ -1063,52 +1125,52 @@
     <div class="card">
       <h2><i class="fas fa-globe-americas"></i> Timezone Information</h2>
       <div class="info-grid">
-  <div class="info-item">
-    <strong>Timezone</strong>
-    <span id="timezone">America/New_York</span>
-  </div>
-  <div class="info-item">
-    <strong>UTC Offset</strong>
-    <span id="utcOffset">UTC-05:00</span>
-  </div> 
-  <div class="info-item">
-    <strong>Daylight Saving</strong>
-    <span id="dst">Checking...</span>
-  </div>
-  <div class="info-item">
-    <strong>Country</strong>
-    <span>United States</span>
-  </div>
-  <div class="info-item">
-    <strong>State</strong>
-    <span>New York (NY)</span>
-  </div>
-  <div class="info-item">
-    <strong>Coordinates</strong>
-    <span>40°43'N / 74°00'W</span>
-  </div>
-  <div class="info-item">
-    <strong>Elevation</strong>
-    <span>10 m</span>
-  </div>
-  <div class="info-item">
-    <strong>Currency</strong>
-    <span>US Dollar (USD)</span>
-  </div>
-  <div class="info-item">
-    <strong>Languages</strong>
-    <span>English, Spanish</span>
-  </div>
-  <div class="info-item">
-    <strong>Country Code</strong>
-    <span>+1</span>
-  </div>
-  <div class="info-item">
-    <strong>Population</strong>
-    <span>8.5 million</span>
-  </div>
-    </div>
+        <div class="info-item">
+          <strong>Timezone</strong>
+          <span id="timezone">America/New_York</span>
+        </div>
+        <div class="info-item">
+          <strong>UTC Offset</strong>
+          <span id="utcOffset">UTC-05:00</span>
+        </div>
+        <div class="info-item">
+          <strong>Daylight Saving</strong>
+          <span id="dst">Checking...</span>
+        </div>
+        <div class="info-item">
+          <strong>Country</strong>
+          <span>United States</span>
+        </div>
+        <div class="info-item">
+          <strong>State</strong>
+          <span>New York</span>
+        </div>
+        <div class="info-item">
+          <strong>Coordinates</strong>
+          <span>40°42'N / 74°00'W</span>
+        </div>
+        <div class="info-item">
+          <strong>Elevation</strong>
+          <span>10 m</span>
+        </div>
+        <div class="info-item">
+          <strong>Currency</strong>
+          <span>US Dollar (USD)</span>
+        </div>
+        <div class="info-item">
+          <strong>Languages</strong>
+          <span>English, Spanish</span>
+        </div>
+        <div class="info-item">
+          <strong>Area Code</strong>
+          <span>+1 (212, 347, 646, 718, 917, 929)</span>
+        </div>
+        <div class="info-item">
+          <strong>Population</strong>
+          <span>8.8 million</span>
+        </div>
       </div>
+    </div>
     
     <div class="card">
       <h2><i class="fas fa-map-marked-alt"></i> New York Map</h2>
@@ -1130,21 +1192,21 @@
 
     <div class="card">
       <h2><i class="fas fa-city"></i> About New York</h2>
-      <p>New York City (NYC), often called simply New York, is the most populous city in the United States. Located at the southern tip of New York State, the city is the center of the New York metropolitan area, one of the most populous urban agglomerations in the world.</p>
+      <p>New York City (NYC), often called simply New York, is the most populous city in the United States. Located at the southern tip of New York State, the city is the center of the New York metropolitan area, one of the most populous urban agglomerations in the world. A global power city, New York exerts a significant impact upon commerce, finance, media, art, fashion, research, technology, education, and entertainment.</p>
       
       <div class="fact-item">
-        <h3>The City That Never Sleeps</h3>
-        <p>New York is known for its 24/7 lifestyle, with businesses, restaurants, and entertainment venues open around the clock. Times Square, often called "The Crossroads of the World," is brightly lit at all hours.</p>
+        <h3>Global Financial Center</h3>
+        <p>New York is home to Wall Street and the New York Stock Exchange, the world's largest stock exchange by market capitalization. The city hosts the headquarters of the United Nations and is an important center for international diplomacy.</p>
       </div>
       
       <div class="fact-item">
-        <h3>Cultural Melting Pot</h3>
-        <p>NYC is one of the world's most culturally diverse cities, with over 800 languages spoken. About 36% of the city's population is foreign-born, representing nearly every country on earth.</p>
+        <h3>Cultural Capital</h3>
+        <p>NYC is home to Broadway theaters, world-class museums like the Metropolitan Museum of Art and MoMA, and iconic landmarks including the Statue of Liberty, Empire State Building, and Times Square. The city is often called "The City That Never Sleeps."</p>
       </div>
       
       <div class="fact-item">
-        <h3>Financial Capital</h3>
-        <p>Home to Wall Street and the New York Stock Exchange, NYC is the financial capital of the world. The city's metropolitan area has a GDP of over $2 trillion, which would rank it as the 8th largest economy in the world if it were a country.</p>
+        <h3>Diverse Population</h3>
+        <p>With over 800 languages spoken, New York is the most linguistically diverse city in the world. More than 3.2 million of its residents were born outside the United States, making it a true melting pot of cultures.</p>
       </div>
     </div>
 
@@ -1154,6 +1216,39 @@
         <div class="info-item">
           <div><i class="fas fa-spinner fa-spin"></i></div>
           <div>Loading time comparisons...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to Use This Page section -->
+    <div class="help-section" id="how-to-use">
+      <h2><i class="fas fa-question-circle"></i> How to Use This Page</h2>
+      <p>This page provides real-time information about New York time, weather, and local facts. Here's how to get the most from it:</p>
+      
+      <div class="info-grid" style="margin-top: 15px;">
+        <div class="info-item">
+          <strong><i class="fas fa-clock"></i> Live Clock</strong>
+          <p>The main display shows the current time in New York, updating every second. The date and daylight information are also shown.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-globe"></i> Timezone Info</strong>
+          <p>Detailed timezone information including UTC offset and daylight saving status is available in the Timezone Information section.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-map"></i> Interactive Map</strong>
+          <p>The New York map shows key landmarks. Click on markers to see more information about each location.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-cloud"></i> Weather Data</strong>
+          <p>Current weather conditions and a forecast for New York are displayed with temperature and wind speed.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-exchange-alt"></i> Time Comparisons</strong>
+          <p>Compare New York time with 50+ global cities to help with scheduling calls or events across timezones.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-lightbulb"></i> Pro Tips</strong>
+          <p>Use dark mode for night viewing. Bookmark this page for quick access to New York time. Click landmarks on the map for details.</p>
         </div>
       </div>
     </div>
@@ -1212,81 +1307,71 @@
           timezone: "America/New_York",
           country: "United States",
           coordinates: { lat: 40.7128, lng: -74.0060 },
-          population: "8.5 million",
-          description: "New York City is the most populous city in the United States and a global hub of commerce and culture.",
+          population: "8.8 million",
+          description: "New York City is the most populous city in the United States, known for its cultural diversity, financial power, and iconic landmarks.",
           timeComparisons: [
               // North America
-  { city: "New York", timezone: "America/New_York" },
-  { city: "Los Angeles", timezone: "America/Los_Angeles" },
-  { city: "Chicago", timezone: "America/Chicago" },
-  { city: "Toronto", timezone: "America/Toronto" },
-  { city: "Mexico City", timezone: "America/Mexico_City" },
-  { city: "Havana", timezone: "America/Havana" },
-  
-  // South America
-  { city: "São Paulo", timezone: "America/Sao_Paulo" },
-  { city: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires" },
-  { city: "Lima", timezone: "America/Lima" },
-  { city: "Bogotá", timezone: "America/Bogota" },
-  { city: "Santiago", timezone: "America/Santiago" },
-  { city: "Caracas", timezone: "America/Caracas" },
-  
-  // Europe
-  { city: "London", timezone: "Europe/London" },
-  { city: "Paris", timezone: "Europe/Paris" },
-  { city: "Berlin", timezone: "Europe/Berlin" },
-  { city: "Madrid", timezone: "Europe/Madrid" },
-  { city: "Rome", timezone: "Europe/Rome" },
-  { city: "Moscow", timezone: "Europe/Moscow" },
-  { city: "Istanbul", timezone: "Europe/Istanbul" },
-  { city: "Athens", timezone: "Europe/Athens" },
-  { city: "Warsaw", timezone: "Europe/Warsaw" },
-  
-  // Africa
-  { city: "Cairo", timezone: "Africa/Cairo" },
-  { city: "Johannesburg", timezone: "Africa/Johannesburg" },
-  { city: "Nairobi", timezone: "Africa/Nairobi" },
-  { city: "Lagos", timezone: "Africa/Lagos" },
-  { city: "Casablanca", timezone: "Africa/Casablanca" },
-  { city: "Accra", timezone: "Africa/Accra" },
-  { city: "Cape Town", timezone: "Africa/Johannesburg" }, // Same as Johannesburg
-  { city: "Addis Ababa", timezone: "Africa/Addis_Ababa" },
-  
-  // Middle East
-  { city: "Dubai", timezone: "Asia/Dubai" },
-  { city: "Riyadh", timezone: "Asia/Riyadh" },
-  { city: "Tehran", timezone: "Asia/Tehran" },
-  { city: "Tel Aviv", timezone: "Asia/Jerusalem" },
-  { city: "Baghdad", timezone: "Asia/Baghdad" },
-  { city: "Kuwait City", timezone: "Asia/Kuwait" },  // Added Kuwait
-  { city: "Ramallah", timezone: "Asia/Hebron" },    // Palestine (West Bank)
-  { city: "Gaza City", timezone: "Asia/Gaza" },     // Palestine (Gaza)
-  { city: "Doha", timezone: "Asia/Qatar" },
-  { city: "Muscat", timezone: "Asia/Muscat" },
-  
-  // Asia
-  { city: "Tokyo", timezone: "Asia/Tokyo" },
-  { city: "Beijing", timezone: "Asia/Shanghai" },
-  { city: "Hong Kong", timezone: "Asia/Hong_Kong" },
-  { city: "Seoul", timezone: "Asia/Seoul" },
-  { city: "Singapore", timezone: "Asia/Singapore" },
-  { city: "Bangkok", timezone: "Asia/Bangkok" },
-  { city: "Delhi", timezone: "Asia/Kolkata" },
-  { city: "Jakarta", timezone: "Asia/Jakarta" },
-  { city: "Karachi", timezone: "Asia/Karachi" },    // Added Pakistan
-  { city: "Islamabad", timezone: "Asia/Karachi" },  // Pakistan (same as Karachi)
-  { city: "Manila", timezone: "Asia/Manila" },
-  { city: "Hanoi", timezone: "Asia/Bangkok" },      // Vietnam (same as Bangkok)
-  { city: "Colombo", timezone: "Asia/Colombo" },    // Sri Lanka
-  { city: "Dhaka", timezone: "Asia/Dhaka" },        // Bangladesh
-  
-  // Oceania
-  { city: "Sydney", timezone: "Australia/Sydney" },
-  { city: "Melbourne", timezone: "Australia/Melbourne" },
-  { city: "Auckland", timezone: "Pacific/Auckland" },
-  { city: "Suva", timezone: "Pacific/Fiji" },
-  { city: "Port Moresby", timezone: "Pacific/Port_Moresby" },
-  { city: "Honolulu", timezone: "Pacific/Honolulu" }  // Hawaii (USA)
+              { city: "Los Angeles", timezone: "America/Los_Angeles" },
+              { city: "Chicago", timezone: "America/Chicago" },
+              { city: "Toronto", timezone: "America/Toronto" },
+              { city: "Mexico City", timezone: "America/Mexico_City" },
+              { city: "Miami", timezone: "America/New_York" }, // Same as NY
+              { city: "Vancouver", timezone: "America/Vancouver" },
+              
+              // South America
+              { city: "São Paulo", timezone: "America/Sao_Paulo" },
+              { city: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires" },
+              { city: "Lima", timezone: "America/Lima" },
+              { city: "Bogotá", timezone: "America/Bogota" },
+              { city: "Santiago", timezone: "America/Santiago" },
+              { city: "Caracas", timezone: "America/Caracas" },
+              
+              // Europe
+              { city: "London", timezone: "Europe/London" },
+              { city: "Paris", timezone: "Europe/Paris" },
+              { city: "Berlin", timezone: "Europe/Berlin" },
+              { city: "Madrid", timezone: "Europe/Madrid" },
+              { city: "Rome", timezone: "Europe/Rome" },
+              { city: "Moscow", timezone: "Europe/Moscow" },
+              { city: "Istanbul", timezone: "Europe/Istanbul" },
+              { city: "Athens", timezone: "Europe/Athens" },
+              
+              // Africa
+              { city: "Cairo", timezone: "Africa/Cairo" },
+              { city: "Johannesburg", timezone: "Africa/Johannesburg" },
+              { city: "Nairobi", timezone: "Africa/Nairobi" },
+              { city: "Lagos", timezone: "Africa/Lagos" },
+              { city: "Casablanca", timezone: "Africa/Casablanca" },
+              { city: "Accra", timezone: "Africa/Accra" },
+              { city: "Cape Town", timezone: "Africa/Johannesburg" }, // Same as Johannesburg
+              { city: "Addis Ababa", timezone: "Africa/Addis_Ababa" },
+              
+              // Middle East
+              { city: "Dubai", timezone: "Asia/Dubai" },
+              { city: "Riyadh", timezone: "Asia/Riyadh" },
+              { city: "Tehran", timezone: "Asia/Tehran" },
+              { city: "Tel Aviv", timezone: "Asia/Jerusalem" },
+              { city: "Baghdad", timezone: "Asia/Baghdad" },
+              { city: "Doha", timezone: "Asia/Qatar" },
+              { city: "Muscat", timezone: "Asia/Muscat" },
+              
+              // Asia
+              { city: "Tokyo", timezone: "Asia/Tokyo" },
+              { city: "Beijing", timezone: "Asia/Shanghai" },
+              { city: "Hong Kong", timezone: "Asia/Hong_Kong" },
+              { city: "Seoul", timezone: "Asia/Seoul" },
+              { city: "Singapore", timezone: "Asia/Singapore" },
+              { city: "Bangkok", timezone: "Asia/Bangkok" },
+              { city: "Delhi", timezone: "Asia/Kolkata" },
+              { city: "Jakarta", timezone: "Asia/Jakarta" },
+              { city: "Manila", timezone: "Asia/Manila" },
+              { city: "Hanoi", timezone: "Asia/Bangkok" },      // Vietnam (same as Bangkok)
+              
+              // Oceania
+              { city: "Sydney", timezone: "Australia/Sydney" },
+              { city: "Melbourne", timezone: "Australia/Melbourne" },
+              { city: "Auckland", timezone: "Pacific/Auckland" },
+              { city: "Honolulu", timezone: "Pacific/Honolulu" }  // Hawaii (USA)
           ]
       };
 
@@ -1297,23 +1382,23 @@
       }).addTo(map);
       
       // Add a custom icon for New York
-      const nycIcon = L.divIcon({
-          className: 'nyc-marker',
+      const nyIcon = L.divIcon({
+          className: 'ny-marker',
           html: '<i class="fas fa-city" style="color: #e63946; font-size: 24px;"></i>',
           iconSize: [24, 24],
           iconAnchor: [12, 24]
       });
       
-      L.marker([locationConfig.coordinates.lat, locationConfig.coordinates.lng], { icon: nycIcon }).addTo(map)
+      L.marker([locationConfig.coordinates.lat, locationConfig.coordinates.lng], { icon: nyIcon }).addTo(map)
           .bindPopup(`<b>${locationConfig.name}</b><br>${locationConfig.coordinates.lat.toFixed(4)}° N, ${Math.abs(locationConfig.coordinates.lng).toFixed(4)}° W`)
           .openPopup();
       
       // Add some points of interest
       const landmarks = [
           { name: "Statue of Liberty", lat: 40.6892, lng: -74.0445 },
+          { name: "Empire State Building", lat: 40.7484, lng: -73.9857 },
           { name: "Times Square", lat: 40.7580, lng: -73.9855 },
-          { name: "Central Park", lat: 40.7829, lng: -73.9654 },
-          { name: "Empire State Building", lat: 40.7484, lng: -73.9857 }
+          { name: "Central Park", lat: 40.7829, lng: -73.9654 }
       ];
       
       landmarks.forEach(landmark => {
@@ -1486,8 +1571,8 @@
               const mockWeather = {
                   current_weather: {
                       temperature: 65,
-                      weathercode: 2, // 1=clear, 2=partly cloudy
-                      windspeed: 8
+                      weathercode: 3, // 1=clear, 2=partly cloudy, 3=overcast
+                      windspeed: 9
                   }
               };
               
@@ -1541,11 +1626,11 @@
           };
           
           // Get weather description
-          const weatherCode = currentData.current_weather?.weathercode || 2;
-          const weatherDesc = weatherCodes[weatherCode] || 'Partly cloudy';
+          const weatherCode = currentData.current_weather?.weathercode || 3;
+          const weatherDesc = weatherCodes[weatherCode] || 'Overcast';
           
           // Get appropriate weather icon
-          let weatherIcon = 'fa-cloud-sun';
+          let weatherIcon = 'fa-cloud';
           if (weatherCode === 0) weatherIcon = 'fa-sun';
           else if (weatherCode === 1) weatherIcon = 'fa-cloud-sun';
           else if (weatherCode >= 2 && weatherCode <= 3) weatherIcon = 'fa-cloud';
@@ -1563,14 +1648,14 @@
               <div style="font-size:1.5rem;margin:5px 0;">${Math.round(currentData.current_weather?.temperature || 65)}°F</div>
               <div>${weatherDesc}</div>
               <div style="font-size:0.8em;margin-top:5px;">
-                  Wind: ${Math.round(currentData.current_weather?.windspeed || 8)} mph
+                  Wind: ${Math.round(currentData.current_weather?.windspeed || 9)} mph
               </div>
           `;
           container.appendChild(currentCard);
           
           // Add forecast for next few hours (mock since free API doesn't provide hourly)
           const forecastTimes = ['12 PM', '3 PM', '6 PM', '9 PM'];
-          const tempChanges = [3, 5, 2, -3]; // Temperature change from current
+          const tempChanges = [2, 4, 1, -1]; // Temperature change from current
           
           forecastTimes.forEach((time, index) => {
               const temp = Math.round((currentData.current_weather?.temperature || 65) + tempChanges[index]);
@@ -1610,7 +1695,7 @@
                   timeZone: city.timezone,
                   hour: '2-digit',
                   minute: '2-digit',
-		  second: '2-digit',    
+                  second: '2-digit',
                   hour12: true
               };
               
