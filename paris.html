@@ -556,7 +556,7 @@
         left: 0;
         right: 0;
         height: 5px;
-        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ff9ff3, #feca57, #1dd1a1);
       }
 
       .time-display {
@@ -1009,6 +1009,67 @@
       .time-update {
         animation: pulse 0.5s ease;
       }
+
+      /* Help section styles - ADD THESE AT THE END OF YOUR STYLE SECTION */
+      .help-section {
+        margin-top: 40px;
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+      
+      body.night-mode .help-section {
+        background: rgba(30, 30, 40, 0.8);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      .help-section h2 {
+        color: var(--primary-color);
+        border-bottom: 2px solid rgba(0,0,0,0.1);
+        padding-bottom: 10px;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      body.night-mode .help-section h2 {
+        color: var(--accent-night);
+        border-bottom: 2px solid rgba(255,255,255,0.1);
+      }
+      
+      .help-link {
+        position: absolute;
+        top: 20px;
+        right: 30px; /* Adjusted for better positioning */
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        z-index: 10; /* Ensure it appears above other elements */
+      }
+      
+      body.night-mode .help-link {
+        color: var(--accent-night);
+      }
+      
+      .help-link i {
+        transition: transform 0.3s ease;
+      }
+      
+      .help-link:hover i {
+        transform: translateX(3px);
+      }
+
+      /* Add this to ensure container has relative positioning for absolute child */
+      .container {
+        position: relative;
+      }
     </style>
 </head>
 <body>
@@ -1050,6 +1111,11 @@
 
   <!-- MAIN CONTENT -->
   <div class="container">
+    <!-- Need Help link at the top -->
+    <a href="#how-to-use" class="help-link">
+      <i class="fas fa-question-circle"></i> Need Help?
+    </a>
+
     <div class="time-container">
       <h1><i class="fas fa-city"></i> Current Time in Paris</h1>
       <div class="time-display" id="localTime">00:00:00</div>
@@ -1154,6 +1220,39 @@
         <div class="info-item">
           <div><i class="fas fa-spinner fa-spin"></i></div>
           <div>Loading time comparisons...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to Use This Page section -->
+    <div class="help-section" id="how-to-use">
+      <h2><i class="fas fa-question-circle"></i> How to Use This Page</h2>
+      <p>This page provides real-time information about Paris time, weather, and local facts. Here's how to get the most from it:</p>
+      
+      <div class="info-grid" style="margin-top: 15px;">
+        <div class="info-item">
+          <strong><i class="fas fa-clock"></i> Live Clock</strong>
+          <p>The main display shows the current time in Paris, updating every second. The date and daylight information are also shown.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-globe"></i> Timezone Info</strong>
+          <p>Detailed timezone information including UTC offset and daylight saving status is available in the Timezone Information section.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-map"></i> Interactive Map</strong>
+          <p>The Paris map shows key landmarks. Click on markers to see more information about each location.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-cloud"></i> Weather Data</strong>
+          <p>Current weather conditions and a forecast for Paris are displayed with temperature and wind speed.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-exchange-alt"></i> Time Comparisons</strong>
+          <p>Compare Paris time with 50+ global cities to help with scheduling calls or events across timezones.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-lightbulb"></i> Pro Tips</strong>
+          <p>Use dark mode for night viewing. Bookmark this page for quick access to Paris time. Click landmarks on the map for details.</p>
         </div>
       </div>
     </div>
