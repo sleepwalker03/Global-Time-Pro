@@ -1069,8 +1069,8 @@
   </div>
   <div class="info-item">
     <strong>UTC Offset</strong>
-    <span id="utcOffset">-05:00</span>
-  </div>
+    <span id="utcOffset">UTC-05:00</span>
+  </div> 
   <div class="info-item">
     <strong>Daylight Saving</strong>
     <span id="dst">Checking...</span>
@@ -1290,10 +1290,14 @@
               timeElement.textContent = timeString;
               document.getElementById('localDate').textContent = dateString;
               
-              // Calculate UTC offset
-              const offsetMinutes = now.getTimezoneOffset();
-              const offsetHours = -offsetMinutes / 60;
-              const offsetString = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
+              // Calculate UTC offset properly for New York
+              const nyDateTimeFormat = new Intl.DateTimeFormat('en-US', {
+                  timeZone: 'America/New_York',
+                  timeZoneName: 'longOffset'
+              });
+              const parts = nyDateTimeFormat.formatToParts(now);
+              const offsetPart = parts.find(part => part.type === 'timeZoneName');
+              const offsetString = offsetPart.value.replace('GMT', 'UTC');
               document.getElementById('utcOffset').textContent = offsetString;
               
               // Check if daylight saving is in effect
