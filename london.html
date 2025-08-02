@@ -1069,7 +1069,7 @@
   </div>
   <div class="info-item">
     <strong>UTC Offset</strong>
-    <span id="utcOffset">+00:00</span>
+    <span id="utcOffset">UTC+00:00</span>
   </div>
   <div class="info-item">
     <strong>Daylight Saving</strong>
@@ -1290,18 +1290,21 @@
               timeElement.textContent = timeString;
               document.getElementById('localDate').textContent = dateString;
               
-              // Calculate UTC offset
-              const offsetMinutes = now.getTimezoneOffset();
-              const offsetHours = -offsetMinutes / 60;
-              const offsetString = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
-              document.getElementById('utcOffset').textContent = offsetString;
+              // Calculate UTC offset properly for London
+              const londonDateTimeFormat = new Intl.DateTimeFormat('en-US', {
+                  timeZone: 'Europe/London',
+                  timeZoneName: 'longOffset'
+               });
+               const parts = londonDateTimeFormat.formatToParts(now);
+               const offsetPart = parts.find(part => part.type === 'timeZoneName');
+               const offsetString = offsetPart.value.replace('GMT', 'UTC');
+               document.getElementById('utcOffset').textContent = offsetString;
               
               // Check if daylight saving is in effect
-              const isDST = new Intl.DateTimeFormat('en-GB', { 
-                  timeZone: locationConfig.timezone, 
+              const isDST = new Intl.DateTimeFormat('en-US', { 
+                  timeZone: 'Europe/London', 
                   timeZoneName: 'short' 
               }).format(now).includes('BST');
-              
               document.getElementById('dst').textContent = isDST ? 'British Summer Time (BST)' : 'Greenwich Mean Time (GMT)';
               
               // Update time comparisons
