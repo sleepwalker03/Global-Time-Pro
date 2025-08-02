@@ -40,36 +40,36 @@
     <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
     
     <link rel="preconnect" href="https://api.open-meteo.com">
-<link rel="preconnect" href="https://api.sunrise-sunset.org">
-<link rel="preload" href="timetodaysmall.png" as="image">
-<link rel="preload" href="timetodaysmall1.png" as="image">
+    <link rel="preconnect" href="https://api.sunrise-sunset.org">
+    <link rel="preload" href="timetodaysmall.png" as="image">
+    <link rel="preload" href="timetodaysmall1.png" as="image">
 
-<!-- Add canonical URL -->
-<link rel="canonical" href="https://www.timetoday.online/london.html">
+    <!-- Add canonical URL -->
+    <link rel="canonical" href="https://www.timetoday.online/london.html">
 
-<!-- Structured data for better SEO -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Current Time in London - Time Today",
-  "description": "Check the current time in London with timezone details, weather information, and local facts",
-  "url": "https://www.timetoday.online/london.html",
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.timetoday.online/index.html"
-    },{
-      "@type": "ListItem",
-      "position": 2,
-      "name": "London Time"
-    }]
-  }
-}
-</script>
+    <!-- Structured data for better SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Current Time in London - Time Today",
+      "description": "Check the current time in London with timezone details, weather information, and local facts",
+      "url": "https://www.timetoday.online/london.html",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.timetoday.online/index.html"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "London Time"
+        }]
+      }
+    }
+    </script>
 	
     <style>
       :root {
@@ -522,6 +522,7 @@
         padding: 25px 30px;
         box-shadow: var(--box-shadow);
         transition: background-color 0.5s ease, color 0.5s ease;
+        position: relative;
       }
 
       body.night-mode .container {
@@ -556,7 +557,7 @@
         left: 0;
         right: 0;
         height: 5px;
-        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ff9ff3, #feca57, #1dd1a1);
       }
 
       .time-display {
@@ -1009,6 +1010,62 @@
       .time-update {
         animation: pulse 0.5s ease;
       }
+
+      /* Help section styles */
+      .help-section {
+        margin-top: 40px;
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+      
+      body.night-mode .help-section {
+        background: rgba(30, 30, 40, 0.8);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      .help-section h2 {
+        color: var(--primary-color);
+        border-bottom: 2px solid rgba(0,0,0,0.1);
+        padding-bottom: 10px;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      body.night-mode .help-section h2 {
+        color: var(--accent-night);
+        border-bottom: 2px solid rgba(255,255,255,0.1);
+      }
+      
+      .help-link {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        z-index: 10;
+      }
+      
+      body.night-mode .help-link {
+        color: var(--accent-night);
+      }
+      
+      .help-link i {
+        transition: transform 0.3s ease;
+      }
+      
+      .help-link:hover i {
+        transform: translateX(3px);
+      }
     </style>
 </head>
 <body>
@@ -1050,8 +1107,13 @@
 
   <!-- MAIN CONTENT -->
   <div class="container">
+    <!-- Need Help link at the top -->
+    <a href="#how-to-use" class="help-link">
+      <i class="fas fa-question-circle"></i> Need Help?
+    </a>
+
     <div class="time-container">
-      <h1><i class="fas fa-landmark"></i> Current Time in London</h1>
+      <h1><i class="fas fa-city"></i> Current Time in London</h1>
       <div class="time-display" id="localTime">00:00:00</div>
       <div class="date-display" id="localDate">Day, Month 00, 0000</div>
       <div class="daylight-info" id="daylightInfo">
@@ -1063,52 +1125,52 @@
     <div class="card">
       <h2><i class="fas fa-globe-europe"></i> Timezone Information</h2>
       <div class="info-grid">
-  <div class="info-item">
-    <strong>Timezone</strong>
-    <span id="timezone">Europe/London</span>
-  </div>
-  <div class="info-item">
-    <strong>UTC Offset</strong>
-    <span id="utcOffset">UTC+00:00</span>
-  </div>
-  <div class="info-item">
-    <strong>Daylight Saving</strong>
-    <span id="dst">Checking...</span>
-  </div>
-  <div class="info-item">
-    <strong>Country</strong>
-    <span>United Kingdom</span>
-  </div>
-  <div class="info-item">
-    <strong>Constituent Country</strong>
-    <span>England (ENG)</span>
-  </div>
-  <div class="info-item">
-    <strong>Coordinates</strong>
-    <span>51°30'N / 0°08'W</span>
-  </div>
-  <div class="info-item">
-    <strong>Elevation</strong>
-    <span>19 m</span>
-  </div>
-  <div class="info-item">
-    <strong>Currency</strong>
-    <span>Pound Sterling (GBP)</span>
-  </div>
-  <div class="info-item">
-    <strong>Languages</strong>
-    <span>English</span>
-  </div>
-  <div class="info-item">
-    <strong>Country Code</strong>
-    <span>+44</span>
-  </div>
-  <div class="info-item">
-    <strong>Population</strong>
-    <span>8.8 million</span>
-  </div>
-    </div>
+        <div class="info-item">
+          <strong>Timezone</strong>
+          <span id="timezone">Europe/London</span>
+        </div>
+        <div class="info-item">
+          <strong>UTC Offset</strong>
+          <span id="utcOffset">UTC+00:00</span>
+        </div>
+        <div class="info-item">
+          <strong>Daylight Saving</strong>
+          <span id="dst">Checking...</span>
+        </div>
+        <div class="info-item">
+          <strong>Country</strong>
+          <span>United Kingdom</span>
+        </div>
+        <div class="info-item">
+          <strong>Region</strong>
+          <span>England</span>
+        </div>
+        <div class="info-item">
+          <strong>Coordinates</strong>
+          <span>51°30'N / 0°07'W</span>
+        </div>
+        <div class="info-item">
+          <strong>Elevation</strong>
+          <span>35 m</span>
+        </div>
+        <div class="info-item">
+          <strong>Currency</strong>
+          <span>Pound Sterling (GBP)</span>
+        </div>
+        <div class="info-item">
+          <strong>Languages</strong>
+          <span>English</span>
+        </div>
+        <div class="info-item">
+          <strong>Country Code</strong>
+          <span>+44</span>
+        </div>
+        <div class="info-item">
+          <strong>Population</strong>
+          <span>8.9 million</span>
+        </div>
       </div>
+    </div>
     
     <div class="card">
       <h2><i class="fas fa-map-marked-alt"></i> London Map</h2>
@@ -1129,22 +1191,22 @@
     </div>
 
     <div class="card">
-      <h2><i class="fas fa-landmark"></i> About London</h2>
-      <p>London is the capital and largest city of England and the United Kingdom. It stands on the River Thames in south-east England at the head of a 50-mile estuary down to the North Sea, and has been a major settlement for two millennia.</p>
+      <h2><i class="fas fa-city"></i> About London</h2>
+      <p>London, the capital of England and the United Kingdom, is a 21st-century city with history stretching back to Roman times. At its centre stand the imposing Houses of Parliament, the iconic 'Big Ben' clock tower and Westminster Abbey, site of British monarch coronations. Across the Thames River, the London Eye observation wheel provides panoramic views of the South Bank cultural complex, and the entire city.</p>
       
       <div class="fact-item">
-        <h3>Historical Significance</h3>
-        <p>Founded by the Romans as Londinium in 43 AD, London has been a center of trade, finance, and culture for centuries. It was the heart of the British Empire and remains one of the world's most important global cities.</p>
+        <h3>Global Financial Center</h3>
+        <p>London is one of the world's leading financial centers, with the City of London and Canary Wharf housing major banks and financial institutions. The London Stock Exchange is one of the largest in the world.</p>
       </div>
       
       <div class="fact-item">
         <h3>Cultural Hub</h3>
-        <p>London is home to numerous world-class museums (like the British Museum and Tate Modern), theaters (West End), and historical landmarks (Tower of London, Buckingham Palace).</p>
+        <p>London is home to world-class museums like the British Museum, Tate Modern, and Natural History Museum, as well as famous theaters in the West End. The city hosts over 17,000 music performances annually.</p>
       </div>
       
       <div class="fact-item">
-        <h3>Timekeeping History</h3>
-        <p>Greenwich, London is the home of the Prime Meridian (0° longitude) and Greenwich Mean Time (GMT), the basis for the world's time zone system.</p>
+        <h3>Historic Landmarks</h3>
+        <p>London boasts four UNESCO World Heritage Sites: the Tower of London, Kew Gardens, the Palace of Westminster including Westminster Abbey and St Margaret's Church, and the historic settlement of Greenwich.</p>
       </div>
     </div>
 
@@ -1154,6 +1216,39 @@
         <div class="info-item">
           <div><i class="fas fa-spinner fa-spin"></i></div>
           <div>Loading time comparisons...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to Use This Page section -->
+    <div class="help-section" id="how-to-use">
+      <h2><i class="fas fa-question-circle"></i> How to Use This Page</h2>
+      <p>This page provides real-time information about London time, weather, and local facts. Here's how to get the most from it:</p>
+      
+      <div class="info-grid" style="margin-top: 15px;">
+        <div class="info-item">
+          <strong><i class="fas fa-clock"></i> Live Clock</strong>
+          <p>The main display shows the current time in London, updating every second. The date and daylight information are also shown.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-globe"></i> Timezone Info</strong>
+          <p>Detailed timezone information including UTC offset and daylight saving status is available in the Timezone Information section.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-map"></i> Interactive Map</strong>
+          <p>The London map shows key landmarks. Click on markers to see more information about each location.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-cloud"></i> Weather Data</strong>
+          <p>Current weather conditions and a forecast for London are displayed with temperature and wind speed.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-exchange-alt"></i> Time Comparisons</strong>
+          <p>Compare London time with 50+ global cities to help with scheduling calls or events across timezones.</p>
+        </div>
+        <div class="info-item">
+          <strong><i class="fas fa-lightbulb"></i> Pro Tips</strong>
+          <p>Use dark mode for night viewing. Bookmark this page for quick access to London time. Click landmarks on the map for details.</p>
         </div>
       </div>
     </div>
@@ -1212,81 +1307,80 @@
           timezone: "Europe/London",
           country: "United Kingdom",
           coordinates: { lat: 51.5074, lng: -0.1278 },
-          population: "8.8 million",
-          description: "London is the capital and largest city of England and the United Kingdom.",
+          population: "8.9 million",
+          description: "London is the capital and largest city of England and the United Kingdom, known for its history, culture, and global influence.",
           timeComparisons: [
               // North America
-  { city: "New York", timezone: "America/New_York" },
-  { city: "Los Angeles", timezone: "America/Los_Angeles" },
-  { city: "Chicago", timezone: "America/Chicago" },
-  { city: "Toronto", timezone: "America/Toronto" },
-  { city: "Mexico City", timezone: "America/Mexico_City" },
-  { city: "Havana", timezone: "America/Havana" },
-  
-  // South America
-  { city: "São Paulo", timezone: "America/Sao_Paulo" },
-  { city: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires" },
-  { city: "Lima", timezone: "America/Lima" },
-  { city: "Bogotá", timezone: "America/Bogota" },
-  { city: "Santiago", timezone: "America/Santiago" },
-  { city: "Caracas", timezone: "America/Caracas" },
-  
-  // Europe
-  { city: "London", timezone: "Europe/London" },
-  { city: "Paris", timezone: "Europe/Paris" },
-  { city: "Berlin", timezone: "Europe/Berlin" },
-  { city: "Madrid", timezone: "Europe/Madrid" },
-  { city: "Rome", timezone: "Europe/Rome" },
-  { city: "Moscow", timezone: "Europe/Moscow" },
-  { city: "Istanbul", timezone: "Europe/Istanbul" },
-  { city: "Athens", timezone: "Europe/Athens" },
-  { city: "Warsaw", timezone: "Europe/Warsaw" },
-  
-  // Africa
-  { city: "Cairo", timezone: "Africa/Cairo" },
-  { city: "Johannesburg", timezone: "Africa/Johannesburg" },
-  { city: "Nairobi", timezone: "Africa/Nairobi" },
-  { city: "Lagos", timezone: "Africa/Lagos" },
-  { city: "Casablanca", timezone: "Africa/Casablanca" },
-  { city: "Accra", timezone: "Africa/Accra" },
-  { city: "Cape Town", timezone: "Africa/Johannesburg" }, // Same as Johannesburg
-  { city: "Addis Ababa", timezone: "Africa/Addis_Ababa" },
-  
-  // Middle East
-  { city: "Dubai", timezone: "Asia/Dubai" },
-  { city: "Riyadh", timezone: "Asia/Riyadh" },
-  { city: "Tehran", timezone: "Asia/Tehran" },
-  { city: "Tel Aviv", timezone: "Asia/Jerusalem" },
-  { city: "Baghdad", timezone: "Asia/Baghdad" },
-  { city: "Kuwait City", timezone: "Asia/Kuwait" },  // Added Kuwait
-  { city: "Ramallah", timezone: "Asia/Hebron" },    // Palestine (West Bank)
-  { city: "Gaza City", timezone: "Asia/Gaza" },     // Palestine (Gaza)
-  { city: "Doha", timezone: "Asia/Qatar" },
-  { city: "Muscat", timezone: "Asia/Muscat" },
-  
-  // Asia
-  { city: "Tokyo", timezone: "Asia/Tokyo" },
-  { city: "Beijing", timezone: "Asia/Shanghai" },
-  { city: "Hong Kong", timezone: "Asia/Hong_Kong" },
-  { city: "Seoul", timezone: "Asia/Seoul" },
-  { city: "Singapore", timezone: "Asia/Singapore" },
-  { city: "Bangkok", timezone: "Asia/Bangkok" },
-  { city: "Delhi", timezone: "Asia/Kolkata" },
-  { city: "Jakarta", timezone: "Asia/Jakarta" },
-  { city: "Karachi", timezone: "Asia/Karachi" },    // Added Pakistan
-  { city: "Islamabad", timezone: "Asia/Karachi" },  // Pakistan (same as Karachi)
-  { city: "Manila", timezone: "Asia/Manila" },
-  { city: "Hanoi", timezone: "Asia/Bangkok" },      // Vietnam (same as Bangkok)
-  { city: "Colombo", timezone: "Asia/Colombo" },    // Sri Lanka
-  { city: "Dhaka", timezone: "Asia/Dhaka" },        // Bangladesh
-  
-  // Oceania
-  { city: "Sydney", timezone: "Australia/Sydney" },
-  { city: "Melbourne", timezone: "Australia/Melbourne" },
-  { city: "Auckland", timezone: "Pacific/Auckland" },
-  { city: "Suva", timezone: "Pacific/Fiji" },
-  { city: "Port Moresby", timezone: "Pacific/Port_Moresby" },
-  { city: "Honolulu", timezone: "Pacific/Honolulu" }  // Hawaii (USA)
+              { city: "New York", timezone: "America/New_York" },
+              { city: "Los Angeles", timezone: "America/Los_Angeles" },
+              { city: "Chicago", timezone: "America/Chicago" },
+              { city: "Toronto", timezone: "America/Toronto" },
+              { city: "Mexico City", timezone: "America/Mexico_City" },
+              { city: "Havana", timezone: "America/Havana" },
+              
+              // South America
+              { city: "São Paulo", timezone: "America/Sao_Paulo" },
+              { city: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires" },
+              { city: "Lima", timezone: "America/Lima" },
+              { city: "Bogotá", timezone: "America/Bogota" },
+              { city: "Santiago", timezone: "America/Santiago" },
+              { city: "Caracas", timezone: "America/Caracas" },
+              
+              // Europe
+              { city: "Paris", timezone: "Europe/Paris" },
+              { city: "Berlin", timezone: "Europe/Berlin" },
+              { city: "Madrid", timezone: "Europe/Madrid" },
+              { city: "Rome", timezone: "Europe/Rome" },
+              { city: "Moscow", timezone: "Europe/Moscow" },
+              { city: "Istanbul", timezone: "Europe/Istanbul" },
+              { city: "Athens", timezone: "Europe/Athens" },
+              { city: "Warsaw", timezone: "Europe/Warsaw" },
+              
+              // Africa
+              { city: "Cairo", timezone: "Africa/Cairo" },
+              { city: "Johannesburg", timezone: "Africa/Johannesburg" },
+              { city: "Nairobi", timezone: "Africa/Nairobi" },
+              { city: "Lagos", timezone: "Africa/Lagos" },
+              { city: "Casablanca", timezone: "Africa/Casablanca" },
+              { city: "Accra", timezone: "Africa/Accra" },
+              { city: "Cape Town", timezone: "Africa/Johannesburg" }, // Same as Johannesburg
+              { city: "Addis Ababa", timezone: "Africa/Addis_Ababa" },
+              
+              // Middle East
+              { city: "Dubai", timezone: "Asia/Dubai" },
+              { city: "Riyadh", timezone: "Asia/Riyadh" },
+              { city: "Tehran", timezone: "Asia/Tehran" },
+              { city: "Tel Aviv", timezone: "Asia/Jerusalem" },
+              { city: "Baghdad", timezone: "Asia/Baghdad" },
+              { city: "Kuwait City", timezone: "Asia/Kuwait" },  // Added Kuwait
+              { city: "Ramallah", timezone: "Asia/Hebron" },    // Palestine (West Bank)
+              { city: "Gaza City", timezone: "Asia/Gaza" },     // Palestine (Gaza)
+              { city: "Doha", timezone: "Asia/Qatar" },
+              { city: "Muscat", timezone: "Asia/Muscat" },
+              
+              // Asia
+              { city: "Tokyo", timezone: "Asia/Tokyo" },
+              { city: "Beijing", timezone: "Asia/Shanghai" },
+              { city: "Hong Kong", timezone: "Asia/Hong_Kong" },
+              { city: "Seoul", timezone: "Asia/Seoul" },
+              { city: "Singapore", timezone: "Asia/Singapore" },
+              { city: "Bangkok", timezone: "Asia/Bangkok" },
+              { city: "Delhi", timezone: "Asia/Kolkata" },
+              { city: "Jakarta", timezone: "Asia/Jakarta" },
+              { city: "Karachi", timezone: "Asia/Karachi" },    // Added Pakistan
+              { city: "Islamabad", timezone: "Asia/Karachi" },  // Pakistan (same as Karachi)
+              { city: "Manila", timezone: "Asia/Manila" },
+              { city: "Hanoi", timezone: "Asia/Bangkok" },      // Vietnam (same as Bangkok)
+              { city: "Colombo", timezone: "Asia/Colombo" },    // Sri Lanka
+              { city: "Dhaka", timezone: "Asia/Dhaka" },        // Bangladesh
+              
+              // Oceania
+              { city: "Sydney", timezone: "Australia/Sydney" },
+              { city: "Melbourne", timezone: "Australia/Melbourne" },
+              { city: "Auckland", timezone: "Pacific/Auckland" },
+              { city: "Suva", timezone: "Pacific/Fiji" },
+              { city: "Port Moresby", timezone: "Pacific/Port_Moresby" },
+              { city: "Honolulu", timezone: "Pacific/Honolulu" }  // Hawaii (USA)
           ]
       };
 
@@ -1299,20 +1393,20 @@
       // Add a custom icon for London
       const londonIcon = L.divIcon({
           className: 'london-marker',
-          html: '<i class="fas fa-landmark" style="color: #e63946; font-size: 24px;"></i>',
+          html: '<i class="fas fa-city" style="color: #e63946; font-size: 24px;"></i>',
           iconSize: [24, 24],
           iconAnchor: [12, 24]
       });
       
       L.marker([locationConfig.coordinates.lat, locationConfig.coordinates.lng], { icon: londonIcon }).addTo(map)
-          .bindPopup(`<b>${locationConfig.name}</b><br>${locationConfig.coordinates.lat.toFixed(4)}° N, ${locationConfig.coordinates.lng.toFixed(4)}° W`)
+          .bindPopup(`<b>${locationConfig.name}</b><br>${locationConfig.coordinates.lat.toFixed(4)}° N, ${Math.abs(locationConfig.coordinates.lng).toFixed(4)}° W`)
           .openPopup();
       
       // Add some points of interest
       const landmarks = [
           { name: "Big Ben", lat: 51.5007, lng: -0.1246 },
-          { name: "London Eye", lat: 51.5033, lng: -0.1195 },
           { name: "Tower of London", lat: 51.5081, lng: -0.0759 },
+          { name: "London Eye", lat: 51.5033, lng: -0.1195 },
           { name: "Buckingham Palace", lat: 51.5014, lng: -0.1419 }
       ];
       
@@ -1345,8 +1439,8 @@
           };
           
           try {
-              const timeString = now.toLocaleTimeString('en-GB', timeOptions);
-              const dateString = now.toLocaleDateString('en-GB', dateOptions);
+              const timeString = now.toLocaleTimeString('en-US', timeOptions);
+              const dateString = now.toLocaleDateString('en-US', dateOptions);
               
               // Add animation class
               const timeElement = document.getElementById('localTime');
@@ -1362,17 +1456,18 @@
               const londonDateTimeFormat = new Intl.DateTimeFormat('en-US', {
                   timeZone: 'Europe/London',
                   timeZoneName: 'longOffset'
-               });
-               const parts = londonDateTimeFormat.formatToParts(now);
-               const offsetPart = parts.find(part => part.type === 'timeZoneName');
-               const offsetString = offsetPart.value.replace('GMT', 'UTC');
-               document.getElementById('utcOffset').textContent = offsetString;
+              });
+              const parts = londonDateTimeFormat.formatToParts(now);
+              const offsetPart = parts.find(part => part.type === 'timeZoneName');
+              const offsetString = offsetPart.value.replace('GMT', 'UTC');
+              document.getElementById('utcOffset').textContent = offsetString;
               
               // Check if daylight saving is in effect
               const isDST = new Intl.DateTimeFormat('en-US', { 
-                  timeZone: 'Europe/London', 
+                  timeZone: locationConfig.timezone, 
                   timeZoneName: 'short' 
               }).format(now).includes('BST');
+              
               document.getElementById('dst').textContent = isDST ? 'British Summer Time (BST)' : 'Greenwich Mean Time (GMT)';
               
               // Update time comparisons
@@ -1420,12 +1515,12 @@
               const month = new Date().getMonth();
               let sunrise, sunset;
               
-              if (month >= 3 && month <= 9) { // Summer months
+              if (month >= 4 && month <= 9) { // Summer months
                   sunrise = '5:30 AM';
-                  sunset = '9:00 PM';
+                  sunset = '8:45 PM';
               } else {
                   sunrise = '7:45 AM';
-                  sunset = '4:30 PM';
+                  sunset = '4:15 PM';
               }
               
               document.getElementById('sunriseSunset').innerHTML += `
@@ -1484,16 +1579,16 @@
               // Fallback to mock data
               const mockWeather = {
                   current_weather: {
-                      temperature: 18,
-                      weathercode: 2, // 1=clear, 2=partly cloudy
-                      windspeed: 12
+                      temperature: 15,
+                      weathercode: 3, // 1=clear, 2=partly cloudy, 3=overcast
+                      windspeed: 14
                   }
               };
               
               const mockDaily = {
                   daily: {
-                      sunrise: ["2023-01-01T07:45"],
-                      sunset: ["2023-01-01T16:30"]
+                      sunrise: ["2023-01-01T08:15"],
+                      sunset: ["2023-01-01T17:45"]
                   }
               };
               
@@ -1540,11 +1635,11 @@
           };
           
           // Get weather description
-          const weatherCode = currentData.current_weather?.weathercode || 2;
-          const weatherDesc = weatherCodes[weatherCode] || 'Partly cloudy';
+          const weatherCode = currentData.current_weather?.weathercode || 3;
+          const weatherDesc = weatherCodes[weatherCode] || 'Overcast';
           
           // Get appropriate weather icon
-          let weatherIcon = 'fa-cloud-sun';
+          let weatherIcon = 'fa-cloud';
           if (weatherCode === 0) weatherIcon = 'fa-sun';
           else if (weatherCode === 1) weatherIcon = 'fa-cloud-sun';
           else if (weatherCode >= 2 && weatherCode <= 3) weatherIcon = 'fa-cloud';
@@ -1559,20 +1654,20 @@
           currentCard.innerHTML = `
               <div class="weather-icon"><i class="fas ${weatherIcon}"></i></div>
               <div><strong>Now</strong></div>
-              <div style="font-size:1.5rem;margin:5px 0;">${Math.round(currentData.current_weather?.temperature || 18)}°C</div>
+              <div style="font-size:1.5rem;margin:5px 0;">${Math.round(currentData.current_weather?.temperature || 15)}°C</div>
               <div>${weatherDesc}</div>
               <div style="font-size:0.8em;margin-top:5px;">
-                  Wind: ${Math.round(currentData.current_weather?.windspeed || 12)} km/h
+                  Wind: ${Math.round(currentData.current_weather?.windspeed || 14)} km/h
               </div>
           `;
           container.appendChild(currentCard);
           
           // Add forecast for next few hours (mock since free API doesn't provide hourly)
           const forecastTimes = ['12 PM', '3 PM', '6 PM', '9 PM'];
-          const tempChanges = [2, 3, 1, -2]; // Temperature change from current
+          const tempChanges = [1, 2, 0, -1]; // Temperature change from current
           
           forecastTimes.forEach((time, index) => {
-              const temp = Math.round((currentData.current_weather?.temperature || 18) + tempChanges[index]);
+              const temp = Math.round((currentData.current_weather?.temperature || 15) + tempChanges[index]);
               const card = document.createElement('div');
               card.className = 'weather-card';
               card.innerHTML = `
@@ -1609,7 +1704,7 @@
                   timeZone: city.timezone,
                   hour: '2-digit',
                   minute: '2-digit',
-		  second: '2-digit',    
+                  second: '2-digit',
                   hour12: true
               };
               
