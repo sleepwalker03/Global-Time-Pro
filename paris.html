@@ -1069,7 +1069,7 @@
   </div>
   <div class="info-item">
     <strong>UTC Offset</strong>
-    <span id="utcOffset">+01:00</span>
+    <span id="utcOffset">UTC+01:00</span> <!-- Changed from +01:00 to UTC+01:00 -->
   </div>
   <div class="info-item">
     <strong>Daylight Saving</strong>
@@ -1291,9 +1291,13 @@
               document.getElementById('localDate').textContent = dateString;
               
               // Calculate UTC offset properly for Paris
-        const parisTime = new Date().toLocaleString("en-US", {timeZone: "Europe/Paris"});
-        const parisOffset = new Date(parisTime).getTimezoneOffset() / -60;
-        const offsetString = parisOffset >= 0 ? `UTC+${parisOffset}` : `UTC${parisOffset}`;
+        const parisDateTimeFormat = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Europe/Paris',
+            timeZoneName: 'longOffset'
+        });
+        const parts = parisDateTimeFormat.formatToParts(now);
+        const offsetPart = parts.find(part => part.type === 'timeZoneName');
+        const offsetString = offsetPart.value.replace('GMT', 'UTC');
         document.getElementById('utcOffset').textContent = offsetString;
               
               // Check if daylight saving is in effect
