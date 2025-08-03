@@ -1153,7 +1153,19 @@
             <div class="quick-time-card" data-timezone="America/Los_Angeles">Los Angeles<br><span class="quick-time"></span></div>
             <div class="quick-time-card" data-timezone="Asia/Kolkata">New Delhi<br><span class="quick-time"></span></div>
             <div class="quick-time-card" data-timezone="Europe/Berlin">Berlin<br><span class="quick-time"></span></div>
-            <div class="quick-time-card" data-timezone="Asia/Karachi">Islamabad<br><span class="quick-time"></span></div>
+            <div 
+  class="quick-time-card" 
+  data-timezone="Asia/Karachi"  <!-- Islamabad uses Pakistan's timezone (Asia/Karachi) -->
+  onclick="window.location.href='https://www.timetoday.online/islamabad'"
+>
+  <a 
+    href="https://www.timetoday.online/islamabad" 
+    style="display: block; text-decoration: none; color: inherit;"
+  >
+    Islamabad<br>
+    <span class="quick-time"></span>
+  </a>
+</div>
             <div class="quick-time-card" data-timezone="Australia/Sydney">Sydney<br><span class="quick-time"></span></div>
         </div>
         <!-- Quick Time Row End -->
@@ -1597,5 +1609,6 @@
     </script>
 </body>
 </html>
+
 
 
