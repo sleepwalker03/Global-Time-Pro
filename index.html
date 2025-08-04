@@ -611,10 +611,21 @@
             cursor: pointer;
             transition: all 0.2s;
             font-size: 0.85rem;
+	    color: var(--text-day); /* Add this line */
+         }
+
+         .night-mode .city-btn {
+             color: var(--text-night); /* Add this line */
+             background: rgba(255,255,255,0.05); /* Optional: adjust background for night mode */
         }
+        
         .city-btn:hover {
             background: rgba(255,255,255,0.2);
             transform: translateY(-1px);
+        }
+	
+	.night-mode .city-btn:hover {
+    background: rgba(255,255,255,0.15); /* Slightly darker hover for night mode */
         }
 
         /* Toolbar */
@@ -1624,6 +1635,7 @@
     </script>
 </body>
 </html>
+
 
 
 
