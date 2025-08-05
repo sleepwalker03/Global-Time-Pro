@@ -87,7 +87,20 @@
             --accent-day: #4a6bff;
             --accent-night: #6bd3ff;
         }
+	
+	html, body {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    width: 100%;
+    max-width: 100%; /* Ensure content doesn't exceed viewport */
+}
 
+/* For any fixed/sticky elements */
+.menu-class {
+    right: 0; /* Ensure it's properly aligned */
+    width: 80%; /* Example - adjust to your needs */
+    max-width: 300px; /* Prevent overflow */
+}	
+	    
         /* ===== FUTURISTIC HEADER & MENU STYLES ===== */
         header {
             padding: 15px 5%;
@@ -1635,6 +1648,7 @@
     </script>
 </body>
 </html>
+
 
 
 
