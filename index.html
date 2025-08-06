@@ -87,7 +87,7 @@
             --accent-day: #4a6bff;
             --accent-night: #6bd3ff;
         }
-	
+
 	html, body {
     overflow-x: hidden; /* Prevent horizontal scrolling */
     width: 100%;
@@ -99,17 +99,77 @@
     right: 0; /* Ensure it's properly aligned */
     width: 80%; /* Example - adjust to your needs */
     max-width: 300px; /* Prevent overflow */
+}
+
+	.dropdown-menu {
+  width: 100%; /* Ensures dropdown takes full width */
+  max-width: 100vw; /* Prevents exceeding screen width */
+  left: 0; /* Aligns dropdown to the left edge */
+  box-sizing: border-box; /* Includes padding in width calculation */
+  position: absolute; /* (Ensure this is set if not already) */
+}
+
+/* Optional: Ensure dropdown items wrap or truncate text */
+.dropdown-menu li a {
+  white-space: nowrap; /* Prevents text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." if text is too long */
 }	
-	    
-        /* ===== FUTURISTIC HEADER & MENU STYLES ===== */
+	
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--day-bg);
+            background-attachment: fixed;
+            color: var(--text-day);
+            transition: all 0.5s ease;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        body.night-mode {
+            background: var(--night-bg);
+            color: var(--text-night);
+        }
+
+        /* Responsive base font sizes */
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* Header */
         header {
-            padding: 15px 5%;
+            padding: 15px 20px;
             background: rgba(20, 20, 30, 0.8);
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             border-radius: 12px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
@@ -119,22 +179,12 @@
             z-index: 100;
         }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(107,211,255,0.05) 0%, rgba(134,114,247,0.05) 100%);
-            z-index: -1;
-        }
-
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .logo:hover {
@@ -142,7 +192,7 @@
         }
 
         .logo-image {
-            height: 36px;
+            height: 30px;
             filter: drop-shadow(0 0 5px rgba(107, 211, 255, 0.5));
             transition: all 0.3s ease;
         }
@@ -152,7 +202,7 @@
         }
 
         .logo span {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             background: linear-gradient(90deg, #6bd3ff, #8672f7);
             -webkit-background-clip: text;
@@ -161,165 +211,22 @@
             letter-spacing: 0.5px;
         }
 
-        /* Main Navigation */
-        .main-nav {
-            background: rgba(20, 20, 30, 0.8);
-            padding: 0 5%;
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            width: 100%;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-list li {
-            position: relative;
-        }
-
-        .nav-list a {
-            color: #f0f0f0;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 18px 20px;
-            display: block;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-list a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #6bd3ff, #8672f7);
-            transition: width 0.3s ease;
-        }
-
-        .nav-list a:hover::before {
-            width: 70%;
-        }
-
-        .nav-list a:hover {
-            color: #fff;
-            text-shadow: 0 0 8px rgba(107, 211, 255, 0.5);
-        }
-
-        /* Active Link Indicator */
-        .nav-list a.active {
-            color: #6bd3ff;
-        }
-
-        .nav-list a.active::before {
-            width: 70%;
-        }
-
-        /* Dropdown Styles */
-        .dropdown {
-            position: relative;
-        }
-
-        .dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .dropdown-toggle i {
-            font-size: 0.7em;
-            transition: transform 0.3s ease;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: rgba(30, 30, 40, 0.95);
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            padding: 10px 0;
-            min-width: 200px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 100;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .dropdown-menu::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%) rotate(45deg);
-            width: 10px;
-            height: 10px;
-            background: rgba(30, 30, 40, 0.95);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-left: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .dropdown:hover .dropdown-menu,
-        .dropdown:focus-within .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .dropdown-menu li {
-            display: block;
-            width: 100%;
-        }
-
-        .dropdown-menu a {
-            padding: 12px 25px;
-            color: #ddd;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-menu a:hover {
-            background: linear-gradient(90deg, rgba(107,211,255,0.1), rgba(134,114,247,0.1));
-            color: #fff;
-            padding-left: 30px;
-        }
-
-        /* Mode Toggle Button */
+        /* Mode Toggle */
         button#mode-toggle {
             background: rgba(255,255,255,0.1);
             border: none;
             border-radius: 30px;
-            padding: 8px 16px;
+            padding: 8px 12px;
             color: white;
             cursor: pointer;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 0.5px;
         }
 
@@ -348,14 +255,189 @@
             box-shadow: 0 5px 15px rgba(107, 211, 255, 0.2);
         }
 
-        /* Mobile Menu Toggle */
+        /* Navigation */
+        .main-nav {
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-radius: 12px;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-list li {
+            position: relative;
+        }
+
+        .nav-list a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 15px 16px;
+            display: block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-list a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+            transition: width 0.3s ease;
+        }
+
+        .nav-list a:hover::before {
+            width: 70%;
+        }
+
+        .nav-list a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(107, 211, 255, 0.5);
+        }
+
+        .nav-list a.active {
+            color: #6bd3ff;
+        }
+
+        .nav-list a.active::before {
+            width: 70%;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dropdown-toggle i {
+            font-size: 0.7em;
+            transition: transform 0.3s ease;
+        }
+
+        /* Base dropdown styles (shared) */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  background: rgba(30, 30, 40, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  padding: 10px 0;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  background: rgba(30, 30, 40, 0.95);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .dropdown-menu {
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+  }
+  
+  .dropdown-menu::before {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+  
+  .dropdown:hover .dropdown-menu,
+  .dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    left: 0;
+    transform: translateY(10px);
+  }
+  
+  .dropdown-menu::before {
+    left: 20px;
+    transform: rotate(45deg);
+  }
+  
+  .dropdown:hover .dropdown-menu,
+  .dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+/* Shared hover states */
+.dropdown-menu li {
+  display: block;
+  width: 100%;
+}
+
+.dropdown-menu a {
+  padding: 12px 25px;
+  color: #ddd;
+  font-size: 0.85rem;
+}
+
+.dropdown-menu a:hover {
+  background: linear-gradient(90deg, rgba(107,211,255,0.1), rgba(134,114,247,0.1));
+  color: #fff;
+  padding-left: 30px;
+}
+
+        /* Mobile Menu */
         .menu-toggle {
             display: none;
             cursor: pointer;
-            padding: 15px;
+            padding: 12px;
             position: absolute;
-            right: 20px;
-            top: 0;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             z-index: 1001;
             background: rgba(30, 30, 40, 0.8);
             border-radius: 8px;
@@ -364,29 +446,492 @@
 
         .menu-toggle span {
             display: block;
-            width: 25px;
+            width: 22px;
             height: 2px;
             background: #fff;
-            margin: 5px 0;
+            margin: 4px 0;
             transition: all 0.3s ease;
             position: relative;
+        }
+
+        /* Main Content */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--card-day);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.night-mode .content-container {
+            background-color: var(--card-night);
+            color: var(--text-night);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        /* Visitor Counter */
+        .visitor-counter {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .night-mode .visitor-counter {
+            background: rgba(0,0,0,0.2);
+        }
+
+        .visitor-counter i {
+            color: var(--accent-day);
+            font-size: 0.9rem;
+        }
+
+        .night-mode .visitor-counter i {
+            color: var(--accent-night);
+        }
+
+        #live-count {
+            font-weight: 700;
+        }
+
+        /* Quick Cities */
+        .quick-cities {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .quick-cities span {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .city-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            color: var(--text-day);
+        }
+
+        .night-mode .city-btn {
+            color: var(--text-night);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .city-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-1px);
+        }
+
+        .night-mode .city-btn:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: currentColor;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .tool-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Main Clock */
+        .main-clock {
+            background: var(--card-day);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .night-mode .main-clock {
+            background: var(--card-night);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .main-clock::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ff9ff3, #feca57, #1dd1a1);
+        }
+
+        /* Time Display */
+        .time-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+            font-feature-settings: "tnum";
+        }
+
+        .date-display {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .location-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sun-times {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .sync-status {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        /* Quick Time Row */
+        .quick-time-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px auto;
+        }
+
+        .quick-time-card {
+            background-color: var(--card-day);
+            color: var(--text-day);
+            padding: 6px 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.8rem;
+            min-width: 80px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .quick-time-link {
+            text-decoration: none;
+            color: inherit;
+            display: inline-block;
+        }
+
+        .quick-time-card:hover {
+            cursor: pointer;
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        body.night-mode .quick-time-card {
+            background-color: var(--card-night);
+            color: var(--text-night);
+        }
+
+        .quick-time {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Timezone Grid */
+        .timezone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .timezone-card {
+            background: var(--card-day);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .night-mode .timezone-card {
+            background: var(--card-night);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .timezone-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--tz-color, #6b6bff);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .timezone-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+
+        .timezone-card .flag {
+            width: 20px;
+            height: 14px;
+            border-radius: 2px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.2);
+        }
+
+        .timezone-time {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 8px 0;
+            font-feature-settings: "tnum";
+        }
+
+        .timezone-date {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .timezone-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        .night-mode .timezone-info {
+            border-top-color: rgba(255,255,255,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(20, 20, 30, 0.95);
+            color: #f0f0f0;
+            padding: 30px 15px;
+            margin-top: 40px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .night-mode footer {
+            background: rgba(10, 10, 20, 0.95);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo img {
+            height: 25px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-logo span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-about {
+            max-width: 300px;
+        }
+
+        .footer-about p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-links h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            position: relative;
+            padding-bottom: 6px;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+        }
+
+        .footer-links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 20px;
+            color: #6bd3ff;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -5px;
+        }
+
+        .footer-social h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            position: relative;
+            padding-bottom: 6px;
+        }
+
+        .footer-social h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: #f0f0f0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #6bd3ff, #8672f7);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(107, 211, 255, 0.3);
+        }
+
+        .footer-bottom {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 25px;
+            margin-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            opacity: 0.7;
         }
 
         /* Mobile Styles */
         @media (max-width: 768px) {
             header {
-                padding: 15px;
-                border-radius: 0;
+                padding: 12px 15px;
             }
-            
-            .main-nav {
-                padding: 0;
+
+            .logo span {
+                font-size: 1.2rem;
             }
-            
+
+            .logo-image {
+                height: 26px;
+            }
+
             .menu-toggle {
                 display: block;
             }
-        
+
             .nav-list {
                 position: fixed;
                 top: 0;
@@ -397,20 +942,20 @@
                 background: rgba(20, 20, 30, 0.98);
                 flex-direction: column;
                 justify-content: flex-start;
-                padding-top: 80px;
+                padding-top: 70px;
                 gap: 0;
                 transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
                 z-index: 1000;
                 backdrop-filter: blur(20px);
                 border-left: 1px solid rgba(255,255,255,0.1);
             }
-        
+
             .nav-list li {
                 width: 100%;
             }
-        
+
             .nav-list a {
-                padding: 18px 25px;
+                padding: 15px 25px;
                 border-bottom: 1px solid rgba(255,255,255,0.05);
             }
 
@@ -428,64 +973,149 @@
                 border: none;
                 border-radius: 0;
             }
-            
+
             .dropdown-menu::before {
-                display: none;
+                left: 15px;
             }
-            
+
             .dropdown.active .dropdown-menu {
                 max-height: 500px;
             }
-            
+
             .dropdown-menu a {
-                padding-left: 40px;
+                padding-left: 35px;
                 background: rgba(0,0,0,0.2);
             }
-            
+
             .dropdown-toggle::after {
                 content: none;
             }
-            
+
             .dropdown-toggle i {
                 transform: rotate(0deg);
                 transition: transform 0.3s ease;
             }
-            
+
             .dropdown.active .dropdown-toggle i {
                 transform: rotate(180deg);
             }
-        
+
             .nav-list.active {
                 right: 0;
             }
-        
+
             .menu-toggle.active span:nth-child(1) {
                 transform: rotate(45deg) translate(5px, 5px);
                 background: #6bd3ff;
             }
-        
+
             .menu-toggle.active span:nth-child(2) {
                 opacity: 0;
             }
-        
+
             .menu-toggle.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(7px, -6px);
                 background: #8672f7;
             }
-            
-            /* Animate menu items */
-            .nav-list.active li {
-                opacity: 0;
-                animation: fadeInRight 0.4s ease forwards;
+
+            /* Time display adjustments */
+            .time-display {
+                font-size: 2rem;
             }
-            
-            .nav-list.active li:nth-child(1) { animation-delay: 0.1s; }
-            .nav-list.active li:nth-child(2) { animation-delay: 0.2s; }
-            .nav-list.active li:nth-child(3) { animation-delay: 0.3s; }
-            .nav-list.active li:nth-child(4) { animation-delay: 0.4s; }
-            .nav-list.active li:nth-child(5) { animation-delay: 0.5s; }
+
+            .date-display {
+                font-size: 0.9rem;
+            }
+
+            .location-display {
+                font-size: 0.85rem;
+            }
+
+            .sun-times {
+                font-size: 0.8rem;
+                gap: 10px;
+            }
+
+            .timezone-time {
+                font-size: 1.2rem;
+            }
+
+            .timezone-date {
+                font-size: 0.75rem;
+            }
+
+            .timezone-info {
+                font-size: 0.75rem;
+            }
+
+            /* Quick cities adjustments */
+            .quick-cities {
+                gap: 6px;
+            }
+
+            .quick-cities span {
+                font-size: 0.85rem;
+            }
+
+            .city-btn {
+                padding: 5px 8px;
+                font-size: 0.75rem;
+            }
+
+            /* Toolbar adjustments */
+            .tool-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .tool-btn i {
+                font-size: 0.8rem;
+            }
         }
-        
+
+        @media (max-width: 480px) {
+            .time-display {
+                font-size: 1.8rem;
+            }
+
+            .quick-time-row {
+                gap: 6px;
+            }
+
+            .quick-time-card {
+                min-width: 70px;
+                padding: 5px 8px;
+                font-size: 0.75rem;
+            }
+
+            .quick-time {
+                font-size: 0.8rem;
+            }
+
+            .timezone-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-links {
+                margin-top: 15px;
+            }
+
+            .footer-social {
+                margin-top: 15px;
+            }
+
+            footer {
+                margin-top: 30px;
+                padding: 25px 15px;
+            }
+        }
+
+        /* Animation for menu items */
         @keyframes fadeInRight {
             from {
                 opacity: 0;
@@ -497,519 +1127,20 @@
             }
         }
 
-        /* Night mode adjustments */
-        .night-mode .main-nav {
-            background: rgba(10, 10, 20, 0.8);
-        }
-        
-        .night-mode .dropdown-menu {
-            background: rgba(20, 20, 30, 0.98);
-        }
-        
-        .night-mode .nav-list {
-            background: rgba(10, 10, 20, 0.98);
-        }
-
-        /* Body and Content Styles */
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            background: var(--day-bg);
-            background-attachment: fixed;
-            color: var(--text-day);
-            transition: all 0.5s ease;
-        }
-
-        body.night-mode {
-            background: var(--night-bg);
-            color: var(--text-night);
-        }
-
-        /* Content container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: var(--card-day);
-            border-radius: 12px;
-            padding: 25px 30px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
-
-        body.night-mode .container {
-            background-color: var(--card-night);
-            color: var(--text-night);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        }
-
-        /* ===== EXISTING CLOCK STYLES ===== */
-        .quick-time-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px auto;
-        }
-
-        .quick-time-card {
-            background-color: var(--card-day);
-            color: var(--text-day);
-            padding: 8px 12px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-size: 14px;
-            min-width: 90px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .quick-time-link {
-  text-decoration: none; /* Removes underline */
-  color: inherit; /* Inherits text color */
-  display: inline-block; /* Ensures proper spacing */
-}
-.quick-time-card:hover {
-  cursor: pointer; /* Changes cursor to pointer */
-  opacity: 0.9; /* Optional hover effect */
-}
-
-        body.night-mode .quick-time-card {
-            background-color: var(--card-night);
-            color: var(--text-night);
-        }
-
-        /* Visitor Counter */
-        .visitor-counter {
-            background: rgba(255,255,255,0.15);
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            backdrop-filter: blur(5px);
-        }
-        .night-mode .visitor-counter {
-            background: rgba(0,0,0,0.2);
-        }
-        .visitor-counter i {
-            color: var(--accent-day);
-        }
-        .night-mode .visitor-counter i {
-            color: var(--accent-night);
-        }
-        #live-count {
-            font-weight: 700;
-        }
-
-        /* Quick Cities Bar */
-        .quick-cities {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-        .quick-cities span {
-            font-weight: 500;
-        }
-        .city-btn {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.85rem;
-	    color: var(--text-day); /* Add this line */
-         }
-
-         .night-mode .city-btn {
-             color: var(--text-night); /* Add this line */
-             background: rgba(255,255,255,0.05); /* Optional: adjust background for night mode */
-        }
-        
-        .city-btn:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-1px);
-        }
-	
-	.night-mode .city-btn:hover {
-    background: rgba(255,255,255,0.15); /* Slightly darker hover for night mode */
-        }
-
-        /* Toolbar */
-        .toolbar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tool-btn {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            color: currentColor;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .tool-btn:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* Main Clock Display */
-        .main-clock {
-            background: var(--card-day);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .night-mode .main-clock {
-            background: var(--card-night);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .main-clock::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ff9ff3, #feca57, #1dd1a1);
-        }
-
-        /* Time/Sun Info */
-        .time-display {
-            font-size: 4rem;
-            font-weight: 700;
-            margin: 10px 0;
-            font-feature-settings: "tnum";
-        }
-        .date-display {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-        .location-display {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-        .sun-times {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 10px 0;
-            font-size: 0.9rem;
-        }
-        .sync-status {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            margin-top: 5px;
-        }
-
-        /* Timezone Grid */
-        .timezone-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .timezone-card {
-            background: var(--card-day);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: relative;
-        }
-        .night-mode .timezone-card {
-            background: var(--card-night);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .timezone-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--tz-color, #6b6bff);
-            border-radius: 12px 12px 0 0;
-        }
-        .timezone-card h3 {
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .timezone-card .flag {
-            width: 24px;
-            height: 16px;
-            border-radius: 2px;
-            box-shadow: 0 0 3px rgba(0,0,0,0.2);
-        }
-        .timezone-time {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 10px 0;
-            font-feature-settings: "tnum";
-        }
-        .timezone-date {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-        .timezone-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed rgba(0,0,0,0.1);
-        }
-        .night-mode .timezone-info {
-            border-top-color: rgba(255,255,255,0.1);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .time-display { font-size: 3rem; }
-            .timezone-time { font-size: 1.5rem; }
-        }
-        @media (max-width: 480px) {
-            .time-display { font-size: 2.5rem; }
-            .sun-times { flex-direction: column; gap: 5px; }
-        }
-
-        /* ===== NEW FUTURISTIC FOOTER STYLES ===== */
-        footer {
-            background: rgba(20, 20, 30, 0.95);
-            color: #f0f0f0;
-            padding: 40px 20px;
-            margin-top: 60px;
-            border-radius: 16px;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        .night-mode footer {
-            background: rgba(10, 10, 20, 0.95);
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-        }
-        
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-logo img {
-            height: 30px;
-            filter: brightness(0) invert(1);
-        }
-        
-        .footer-logo span {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #6bd3ff, #8672f7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .footer-about {
-            max-width: 300px;
-        }
-        
-        .footer-about p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            opacity: 0.8;
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .footer-links h3 {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            position: relative;
-            padding-bottom: 8px;
-        }
-        
-        .footer-links h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, #6bd3ff, #8672f7);
-        }
-        
-        .footer-links a {
-            color: #f0f0f0;
-            text-decoration: none;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-            position: relative;
-            padding-left: 15px;
-        }
-        
-        .footer-links a::before {
-            content: '→';
-            position: absolute;
-            left: 0;
+        .nav-list.active li {
             opacity: 0;
-            transition: all 0.3s ease;
+            animation: fadeInRight 0.4s ease forwards;
         }
-        
-        .footer-links a:hover {
-            opacity: 1;
-            padding-left: 20px;
-            color: #6bd3ff;
-        }
-        
-        .footer-links a:hover::before {
-            opacity: 1;
-            left: -5px;
-        }
-        
-        .footer-social h3 {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            position: relative;
-            padding-bottom: 8px;
-        }
-        
-        .footer-social h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, #6bd3ff, #8672f7);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            color: #f0f0f0;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            background: linear-gradient(135deg, #6bd3ff, #8672f7);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(107, 211, 255, 0.3);
-        }
-        
-        .footer-bottom {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding-top: 30px;
-            margin-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-        
-        /* Futuristic decorative elements */
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(107,211,255,0.1) 0%, rgba(0,0,0,0) 70%);
-        }
-        
-        footer::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(134,114,247,0.1) 0%, rgba(0,0,0,0) 70%);
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .footer-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .footer-links {
-                margin-top: 20px;
-            }
-            
-            .footer-social {
-                margin-top: 20px;
-            }
-            
-            footer {
-                border-radius: 0;
-                margin-top: 40px;
-            }
-        }
-        
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .footer-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+
+        .nav-list.active li:nth-child(1) { animation-delay: 0.1s; }
+        .nav-list.active li:nth-child(2) { animation-delay: 0.2s; }
+        .nav-list.active li:nth-child(3) { animation-delay: 0.3s; }
+        .nav-list.active li:nth-child(4) { animation-delay: 0.4s; }
+        .nav-list.active li:nth-child(5) { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
-    <!-- Futuristic Header -->
+    <!-- Header -->
     <header>
         <a href="https://www.timetoday.online" class="logo">
             <img src="timetodaysmall.png" alt="Time Today Logo" class="logo-image">
@@ -1020,7 +1151,7 @@
         </button>
     </header>
 
-    <!-- Futuristic Navigation -->
+    <!-- Navigation -->
     <nav class="main-nav">
         <div class="menu-toggle" id="mobile-menu">
             <span></span>
@@ -1046,266 +1177,235 @@
     </nav>
 
     <div class="container">
-        <div class="visitor-counter">
-            <i class="fas fa-users"></i>
-            <span id="live-count">Loading...</span> users online
-        </div>
-
-        <div class="quick-cities">
-            <span>Compare:</span>
-            <a href="https://www.timetoday.online/newyork">
-            <button class="city-btn" data-city="new-york">New York</button>
-            </a>
-            <a href="https://www.timetoday.online/london">
-            <button class="city-btn" data-city="london">London</button>
-            </a>
-            <a href="https://www.timetoday.online/paris">
-            <button class="city-btn" data-city="paris">Paris</button>
-            </a>    
-            <a href="https://www.timetoday.online/tokyo">
-            <button class="city-btn" data-city="tokyo">Tokyo</button>
-            </a>
-            <a href="https://www.timetoday.online/islamabad">
-            <button class="city-btn" data-city="islamabad">Islamabad</button>
-            </a>
-            <a href="https://www.timetoday.online/riyadh">
-            <button class="city-btn" data-city="riyadh">Riyadh</button>
-            </a>
-            <a href="https://www.timetoday.online/new-delhi">
-            <button class="city-btn" data-city="new-delhi">New Delhi</button>
-            </a>
-        </div>
-
-        <div class="toolbar">
-            <button class="tool-btn" id="share-btn">
-                <i class="fas fa-share-alt"></i>
-                <span>Share</span>
-            </button>
-            <button class="tool-btn" onclick="window.location.href='meeting-planner.html'">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Meeting Planner</span>
-            </button>
-            <button class="tool-btn" id="quiz-btn">
-                <i class="fas fa-gamepad"></i>
-                <span>Time Quiz</span>
-            </button>
-        </div>
-
-        <div class="main-clock">
-            <div class="time-display" id="local-time">12:34:56</div>
-            <div class="date-display" id="local-date">Friday, July 19, 2024</div>
-            <div class="location-display">
-                <i class="fas fa-map-marker-alt"></i>
-                <span id="local-location">Detecting location...</span>
-                <span id="local-timezone">(GMT+00:00)</span>
+        <div class="content-container">
+            <div class="visitor-counter">
+                <i class="fas fa-users"></i>
+                <span id="live-count">Loading...</span> users online
             </div>
-            <div class="sun-times">
-                <span>☀️ Sunrise: <span id="sunrise">--:-- --</span></span>
-                <span>🌇 Sunset: <span id="sunset">--:-- --</span></span>
-            </div>
-            <div class="sync-status">
-                <span id="sync-message">Synchronizing with atomic time...</span>
-                <span id="sync-accuracy"></span>
-            </div>
-        </div>
-        
-        <!-- Quick Time Row Start -->
-        <div class="quick-time-row">
-            <div 
-  class="quick-time-card" 
-  data-timezone="Asia/Tokyo"
-  onclick="window.location.href='https://www.timetoday.online/tokyo'"
->
-  <a 
-    href="https://www.timetoday.online/tokyo" 
-    style="display: block; text-decoration: none; color: inherit;"
-  >
-    Tokyo<br>
-    <span class="quick-time"></span>
-  </a>
-</div>
-            <div class="quick-time-card" data-timezone="Asia/Shanghai">Beijing<br><span class="quick-time"></span></div>
-           <div 
-  class="quick-time-card" 
-  data-timezone="Europe/Paris"
-  onclick="window.location.href='https://www.timetoday.online/paris'"
->
-  <a 
-    href="https://www.timetoday.online/paris" 
-    style="display: block; text-decoration: none; color: inherit;"
-  >
-    Paris<br>
-    <span class="quick-time"></span>
-  </a>
-</div>
-            <div 
-  class="quick-time-card" 
-  data-timezone="Europe/London"
-  onclick="window.location.href='https://www.timetoday.online/london'"
->
-  <a 
-    href="https://www.timetoday.online/london" 
-    style="display: block; text-decoration: none; color: inherit;"
-  >
-    London<br>
-    <span class="quick-time"></span>
-  </a>
-</div>
-            <div 
-  class="quick-time-card" 
-  data-timezone="America/New_York"
-  onclick="window.location.href='https://www.timetoday.online/newyork'"
->
-  <a 
-    href="https://www.timetoday.online/newyork" 
-    style="display: block; text-decoration: none; color: inherit;"
-  >
-    New York<br>
-    <span class="quick-time"></span>
-  </a>
-</div>
-            <div 
-  class="quick-time-card" 
-  data-timezone="Asia/Riyadh"
-  onclick="window.location.href='https://www.timetoday.online/riyadh'"
->
-  <a 
-    href="https://www.timetoday.online/riyadh" 
-    style="display: block; text-decoration: none; color: inherit;"
-  >
-    Riyadh<br>
-    <span class="quick-time"></span>
-  </a>
-</div>
-            <div class="quick-time-card" data-timezone="America/Los_Angeles">Los Angeles<br><span class="quick-time"></span></div>
-            <div 
-  class="quick-time-card" 
-  data-timezone="Asia/Kolkata"
-  onclick="window.location.href='https://www.timetoday.online/new-delhi'"
->
-  <a 
-    href="https://www.timetoday.online/new-delhi" 
-    style="display: block; text-decoration: none; color: inherit;"
-  >
-    New Delhi<br>
-    <span class="quick-time"></span>
-  </a>
-</div>
-            <div class="quick-time-card" data-timezone="Europe/Berlin">Berlin<br><span class="quick-time"></span></div>
-            <div 
-  class="quick-time-card" 
-  data-timezone="Asia/Karachi"
-  onclick="window.location.href='https://www.timetoday.online/islamabad'"
->
-  <a 
-    href="https://www.timetoday.online/islamabad" 
-    style="display: block; text-decoration: none; color: inherit;"
-  >
-    Islamabad<br>
-    <span class="quick-time"></span>
-  </a>
-</div>
-            <div class="quick-time-card" data-timezone="Australia/Sydney">Sydney<br><span class="quick-time"></span></div>
-        </div>
-        <!-- Quick Time Row End -->
 
-        <div class="timezone-grid">
-            <div class="timezone-card" style="--tz-color: #ff6b6b;">
-                <a href="https://www.timetoday.online/newyork" style="text-decoration: none; color: inherit;">
-                <h3>
-                <img src="https://flagcdn.com/us.svg" class="flag" alt="US flag"> 
-                New York
-                </h3>
+            <div class="quick-cities">
+                <span>Compare:</span>
+                <a href="https://www.timetoday.online/newyork">
+                    <button class="city-btn" data-city="new-york">New York</button>
                 </a>
-                <div class="timezone-time" id="ny-time">7:34:56 AM</div>
-                <div class="timezone-date" id="ny-date">Friday, July 19, 2024</div>
-                <div class="timezone-info">
-                    <span>EST/EDT</span>
-                    <span id="ny-difference">-5h from you</span>
+                <a href="https://www.timetoday.online/london">
+                    <button class="city-btn" data-city="london">London</button>
+                </a>
+                <a href="https://www.timetoday.online/paris">
+                    <button class="city-btn" data-city="paris">Paris</button>
+                </a>    
+                <a href="https://www.timetoday.online/tokyo">
+                    <button class="city-btn" data-city="tokyo">Tokyo</button>
+                </a>
+                <a href="https://www.timetoday.online/islamabad">
+                    <button class="city-btn" data-city="islamabad">Islamabad</button>
+                </a>
+                <a href="https://www.timetoday.online/riyadh">
+                    <button class="city-btn" data-city="riyadh">Riyadh</button>
+                </a>
+                <a href="https://www.timetoday.online/new-delhi">
+                    <button class="city-btn" data-city="new-delhi">New Delhi</button>
+                </a>
+            </div>
+
+            <div class="toolbar">
+                <button class="tool-btn" id="share-btn">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Share</span>
+                </button>
+                <button class="tool-btn" onclick="window.location.href='meeting-planner.html'">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Meeting Planner</span>
+                </button>
+                <button class="tool-btn" id="quiz-btn">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Time Quiz</span>
+                </button>
+            </div>
+
+            <div class="main-clock">
+                <div class="time-display" id="local-time">12:34:56</div>
+                <div class="date-display" id="local-date">Friday, July 19, 2024</div>
+                <div class="location-display">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="local-location">Detecting location...</span>
+                    <span id="local-timezone">(GMT+00:00)</span>
                 </div>
-            </div>
-
-            <div class="timezone-card" style="--tz-color: #4ecdc4;">
-            <a href="https://www.timetoday.online/london" style="text-decoration: none; color: inherit;">
-            <h3>
-            <img src="https://flagcdn.com/gb.svg" class="flag" alt="UK flag"> 
-            London
-            </h3>
-            </a>
-            <div class="timezone-time" id="london-time">12:34:56 PM</div>
-            <div class="timezone-date" id="london-date">Friday, July 19, 2024</div>
-            <div class="timezone-info">
-            <span>GMT/BST</span>
-            <span id="london-difference">Same as you</span>
-            </div>
-            </div>
-
-            <div class="timezone-card" style="--tz-color: #ff9ff3;">
-                <h3><img src="https://flagcdn.com/jp.svg" class="flag" alt="Japan flag"> Tokyo</h3>
-                <div class="timezone-time" id="tokyo-time">9:34:56 PM</div>
-                <div class="timezone-date" id="tokyo-date">Friday, July 19, 2024</div>
-                <div class="timezone-info">
-                    <span>JST</span>
-                    <span id="tokyo-difference">+9h from you</span>
+                <div class="sun-times">
+                    <span>☀️ Sunrise: <span id="sunrise">--:-- --</span></span>
+                    <span>🌇 Sunset: <span id="sunset">--:-- --</span></span>
                 </div>
-            </div>
-
-            <div class="timezone-card" style="--tz-color: #feca57;">
-                <h3><img src="https://flagcdn.com/au.svg" class="flag" alt="Australia flag"> Sydney</h3>
-                <div class="timezone-time" id="sydney-time">10:34:56 PM</div>
-                <div class="timezone-date" id="sydney-date">Friday, July 19, 2024</div>
-                <div class="timezone-info">
-                    <span>AEST/AEDT</span>
-                    <span id="sydney-difference">+10h from you</span>
-                </div>
-            </div>
-
-            <div class="timezone-card" style="--tz-color: #DC143C;">
-                <h3><img src="https://flagcdn.com/ae.svg" class="flag" alt="UAE flag"> Dubai</h3>
-                <div class="timezone-time" id="dubai-time">4:34:56 PM</div>
-                <div class="timezone-date" id="dubai-date">Friday, July 19, 2024</div>
-                <div class="timezone-info">
-                    <span>GST</span>
-                    <span id="dubai-difference">+4h from you</span>
+                <div class="sync-status">
+                    <span id="sync-message">Synchronizing with atomic time...</span>
+                    <span id="sync-accuracy"></span>
                 </div>
             </div>
             
-            <!-- MEXICO -->
-            <div class="timezone-card" style="--tz-color: #2ecc71;">
-                <h3><img src="https://flagcdn.com/mx.svg" class="flag" alt="Mexico flag"> Mexico City</h3>
-                <div class="timezone-time" id="mexico-time">6:34:56 AM</div>
-                <div class="timezone-date" id="mexico-date">Friday, July 19, 2024</div>
-                <div class="timezone-info">
-                    <span>CST/CDT</span>
-                    <span id="mexico-difference">-1h from you</span>
+            <!-- Quick Time Row -->
+            <div class="quick-time-row">
+                <div class="quick-time-card" data-timezone="Asia/Tokyo" onclick="window.location.href='https://www.timetoday.online/tokyo'">
+                    <a href="https://www.timetoday.online/tokyo" class="quick-time-link">
+                        Tokyo<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="Asia/Shanghai">
+                    <a href="#" class="quick-time-link">
+                        Beijing<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="Europe/Paris" onclick="window.location.href='https://www.timetoday.online/paris'">
+                    <a href="https://www.timetoday.online/paris" class="quick-time-link">
+                        Paris<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="Europe/London" onclick="window.location.href='https://www.timetoday.online/london'">
+                    <a href="https://www.timetoday.online/london" class="quick-time-link">
+                        London<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="America/New_York" onclick="window.location.href='https://www.timetoday.online/newyork'">
+                    <a href="https://www.timetoday.online/newyork" class="quick-time-link">
+                        New York<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="Asia/Riyadh" onclick="window.location.href='https://www.timetoday.online/riyadh'">
+                    <a href="https://www.timetoday.online/riyadh" class="quick-time-link">
+                        Riyadh<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="America/Los_Angeles">
+                    <a href="#" class="quick-time-link">
+                        Los Angeles<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="Asia/Kolkata" onclick="window.location.href='https://www.timetoday.online/new-delhi'">
+                    <a href="https://www.timetoday.online/new-delhi" class="quick-time-link">
+                        New Delhi<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="Europe/Berlin">
+                    <a href="#" class="quick-time-link">
+                        Berlin<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="Asia/Karachi" onclick="window.location.href='https://www.timetoday.online/islamabad'">
+                    <a href="https://www.timetoday.online/islamabad" class="quick-time-link">
+                        Islamabad<br>
+                        <span class="quick-time"></span>
+                    </a>
+                </div>
+                <div class="quick-time-card" data-timezone="Australia/Sydney">
+                    <a href="#" class="quick-time-link">
+                        Sydney<br>
+                        <span class="quick-time"></span>
+                    </a>
                 </div>
             </div>
 
-            <!-- GREENLAND -->
-            <div class="timezone-card" style="--tz-color: #1abc9c;">
-                <h3><img src="https://flagcdn.com/gl.svg" class="flag" alt="Greenland flag"> Nuuk</h3>
-                <div class="timezone-time" id="greenland-time">10:34:56 AM</div>
-                <div class="timezone-date" id="greenland-date">Friday, July 19, 2024</div>
-                <div class="timezone-info">
-                    <span>WGT/WGST</span>
-                    <span id="greenland-difference">+3h from you</span>
+            <div class="timezone-grid">
+                <div class="timezone-card" style="--tz-color: #ff6b6b;">
+                    <a href="https://www.timetoday.online/newyork" style="text-decoration: none; color: inherit;">
+                        <h3>
+                            <img src="https://flagcdn.com/us.svg" class="flag" alt="US flag"> 
+                            New York
+                        </h3>
+                    </a>
+                    <div class="timezone-time" id="ny-time">7:34:56 AM</div>
+                    <div class="timezone-date" id="ny-date">Friday, July 19, 2024</div>
+                    <div class="timezone-info">
+                        <span>EST/EDT</span>
+                        <span id="ny-difference">-5h from you</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- NEW ZEALAND -->
-            <div class="timezone-card" style="--tz-color: #e67e22;">
-                <h3><img src="https://flagcdn.com/nz.svg" class="flag" alt="New Zealand flag"> Auckland</h3>
-                <div class="timezone-time" id="nz-time">11:34:56 PM</div>
-                <div class="timezone-date" id="nz-date">Friday, July 19, 2024</div>
-                <div class="timezone-info">
-                    <span>NZST/NZDT</span>
-                    <span id="nz-difference">+16h from you</span>
+                <div class="timezone-card" style="--tz-color: #4ecdc4;">
+                    <a href="https://www.timetoday.online/london" style="text-decoration: none; color: inherit;">
+                        <h3>
+                            <img src="https://flagcdn.com/gb.svg" class="flag" alt="UK flag"> 
+                            London
+                        </h3>
+                    </a>
+                    <div class="timezone-time" id="london-time">12:34:56 PM</div>
+                    <div class="timezone-date" id="london-date">Friday, July 19, 2024</div>
+                    <div class="timezone-info">
+                        <span>GMT/BST</span>
+                        <span id="london-difference">Same as you</span>
+                    </div>
+                </div>
+
+                <div class="timezone-card" style="--tz-color: #ff9ff3;">
+                    <h3><img src="https://flagcdn.com/jp.svg" class="flag" alt="Japan flag"> Tokyo</h3>
+                    <div class="timezone-time" id="tokyo-time">9:34:56 PM</div>
+                    <div class="timezone-date" id="tokyo-date">Friday, July 19, 2024</div>
+                    <div class="timezone-info">
+                        <span>JST</span>
+                        <span id="tokyo-difference">+9h from you</span>
+                    </div>
+                </div>
+
+                <div class="timezone-card" style="--tz-color: #feca57;">
+                    <h3><img src="https://flagcdn.com/au.svg" class="flag" alt="Australia flag"> Sydney</h3>
+                    <div class="timezone-time" id="sydney-time">10:34:56 PM</div>
+                    <div class="timezone-date" id="sydney-date">Friday, July 19, 2024</div>
+                    <div class="timezone-info">
+                        <span>AEST/AEDT</span>
+                        <span id="sydney-difference">+10h from you</span>
+                    </div>
+                </div>
+
+                <div class="timezone-card" style="--tz-color: #DC143C;">
+                    <h3><img src="https://flagcdn.com/ae.svg" class="flag" alt="UAE flag"> Dubai</h3>
+                    <div class="timezone-time" id="dubai-time">4:34:56 PM</div>
+                    <div class="timezone-date" id="dubai-date">Friday, July 19, 2024</div>
+                    <div class="timezone-info">
+                        <span>GST</span>
+                        <span id="dubai-difference">+4h from you</span>
+                    </div>
+                </div>
+                
+                <div class="timezone-card" style="--tz-color: #2ecc71;">
+                    <h3><img src="https://flagcdn.com/mx.svg" class="flag" alt="Mexico flag"> Mexico City</h3>
+                    <div class="timezone-time" id="mexico-time">6:34:56 AM</div>
+                    <div class="timezone-date" id="mexico-date">Friday, July 19, 2024</div>
+                    <div class="timezone-info">
+                        <span>CST/CDT</span>
+                        <span id="mexico-difference">-1h from you</span>
+                    </div>
+                </div>
+
+                <div class="timezone-card" style="--tz-color: #1abc9c;">
+                    <h3><img src="https://flagcdn.com/gl.svg" class="flag" alt="Greenland flag"> Nuuk</h3>
+                    <div class="timezone-time" id="greenland-time">10:34:56 AM</div>
+                    <div class="timezone-date" id="greenland-date">Friday, July 19, 2024</div>
+                    <div class="timezone-info">
+                        <span>WGT/WGST</span>
+                        <span id="greenland-difference">+3h from you</span>
+                    </div>
+                </div>
+
+                <div class="timezone-card" style="--tz-color: #e67e22;">
+                    <h3><img src="https://flagcdn.com/nz.svg" class="flag" alt="New Zealand flag"> Auckland</h3>
+                    <div class="timezone-time" id="nz-time">11:34:56 PM</div>
+                    <div class="timezone-date" id="nz-date">Friday, July 19, 2024</div>
+                    <div class="timezone-info">
+                        <span>NZST/NZDT</span>
+                        <span id="nz-difference">+16h from you</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- NEW FUTURISTIC FOOTER -->
+    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-about">
@@ -1317,12 +1417,12 @@
             </div>
             
             <div class="footer-links">
-        <h3>Quick Links</h3>
-        <a href="index.html">Home</a>
-        <a href="time-zone-converter.html">UTC World Time</a>
-        <a href="world-holiday-calendar.html">Holiday Calendar</a>
-        <a href="stopwatch.html">Stopwatch</a>
-        <a href="alarm.html">Alarm</a>
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="time-zone-converter.html">UTC World Time</a>
+                <a href="world-holiday-calendar.html">Holiday Calendar</a>
+                <a href="stopwatch.html">Stopwatch</a>
+                <a href="alarm.html">Alarm</a>
             </div>
             
             <div class="footer-links">
@@ -1336,9 +1436,11 @@
             <div class="footer-social">
                 <h3>Connect With Us</h3>
                 <div class="social-icons">
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/TimeTodayOnline" aria-label="X (formerly Twitter)" target="_blank" rel="noopener noreferrer">
+                        <img src="x-logo.png" alt="X" width="19" height="19">
+                    </a>
+                    <a href="https://www.facebook.com/TimeToday.Online" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/timetoday.online/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
@@ -1349,7 +1451,7 @@
         </div>
     </footer>
 
-    <!-- ===== NEW MENU JAVASCRIPT ===== -->
+    <!-- JavaScript -->
     <script>
         // Mobile menu toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -1433,10 +1535,7 @@
         });
 
         window.addEventListener('DOMContentLoaded', loadMode);
-    </script>
 
-    <!-- ===== EXISTING JAVASCRIPT ===== -->
-    <script>
         // Enhanced Timezone Data
         const timezones = {
             local: { id: 'local', name: 'Your Location', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, flag: '' },
@@ -1604,6 +1703,21 @@
                 });
         }
 
+        // Update quick time cards
+        function updateQuickTimeCards() {
+            document.querySelectorAll('.quick-time-card').forEach(card => {
+                const tz = card.dataset.timezone;
+                const time = new Date().toLocaleTimeString('en-US', {
+                    timeZone: tz,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                });
+                card.querySelector('.quick-time').textContent = time;
+            });
+        }
+
         // Initialize everything
         window.addEventListener('load', async () => {
             // Load location
@@ -1627,37 +1741,11 @@
             // Start clocks and visitor counter
             updateClocks();
             updateVisitorCount();
+            updateQuickTimeCards();
             setInterval(updateClocks, 1000);
             setInterval(updateVisitorCount, 30000); // Update every 30 seconds
+            setInterval(updateQuickTimeCards, 1000);
         });
-        function updateQuickTimeCards() {
-            document.querySelectorAll('.quick-time-card').forEach(card => {
-                const tz = card.dataset.timezone;
-                const time = new Date().toLocaleTimeString('en-US', {
-                    timeZone: tz,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                });
-                card.querySelector('.quick-time').textContent = time;
-            });
-        }
-        setInterval(updateQuickTimeCards, 1000);
-        updateQuickTimeCards();
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
