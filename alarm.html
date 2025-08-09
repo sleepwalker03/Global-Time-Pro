@@ -1168,52 +1168,77 @@
         }
 
         @media (max-width: 480px) {
-            .alarm-content h1 {
-                font-size: 1.6rem;
-            }
-            
-            .footer-container {
-                grid-template-columns: 1fr;
-            }
-            
-            footer {
-                margin-top: 30px;
-                padding: 25px 15px;
-            }
-            
-            .current-time {
-                font-size: 2.2rem;
-            }
+    .alarm-content h1 {
+        font-size: 1.6rem;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+    
+    footer {
+        margin-top: 30px;
+        padding: 25px 15px;
+    }
+    
+    .current-time {
+        font-size: 2.2rem;
+    }
 
-            .clock-face {
-                width: 150px;
-                height: 150px;
-            }
+    /* Analog clock adjustments for mobile */
+    .clock-face {
+        width: 180px;
+        height: 180px;
+        border-width: 6px;
+    }
 
-            .hour-hand {
-                height: 40px;
-            }
+    /* Adjust clock hands for smaller size */
+    .hour-hand {
+        height: 45px;
+        width: 5px;
+    }
 
-            .minute-hand {
-                height: 60px;
-            }
+    .minute-hand {
+        height: 65px;
+        width: 4px;
+    }
 
-            .second-hand {
-                height: 70px;
-            }
+    .second-hand {
+        height: 75px;
+        width: 2px;
+    }
 
-            .alarm-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+    /* Adjust clock numbers positioning */
+    .number-1 { transform: translate(35px, -60px); }
+    .number-2 { transform: translate(60px, -35px); }
+    .number-3 { transform: translate(70px, 0); }
+    .number-4 { transform: translate(60px, 35px); }
+    .number-5 { transform: translate(35px, 60px); }
+    .number-6 { transform: translate(0, 70px); }
+    .number-7 { transform: translate(-35px, 60px); }
+    .number-8 { transform: translate(-60px, 35px); }
+    .number-9 { transform: translate(-70px, 0); }
+    .number-10 { transform: translate(-60px, -35px); }
+    .number-11 { transform: translate(-35px, -60px); }
+    .number-12 { transform: translate(0, -70px); }
 
-            .alarm-actions {
-                width: 100%;
-                flex-direction: row;
-                justify-content: flex-end;
-                margin-top: 10px;
-            }
-        }
+    /* Make numbers slightly smaller */
+    .clock-number {
+        font-size: 0.9em;
+    }
+
+    .alarm-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .alarm-actions {
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+}
     </style>
 </head>
 <body>
