@@ -1,966 +1,1055 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Essential Meta Tags -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Time Today">
-
-<!-- Primary SEO Meta Tags -->
-<title>Terms of Service - Time Today</title>
-<meta name="description" content="Time Today's Terms of Service. Understand the rules and guidelines for using our time-tracking services.">
-<meta name="keywords" content="time today terms, terms of use, legal agreement">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.timetoday.online/terms.html">
-<meta property="og:title" content="Terms of Service - Time Today">
-<meta property="og:description" content="The legal terms governing your use of Time Today's services.">
-<meta property="og:image" content="https://www.timetoday.online/images/og-terms.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Terms of Service - Time Today">
-<meta name="twitter:description" content="The legal terms governing your use of Time Today's services.">
-<meta name="twitter:image" content="https://www.timetoday.online/images/og-terms.jpg">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-R1E5LS9596');
-  </script>
-
-  <title>Terms of Use - Time Today</title>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/suncalc@1.8.0/suncalc.min.js"></script>
-
-  <style>
-    :root {
-      --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
-      --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-      --card-day: rgba(255, 255, 255, 0.9);
-      --card-night: rgba(30, 30, 40, 0.9);
-      --text-day: #333;
-      --text-night: #f0f0f0;
-      --accent-day: #4a6bff;
-      --accent-night: #6bd3ff;
-    }
-
-    /* ===== FUTURISTIC HEADER & MENU STYLES ===== */
-    header {
-      padding: 15px 5%;
-      background: rgba(20, 20, 30, 0.8);
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      position: relative;
-      overflow: hidden;
-      z-index: 100;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(107,211,255,0.05) 0%, rgba(134,114,247,0.05) 100%);
-      z-index: -1;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.3s ease;
-    }
-
-    .logo:hover {
-      transform: translateY(-2px);
-    }
-
-    .logo-image {
-      height: 36px;
-      filter: drop-shadow(0 0 5px rgba(107, 211, 255, 0.5));
-      transition: all 0.3s ease;
-    }
-
-    .logo:hover .logo-image {
-      filter: drop-shadow(0 0 8px rgba(107, 211, 255, 0.8));
-    }
-
-    .logo span {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, #6bd3ff, #8672f7);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: 0.5px;
-    }
-
-    /* Main Navigation */
-    .main-nav {
-      background: rgba(20, 20, 30, 0.8);
-      padding: 0 5%;
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      width: 100%;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .nav-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 5px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .nav-list li {
-      position: relative;
-    }
-
-    .nav-list a {
-      color: #f0f0f0;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 18px 20px;
-      display: block;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-    }
-
-    .nav-list a::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #6bd3ff, #8672f7);
-      transition: width 0.3s ease;
-    }
-
-    .nav-list a:hover::before {
-      width: 70%;
-    }
-
-    .nav-list a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px rgba(107, 211, 255, 0.5);
-    }
-
-    /* Active Link Indicator */
-    .nav-list a.active {
-      color: #6bd3ff;
-    }
-
-    .nav-list a.active::before {
-      width: 70%;
-    }
-
-    /* Dropdown Styles */
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-toggle {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .dropdown-toggle i {
-      font-size: 0.7em;
-      transition: transform 0.3s ease;
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background: rgba(30, 30, 40, 0.95);
-      border-radius: 8px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      padding: 10px 0;
-      min-width: 200px;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 100;
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .dropdown-menu::before {
-      content: '';
-      position: absolute;
-      top: -5px;
-      left: 50%;
-      transform: translateX(-50%) rotate(45deg);
-      width: 10px;
-      height: 10px;
-      background: rgba(30, 30, 40, 0.95);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      border-left: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .dropdown:hover .dropdown-menu,
-    .dropdown:focus-within .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .dropdown-menu li {
-      display: block;
-      width: 100%;
-    }
-
-    .dropdown-menu a {
-      padding: 12px 25px;
-      color: #ddd;
-      font-size: 0.9rem;
-    }
-
-    .dropdown-menu a:hover {
-      background: linear-gradient(90deg, rgba(107,211,255,0.1), rgba(134,114,247,0.1));
-      color: #fff;
-      padding-left: 30px;
-    }
-
-    /* Mode Toggle Button */
-    button#mode-toggle {
-      background: rgba(255,255,255,0.1);
-      border: none;
-      border-radius: 30px;
-      padding: 8px 16px;
-      color: white;
-      cursor: pointer;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-    }
-
-    button#mode-toggle::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, rgba(107,211,255,0.2), rgba(134,114,247,0.2));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    button#mode-toggle:hover::before {
-      opacity: 1;
-    }
-
-    button#mode-toggle i {
-      transition: all 0.3s ease;
-    }
-
-    button#mode-toggle:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(107, 211, 255, 0.2);
-    }
-
-    /* Mobile Menu Toggle */
-    .menu-toggle {
-      display: none;
-      cursor: pointer;
-      padding: 15px;
-      position: absolute;
-      right: 20px;
-      top: 0;
-      z-index: 1001;
-      background: rgba(30, 30, 40, 0.8);
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .menu-toggle span {
-      display: block;
-      width: 25px;
-      height: 2px;
-      background: #fff;
-      margin: 5px 0;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    /* Mobile Styles */
-    @media (max-width: 768px) {
-      header {
-        padding: 15px;
-        border-radius: 0;
-      }
-      
-      .main-nav {
-        padding: 0;
-      }
-      
-      .menu-toggle {
-        display: block;
-      }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Time Today">
     
-      .nav-list {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100vh;
-        background: rgba(20, 20, 30, 0.98);
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 80px;
-        gap: 0;
-        transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        z-index: 1000;
-        backdrop-filter: blur(20px);
-        border-left: 1px solid rgba(255,255,255,0.1);
-      }
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.timetoday.online/terms.html" />
     
-      .nav-list li {
-        width: 100%;
-      }
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="manifest" href="/site.webmanifest">
     
-      .nav-list a {
-        padding: 18px 25px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-      }
-
-      .dropdown-menu {
-        position: static;
-        background: transparent;
-        box-shadow: none;
-        padding: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease, opacity 0.3s ease;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        border: none;
-        border-radius: 0;
-      }
-      
-      .dropdown-menu::before {
-        display: none;
-      }
-      
-      .dropdown.active .dropdown-menu {
-        max-height: 500px;
-      }
-      
-      .dropdown-menu a {
-        padding-left: 40px;
-        background: rgba(0,0,0,0.2);
-      }
-      
-      .dropdown-toggle::after {
-        content: none;
-      }
-      
-      .dropdown-toggle i {
-        transform: rotate(0deg);
-        transition: transform 0.3s ease;
-      }
-      
-      .dropdown.active .dropdown-toggle i {
-        transform: rotate(180deg);
-      }
+    <!-- Preloads -->
+    <link rel="preload" href="timetodaysmall.png" as="image">
+    <link rel="preload" href="timetodaysmall1.png" as="image">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
-      .nav-list.active {
-        right: 0;
-      }
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Time Today's Terms of Service. Understand the rules and guidelines for using our time-tracking services.">
+    <meta name="keywords" content="time today terms, terms of use, legal agreement">
     
-      .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-        background: #6bd3ff;
-      }
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.timetoday.online/terms.html">
+    <meta property="og:title" content="Terms of Service - Time Today">
+    <meta property="og:description" content="The legal terms governing your use of Time Today's services.">
+    <meta property="og:image" content="https://www.timetoday.online/og-terms.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Terms of Service - Time Today">
+    <meta name="twitter:description" content="The legal terms governing your use of Time Today's services.">
+    <meta name="twitter:image" content="https://www.timetoday.online/og-terms.jpg">
     
-      .menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-      }
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileImage" content="/mstile-150x150.png">
     
-      .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-        background: #8672f7;
-      }
-      
-      /* Animate menu items */
-      .nav-list.active li {
-        opacity: 0;
-        animation: fadeInRight 0.4s ease forwards;
-      }
-      
-      .nav-list.active li:nth-child(1) { animation-delay: 0.1s; }
-      .nav-list.active li:nth-child(2) { animation-delay: 0.2s; }
-      .nav-list.active li:nth-child(3) { animation-delay: 0.3s; }
-      .nav-list.active li:nth-child(4) { animation-delay: 0.4s; }
-      .nav-list.active li:nth-child(5) { animation-delay: 0.5s; }
-    }
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1E5LS9596"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R1E5LS9596');
+    </script>
     
-    @keyframes fadeInRight {
-      from {
-        opacity: 0;
-        transform: translateX(20px);
+    <!-- Redirect Old Domain -->
+    <script>
+      if (window.location.hostname === 'global-time-pro.pages.dev') {
+        window.location.replace('https://www.timetoday.online/terms.html');
       }
-      to {
-        opacity: 1;
-        transform: translateX(0);
+    </script>
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Terms of Service - Time Today",
+      "url": "https://www.timetoday.online/terms.html",
+      "description": "The legal terms governing your use of Time Today's services.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Time Today",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.timetoday.online/timetodaysmall.png"
+        }
       }
     }
+    </script>
+    
+    <title>Terms of Service - Time Today</title>
+    
+    <!-- CSS & JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Prevent horizontal scrolling */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
 
-    /* Night mode adjustments */
-    .night-mode .main-nav {
-      background: rgba(10, 10, 20, 0.8);
-    }
-    
-    .night-mode .dropdown-menu {
-      background: rgba(20, 20, 30, 0.98);
-    }
-    
-    .night-mode .nav-list {
-      background: rgba(10, 10, 20, 0.98);
-    }
+        :root {
+            --day-bg: linear-gradient(135deg, #72b5f7 0%, #8672f7 100%);
+            --night-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --card-day: rgba(255, 255, 255, 0.9);
+            --card-night: rgba(30, 30, 40, 0.9);
+            --text-day: #333;
+            --text-night: #f0f0f0;
+            --accent-day: #4a6bff;
+            --accent-night: #6bd3ff;
+        }
 
-    /* Body and Content Styles */
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      background: var(--day-bg);
-      background-attachment: fixed;
-      color: var(--text-day);
-      transition: all 0.5s ease;
-    }
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body.night-mode {
-      background: var(--night-bg);
-      color: var(--text-night);
-    }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--day-bg);
+            background-attachment: fixed;
+            color: var(--text-day);
+            transition: all 0.5s ease;
+            line-height: 1.5;
+            font-size: 16px;
+        }
 
-    /* Content container */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background-color: var(--card-day);
-      border-radius: 12px;
-      padding: 25px 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      transition: background-color 0.5s ease, color 0.5s ease;
-    }
+        body.night-mode {
+            background: var(--night-bg);
+            color: var(--text-night);
+        }
 
-    body.night-mode .container {
-      background-color: var(--card-night);
-      color: var(--text-night);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-    }
+        /* Responsive base font sizes */
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+        }
 
-    h1 {
-      margin-top: 0;
-      font-weight: 900;
-      font-size: 2.4rem;
-      margin-bottom: 15px;
-    }
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+        }
 
-    h2 {
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin: 25px 0 15px;
-      color: var(--accent-day);
-    }
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    body.night-mode h2 {
-      color: var(--accent-night);
-    }
+        /* Header */
+        header {
+            padding: 15px 20px;
+            background: rgba(20, 20, 30, 0.8);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 100;
+        }
 
-    p {
-      line-height: 1.6;
-      font-size: 1.1rem;
-      margin-bottom: 15px;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
 
-    a {
-      color: var(--accent-day);
-      font-weight: 600;
-    }
+        .logo:hover {
+            transform: translateY(-2px);
+        }
 
-    body.night-mode a {
-      color: var(--accent-night);
-    }
+        .logo-image {
+            height: 30px;
+            filter: drop-shadow(0 0 5px rgba(107, 211, 255, 0.5));
+            transition: all 0.3s ease;
+        }
 
-    ul {
-      margin-bottom: 20px;
-      padding-left: 20px;
-    }
+        .logo:hover .logo-image {
+            filter: drop-shadow(0 0 8px rgba(107, 211, 255, 0.8));
+        }
 
-    li {
-      margin-bottom: 8px;
-      line-height: 1.5;
-    }
+        .logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
 
-    /* ===== NEW FUTURISTIC FOOTER STYLES ===== */
-    footer {
-      background: rgba(20, 20, 30, 0.95);
-      color: #f0f0f0;
-      padding: 40px 20px;
-      margin-top: 60px;
-      border-radius: 16px;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    
-    .night-mode footer {
-      background: rgba(10, 10, 20, 0.95);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-    }
-    
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    
-    .footer-logo img {
-      height: 30px;
-      filter: brightness(0) invert(1);
-    }
-    
-    .footer-logo span {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, #6bd3ff, #8672f7);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    
-    .footer-about {
-      max-width: 300px;
-    }
-    
-    .footer-about p {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      opacity: 0.8;
-    }
-    
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .footer-links h3 {
-      font-size: 1.1rem;
-      margin-bottom: 15px;
-      position: relative;
-      padding-bottom: 8px;
-    }
-    
-    .footer-links h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 40px;
-      height: 2px;
-      background: linear-gradient(90deg, #6bd3ff, #8672f7);
-    }
-    
-    .footer-links a {
-      color: #f0f0f0;
-      text-decoration: none;
-      margin-bottom: 10px;
-      font-size: 0.9rem;
-      opacity: 0.8;
-      transition: all 0.3s ease;
-      position: relative;
-      padding-left: 15px;
-    }
-    
-    .footer-links a::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
-    
-    .footer-links a:hover {
-      opacity: 1;
-      padding-left: 20px;
-      color: #6bd3ff;
-    }
-    
-    .footer-links a:hover::before {
-      opacity: 1;
-      left: -5px;
-    }
-    
-    .footer-social h3 {
-      font-size: 1.1rem;
-      margin-bottom: 15px;
-      position: relative;
-      padding-bottom: 8px;
-    }
-    
-    .footer-social h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 40px;
-      height: 2px;
-      background: linear-gradient(90deg, #6bd3ff, #8672f7);
-    }
-    
-    .social-icons {
-      display: flex;
-      gap: 15px;
-    }
-    
-    .social-icons a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      color: #f0f0f0;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-    }
-    
-    .social-icons a:hover {
-      background: linear-gradient(135deg, #6bd3ff, #8672f7);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(107, 211, 255, 0.3);
-    }
-    
-    .footer-bottom {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding-top: 30px;
-      margin-top: 30px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
-    
-    /* Futuristic decorative elements */
-    footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(107,211,255,0.1) 0%, rgba(0,0,0,0) 70%);
-    }
-    
-    footer::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 150px;
-      height: 150px;
-      background: radial-gradient(circle, rgba(134,114,247,0.1) 0%, rgba(0,0,0,0) 70%);
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .footer-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      
-      .footer-links {
-        margin-top: 20px;
-      }
-      
-      .footer-social {
-        margin-top: 20px;
-      }
-      
-      footer {
-        border-radius: 0;
-        margin-top: 40px;
-      }
-    }
-    
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .footer-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
+        /* Mode Toggle */
+        button#mode-toggle {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 30px;
+            padding: 8px 12px;
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        button#mode-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(107,211,255,0.2), rgba(134,114,247,0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        button#mode-toggle:hover::before {
+            opacity: 1;
+        }
+
+        button#mode-toggle i {
+            transition: all 0.3s ease;
+        }
+
+        button#mode-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 211, 255, 0.2);
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-radius: 12px;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-list li {
+            position: relative;
+        }
+
+        .nav-list a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 15px 16px;
+            display: block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-list a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+            transition: width 0.3s ease;
+        }
+
+        .nav-list a:hover::before {
+            width: 70%;
+        }
+
+        .nav-list a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(107, 211, 255, 0.5);
+        }
+
+        .nav-list a.active {
+            color: #6bd3ff;
+        }
+
+        .nav-list a.active::before {
+            width: 70%;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dropdown-toggle i {
+            font-size: 0.7em;
+            transition: transform 0.3s ease;
+        }
+
+        /* Base dropdown styles (shared) */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            background: rgba(30, 30, 40, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            padding: 10px 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            width: 10px;
+            height: 10px;
+            background: rgba(30, 30, 40, 0.95);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Desktop styles */
+        @media (min-width: 769px) {
+            .dropdown-menu {
+                left: 50%;
+                transform: translateX(-50%) translateY(10px);
+            }
+            
+            .dropdown-menu::before {
+                left: 50%;
+                transform: translateX(-50%) rotate(45deg);
+            }
+            
+            .dropdown:hover .dropdown-menu,
+            .dropdown:focus-within .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .dropdown-menu {
+                left: 0;
+                transform: translateY(10px);
+            }
+            
+            .dropdown-menu::before {
+                left: 20px;
+                transform: rotate(45deg);
+            }
+            
+            .dropdown:hover .dropdown-menu,
+            .dropdown:focus-within .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+
+        /* Shared hover states */
+        .dropdown-menu li {
+            display: block;
+            width: 100%;
+        }
+
+        .dropdown-menu a {
+            padding: 12px 25px;
+            color: #ddd;
+            font-size: 0.85rem;
+        }
+
+        .dropdown-menu a:hover {
+            background: linear-gradient(90deg, rgba(107,211,255,0.1), rgba(134,114,247,0.1));
+            color: #fff;
+            padding-left: 30px;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            padding: 12px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1001;
+            background: rgba(30, 30, 40, 0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #fff;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Main Content */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--card-day);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.night-mode .content-container {
+            background-color: var(--card-night);
+            color: var(--text-night);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        /* Terms Page Specific Styles */
+        .terms-content {
+            padding: 20px;
+        }
+
+        .terms-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--accent-day);
+            text-align: center;
+        }
+
+        body.night-mode .terms-content h1 {
+            color: var(--accent-night);
+        }
+
+        .terms-content h2 {
+            font-size: 1.6rem;
+            margin: 25px 0 15px;
+            color: var(--accent-day);
+        }
+
+        body.night-mode .terms-content h2 {
+            color: var(--accent-night);
+        }
+
+        .terms-content p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .terms-content ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .terms-content li {
+            margin-bottom: 8px;
+        }
+
+        .terms-content a {
+            color: var(--accent-day);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        body.night-mode .terms-content a {
+            color: var(--accent-night);
+        }
+
+        .terms-content a:hover {
+            text-decoration: underline;
+        }
+
+	.last-updated {
+            font-style: italic;
+            margin-bottom: 25px;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 15px;
+            }
+
+            .logo span {
+                font-size: 1.2rem;
+            }
+
+            .logo-image {
+                height: 26px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-list {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 300px;
+                height: 100vh;
+                background: rgba(20, 20, 30, 0.98);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 70px;
+                gap: 0;
+                transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+                z-index: 1000;
+                backdrop-filter: blur(20px);
+                border-left: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .nav-list li {
+                width: 100%;
+            }
+
+            .nav-list a {
+                padding: 15px 25px;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+
+            .dropdown-menu {
+                position: static;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease, opacity 0.3s ease;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                border: none;
+                border-radius: 0;
+            }
+
+            .dropdown-menu::before {
+                left: 15px;
+            }
+
+            .dropdown.active .dropdown-menu {
+                max-height: 500px;
+            }
+
+            .dropdown-menu a {
+                padding-left: 35px;
+                background: rgba(0,0,0,0.2);
+            }
+
+            .dropdown-toggle::after {
+                content: none;
+            }
+
+            .dropdown-toggle i {
+                transform: rotate(0deg);
+                transition: transform 0.3s ease;
+            }
+
+            .dropdown.active .dropdown-toggle i {
+                transform: rotate(180deg);
+            }
+
+            .nav-list.active {
+                right: 0;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+                background: #6bd3ff;
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+                background: #8672f7;
+            }
+
+            /* Terms content adjustments */
+            .terms-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .terms-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .terms-content p {
+                font-size: 0.95rem;
+            }
+
+            /* Prevent body scrolling when menu is open */
+            body.menu-open {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+            }
+        }
+
+        /* Animation for menu items */
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .nav-list.active li {
+            opacity: 0;
+            animation: fadeInRight 0.4s ease forwards;
+        }
+
+        .nav-list.active li:nth-child(1) { animation-delay: 0.1s; }
+        .nav-list.active li:nth-child(2) { animation-delay: 0.2s; }
+        .nav-list.active li:nth-child(3) { animation-delay: 0.3s; }
+        .nav-list.active li:nth-child(4) { animation-delay: 0.4s; }
+        .nav-list.active li:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Footer */
+        footer {
+            background: rgba(20, 20, 30, 0.95);
+            color: #f0f0f0;
+            padding: 30px 15px;
+            margin-top: 40px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .night-mode footer {
+            background: rgba(10, 10, 20, 0.95);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo img {
+            height: 25px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-logo span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-about {
+            max-width: 300px;
+        }
+
+        .footer-about p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-links h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            position: relative;
+            padding-bottom: 6px;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+        }
+
+        .footer-links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 20px;
+            color: #6bd3ff;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -5px;
+        }
+
+        .footer-social h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            position: relative;
+            padding-bottom: 6px;
+        }
+
+        .footer-social h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: linear-gradient(90deg, #6bd3ff, #8672f7);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: #f0f0f0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #6bd3ff, #8672f7);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(107, 211, 255, 0.3);
+        }
+
+        .footer-bottom {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 25px;
+            margin-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 480px) {
+            .terms-content h1 {
+                font-size: 1.6rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            footer {
+                margin-top: 30px;
+                padding: 25px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Futuristic Header -->
-  <header>
-    <a href="https://www.timetoday.online" class="logo">
-      <img src="timetodaysmall.png" alt="Time Today Logo" class="logo-image">
-      <span>Time Today</span>
-    </a>
-    <button id="mode-toggle" aria-label="Toggle dark/light mode">
-      <i class="fas fa-moon"></i> <span class="mode-text">Dark Mode</span>
-    </button>
-  </header>
+    <!-- Header -->
+    <header>
+        <a href="https://www.timetoday.online" class="logo">
+            <img src="timetodaysmall.png" alt="Time Today Logo" class="logo-image">
+            <span>Time Today</span>
+        </a>
+        <button id="mode-toggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-moon"></i> <span class="mode-text">Dark Mode</span>
+        </button>
+    </header>
 
-  <!-- Futuristic Navigation -->
-  <nav class="main-nav">
-    <div class="menu-toggle" id="mobile-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <ul class="nav-list">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="time-zone-converter.html">UTC World Time</a></li>
-      <li><a href="world-holiday-calendar.html">Holiday Calendar</a></li>
-      <li><a href="stopwatch.html">Stopwatch</a></li>
-      <li><a href="alarm.html">Alarm</a></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle">More <i class="fas fa-chevron-down"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="about.html">About</a></li>
-          <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="terms.html" class="active">Terms</a></li>
-          <li><a href="contact.html">Contact</a></li>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="time-zone-converter.html">UTC World Time</a></li>
+            <li><a href="world-holiday-calendar.html">Holiday Calendar</a></li>
+            <li><a href="stopwatch.html">Stopwatch</a></li>
+            <li><a href="alarm.html">Alarm</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">More <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <li><a href="terms.html" class="active">Terms</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </li>
         </ul>
-      </li>
-    </ul>
-  </nav>
+    </nav>
 
-  <!-- MAIN CONTENT -->
-  <div class="container">
-    <h1>Terms of Use</h1>
-    <p>Last Updated: January 1, 2025</p>
-    
-    <p>Welcome to Time Today ("Website", "Service"). By accessing or using our website, you ("User", "You") agree to be bound by these Terms of Use ("Terms"). If you disagree with any part of these Terms, you may not access the Service.</p>
-    
-    <h2>1. Acceptance of Terms</h2>
-    <p>By using Time Today, you confirm that you have read, understood, and agree to be bound by these Terms. These Terms apply to all visitors, users, and others who access or use the Service.</p>
-    
-    <h2>2. Description of Service</h2>
-    <p>Time Today provides time-related information including world clocks, time zone conversions, stopwatch functionality, and holiday calendars ("Services"). All content is provided for general information purposes only.</p>
-    
-    <h2>3. User Responsibilities</h2>
-    <p>When using our Services, you agree to:</p>
-    <ul>
-      <li>Use the Services only for lawful purposes</li>
-      <li>Not engage in any activity that interferes with or disrupts the Services</li>
-      <li>Not attempt to gain unauthorized access to any portion of the Service</li>
-      <li>Not use any automated means to access the Service without our permission</li>
-    </ul>
-    
-    <h2>4. Intellectual Property</h2>
-    <p>The Service and its original content, features, and functionality are owned by Time Today and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
-    
-    <h2>5. Disclaimer of Warranties</h2>
-    <p>The Service is provided "AS IS" and "AS AVAILABLE". Time Today makes no representations or warranties of any kind, express or implied, as to the operation of the Service or the information, content, or materials included.</p>
-    <p>We do not warrant that:</p>
-    <ul>
-      <li>The Service will be uninterrupted or error-free</li>
-      <li>The results obtained from using the Service will be accurate or reliable</li>
-      <li>The quality of any products, services, information, or other material obtained will meet your expectations</li>
-    </ul>
-    
-    <h2>6. Limitation of Liability</h2>
-    <p>In no event shall Time Today, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of the Service.</p>
-    
-    <h2>7. Changes to Terms</h2>
-    <p>We reserve the right to modify or replace these Terms at any time. We will provide notice of any changes by posting the new Terms on this page. Your continued use of the Service after any changes constitutes acceptance of the new Terms.</p>
-    
-    <h2>8. Governing Law</h2>
-    <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where Time Today operates, without regard to its conflict of law provisions.</p>
-    
-    <h2>9. Contact Information</h2>
-    <p>For any questions about these Terms, please <a href="contact.html">contact us</a>.</p>
-  </div>
-
-  <!-- NEW FUTURISTIC FOOTER -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-about">
-        <div class="footer-logo">
-          <img src="timetodaysmall1.png" alt="Time Today">
-          <span>Time Today</span>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-container">
+            <div class="terms-content">
+                <h1>Terms of Service</h1>
+                <p class="last-updated">Last Updated: January 1, 2025</p>
+                
+                <p>Welcome to Time Today ("Website", "Service"). By accessing or using our website, you ("User", "You") agree to be bound by these Terms of Use ("Terms"). If you disagree with any part of these Terms, you may not access the Service.</p>
+                
+                <h2>1. Acceptance of Terms</h2>
+                <p>By using Time Today, you confirm that you have read, understood, and agree to be bound by these Terms. These Terms apply to all visitors, users, and others who access or use the Service.</p>
+                
+                <h2>2. Description of Service</h2>
+                <p>Time Today provides time-related information including world clocks, time zone conversions, stopwatch functionality, and holiday calendars ("Services"). All content is provided for general information purposes only.</p>
+                
+                <h2>3. User Responsibilities</h2>
+                <p>When using our Services, you agree to:</p>
+                <ul>
+                    <li>Use the Services only for lawful purposes</li>
+                    <li>Not engage in any activity that interferes with or disrupts the Services</li>
+                    <li>Not attempt to gain unauthorized access to any portion of the Service</li>
+                    <li>Not use any automated means to access the Service without our permission</li>
+                </ul>
+                
+                <h2>4. Intellectual Property</h2>
+                <p>The Service and its original content, features, and functionality are owned by Time Today and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+                
+                <h2>5. Disclaimer of Warranties</h2>
+                <p>The Service is provided "AS IS" and "AS AVAILABLE". Time Today makes no representations or warranties of any kind, express or implied, as to the operation of the Service or the information, content, or materials included.</p>
+                <p>We do not warrant that:</p>
+                <ul>
+                    <li>The Service will be uninterrupted or error-free</li>
+                    <li>The results obtained from using the Service will be accurate or reliable</li>
+                    <li>The quality of any products, services, information, or other material obtained will meet your expectations</li>
+                </ul>
+                
+                <h2>6. Limitation of Liability</h2>
+                <p>In no event shall Time Today, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of the Service.</p>
+                
+                <h2>7. Changes to Terms</h2>
+                <p>We reserve the right to modify or replace these Terms at any time. We will provide notice of any changes by posting the new Terms on this page. Your continued use of the Service after any changes constitutes acceptance of the new Terms.</p>
+                
+                <h2>8. Governing Law</h2>
+                <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where Time Today operates, without regard to its conflict of law provisions.</p>
+                
+                <h2>9. Contact Information</h2>
+                <p>For any questions about these Terms, please <a href="contact.html">contact us</a>.</p>
+            </div>
         </div>
-        <p>Your gateway to accurate timekeeping across the globe. Providing reliable time services.</p>
-      </div>
-      
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <a href="index.html">Home</a>
-        <a href="time-zone-converter.html">UTC World Time</a>
-        <a href="world-holiday-calendar.html">Holiday Calendar</a>
-        <a href="stopwatch.html">Stopwatch</a>
-        <a href="alarm.html">Alarm</a>
-      </div>
-      
-      <div class="footer-links">
-        <h3>Information</h3>
-        <a href="about.html">About Us</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      
-      <div class="footer-social">
-        <h3>Connect With Us</h3>
-        <div class="social-icons">
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p>&copy; 2025 Time Today. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff4d4d;"></i> for time enthusiasts</p>
-      </div>
     </div>
-  </footer>
 
-  <!-- MOBILE MENU SCRIPT -->
-  <script>
-    // Mobile menu toggle functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.getElementById('mobile-menu');
-        const navList = document.querySelector('.nav-list');
-        
-        menuToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navList.classList.toggle('active');
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="timetodaysmall1.png" alt="Time Today">
+                    <span>Time Today</span>
+                </div>
+                <p>Your gateway to accurate timekeeping across the globe. Providing reliable time services.</p>
+            </div>
             
-            // Toggle body overflow when menu is open
-            if (navList.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="time-zone-converter.html">UTC World Time</a>
+                <a href="world-holiday-calendar.html">Holiday Calendar</a>
+                <a href="stopwatch.html">Stopwatch</a>
+                <a href="alarm.html">Alarm</a>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Information</h3>
+                <a href="about.html">About Us</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            
+            <div class="footer-social">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="https://x.com/TimeTodayOnline" aria-label="X (formerly Twitter)" target="_blank" rel="noopener noreferrer">
+                        <img src="x-logo.png" alt="X" width="19" height="19">
+                    </a>
+                    <a href="https://www.facebook.com/TimeToday.Online" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/timetoday.online/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@TimeToday.Online" aria-label="Youtube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Time Today. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff4d4d;"></i> for time enthusiasts</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobile-menu');
+            const navList = document.querySelector('.nav-list');
+            
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navList.classList.toggle('active');
+                document.body.classList.toggle('menu-open'); // Toggle body class
+            });
+            
+            // Mobile dropdown functionality
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const dropdown = this.closest('.dropdown');
+                        dropdown.classList.toggle('active');
+                    }
+                });
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-list a:not(.dropdown-toggle)').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navList.classList.contains('active')) {
+                        menuToggle.classList.remove('active');
+                        navList.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+            });
+            
+            // Set active page in navigation
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-list a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // DARK MODE SCRIPT
+        const modeToggle = document.getElementById('mode-toggle');
+        const modeIcon = modeToggle.querySelector('i');
+        const modeText = document.querySelector('.mode-text');
+
+        function updateModeText(isDark) {
+            if (isDark) {
+                modeIcon.classList.replace('fa-moon', 'fa-sun');
+                modeText.textContent = 'Light Mode';
             } else {
-                document.body.style.overflow = '';
+                modeIcon.classList.replace('fa-sun', 'fa-moon');
+                modeText.textContent = 'Dark Mode';
             }
-        });
-        
-        // Mobile dropdown functionality
-        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    const dropdown = this.closest('.dropdown');
-                    dropdown.classList.toggle('active');
-                }
-            });
-        });
-        
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-list a:not(.dropdown-toggle)').forEach(link => {
-            link.addEventListener('click', function() {
-                if (navList.classList.contains('active')) {
-                    menuToggle.classList.remove('active');
-                    navList.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        });
-        
-        // Set active page in navigation
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        document.querySelectorAll('.nav-list a').forEach(link => {
-            if (link.getAttribute('href') === currentPage) {
-                link.classList.add('active');
+        }
+
+        // On load, check saved preference
+        function loadMode() {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.body.classList.add('night-mode');
+                updateModeText(true);
+            } else {
+                updateModeText(false);
             }
+        }
+
+        // Toggle mode & save preference
+        modeToggle.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('night-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateModeText(isDark);
         });
-    });
-  </script>
 
-  <!-- DARK MODE SCRIPT -->
-  <script>
-    const modeToggle = document.getElementById('mode-toggle');
-    const modeIcon = modeToggle.querySelector('i');
-    const modeText = document.querySelector('.mode-text');
-
-    function updateModeText(isDark) {
-      if (isDark) {
-        modeIcon.classList.replace('fa-moon', 'fa-sun');
-        modeText.textContent = 'Light Mode';
-      } else {
-        modeIcon.classList.replace('fa-sun', 'fa-moon');
-        modeText.textContent = 'Dark Mode';
-      }
-    }
-
-    // On load, check saved preference
-    function loadMode() {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark') {
-        document.body.classList.add('night-mode');
-        updateModeText(true);
-      } else {
-        updateModeText(false);
-      }
-    }
-
-    // Toggle mode & save preference
-    modeToggle.addEventListener('click', () => {
-      const isDark = document.body.classList.toggle('night-mode');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      updateModeText(isDark);
-    });
-
-    window.addEventListener('DOMContentLoaded', loadMode);
-  </script>
+        window.addEventListener('DOMContentLoaded', loadMode);
+    </script>
 </body>
 </html>
