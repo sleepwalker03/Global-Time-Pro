@@ -490,14 +490,22 @@
             color: var(--accent-night);
         }
 
-        .clock {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            position: relative;
-            margin-bottom: 20px;
-            transition: all 0.5s ease;
-        }
+        /* Clock styles */
+.clock {
+    width: 80vw;
+    height: 80vw;
+    max-width: 300px;
+    max-height: 300px;
+    min-width: 200px;
+    min-height: 200px;
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 20px;
+    transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
         /* Skin 1 */
         .skin1 { 
@@ -535,39 +543,77 @@
 .skin3 .second { background: #ff3864; }
 .skin3 .center { background: #ff3864; box-shadow: 0 0 10px #ff3864; }
 
-        /* Common clock elements */
-        .number {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-	    font-weight: bold;
-	    font-size: 20px;
-            transform: translate(-78%, -80%);
-        }
+        /* Adjust numbers and ticks based on clock size */
+.number {
+    position: absolute;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: inherit;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
 
-        .tick {
-            position: absolute;
-            width: 3px;
-            height: 10px;
-            top: 98.20%;
-            left: 49.464%;
-            transform-origin: center -135px;
-            transition: all 0.5s ease;
-        }
+.tick {
+    position: absolute;
+    width: 2px;
+    background: currentColor;
+    left: 50%;
+    bottom: 50%;
+    transform-origin: center bottom;
+    z-index: 5;
+}
+
+.tick.hour-tick {
+    width: 3px;
+    height: 12px !important;
+}
+
+
+.center {
+    width: 6.66%;
+    height: 6.66%;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+}
 
         .hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform-origin: bottom;
-            transition: all 0.5s ease;
-        }
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    transform: translateX(-50%) rotate(0deg);
+    transition: transform 0.5s cubic-bezier(0.4, 2.3, 0.3, 1);
+}
 
-        .hour { width: 6px; height: 70px; }
-        .minute { width: 4px; height: 100px; }
-        .second { width: 2px; height: 120px; }
+        .hour { 
+    width: 2%; 
+    height: 23%; 
+    background: var(--accent-day); 
+    border-radius: 4px;
+}
+
+.minute { 
+    width: 1.33%; 
+    height: 33%; 
+    background: var(--accent-day);
+    border-radius: 3px;
+}
+
+.second { 
+    width: 0.66%; 
+    height: 40%; 
+    background: #ff0000;
+    border-radius: 2px;
+}
+
+body.night-mode .hour,
+body.night-mode .minute {
+    background: var(--accent-night);
+}
 
         .center {
             width: 20px;
@@ -1676,33 +1722,42 @@
         }
 
         function createNumbersAndTicks() {
-            const clock = document.getElementById("clock");
-            const radius = 120;
-            [...clock.querySelectorAll('.number, .tick')].forEach(el => el.remove());
-            // Numbers
-            for (let i = 1; i <= 12; i++) {
-                const angle = (i * 30) * Math.PI / 180;
-                const x = 150 + radius * Math.sin(angle);
-                const y = 150 - radius * Math.cos(angle);
-                const num = document.createElement("div");
-                num.className = "number";
-                num.style.left = `${x}px`;
-                num.style.top = `${y}px`;
-                num.textContent = i;
-                clock.appendChild(num);
-            }
-            // Ticks
-            for (let i = 0; i < 60; i++) {
-                const tick = document.createElement("div");
-                tick.className = "tick";
-                tick.style.transform = `rotate(${i * 6}deg)`;
-                if (i % 5 === 0) {
-                    tick.classList.add("hour-tick"); // special class for hour ticks
-                    tick.style.height = "15px";
-                }
-                clock.appendChild(tick);
-            }
+    const clock = document.getElementById("clock");
+    const clockSize = clock.offsetWidth;
+    const radius = clockSize / 2 - 20; // Adjust for padding
+    
+    // Clear existing numbers and ticks
+    const existingNumbers = clock.querySelectorAll('.number, .tick');
+    existingNumbers.forEach(el => el.remove());
+    
+    // Create numbers (1-12)
+    for (let i = 1; i <= 12; i++) {
+        const angle = (i * 30) * Math.PI / 180;
+        const x = 50 + Math.sin(angle) * 35; // 35% from center
+        const y = 50 - Math.cos(angle) * 35; // 35% from center
+        
+        const number = document.createElement('div');
+        number.className = 'number';
+        number.textContent = i;
+        number.style.left = `${x}%`;
+        number.style.top = `${y}%`;
+        clock.appendChild(number);
+    }
+    
+    // Create ticks (60 total, with hour ticks every 5)
+    for (let i = 0; i < 60; i++) {
+        const angle = i * 6;
+        const tick = document.createElement('div');
+        tick.className = 'tick';
+        
+        if (i % 5 === 0) {
+            tick.classList.add('hour-tick');
         }
+        
+        tick.style.transform = `rotate(${angle}deg)`;
+        clock.appendChild(tick);
+    }
+}
 
         function getTimeForTimezone(timezone) {
             if (timezone === "local") {
@@ -1853,6 +1908,17 @@
             }
             loop();
         }
+
+	// Call this after the clock element exists in the DOM
+window.addEventListener('load', function() {
+    createNumbersAndTicks();
+    startClockLoop();
+});
+
+// Also call it on window resize to reposition elements
+window.addEventListener('resize', function() {
+    createNumbersAndTicks();
+});
 
         // Initialize everything
         initializeTimezoneSelector();
