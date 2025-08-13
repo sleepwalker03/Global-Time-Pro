@@ -555,17 +555,20 @@
 
 .tick {
     position: absolute;
-    width: 2px;
-    background: currentColor;
+    width: 5px;
+    height: 10px; /* Add height */
+    background: black;
     left: 50%;
     bottom: 50%;
     transform-origin: center bottom;
     z-index: 5;
+    margin-left: -1px; /* Center the tick */
 }
 
 .tick.hour-tick {
-    width: 3px;
-    height: 12px !important;
+    width: 5px;
+    height: 10px !important;
+    margin-left: -1.5px; /* Center the hour tick */
 }
 
 
@@ -1721,7 +1724,7 @@ body.night-mode .minute {
             });
         }
 
-        function createNumbersAndTicks() {
+       function createNumbersAndTicks() {
     const clock = document.getElementById("clock");
     const clockSize = clock.offsetWidth;
     const radius = clockSize / 2 - 20; // Adjust for padding
@@ -1739,8 +1742,10 @@ body.night-mode .minute {
         const number = document.createElement('div');
         number.className = 'number';
         number.textContent = i;
+        number.style.position = 'absolute';
         number.style.left = `${x}%`;
         number.style.top = `${y}%`;
+        number.style.transform = 'translate(-50%, -50%)';
         clock.appendChild(number);
     }
     
@@ -1754,7 +1759,7 @@ body.night-mode .minute {
             tick.classList.add('hour-tick');
         }
         
-        tick.style.transform = `rotate(${angle}deg)`;
+        tick.style.transform = `rotate(${angle}deg) translateY(${radius - 10}px)`;
         clock.appendChild(tick);
     }
 }
