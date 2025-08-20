@@ -879,6 +879,7 @@
             left: 0;
             opacity: 0;
             transition: all 0.3s ease;
+            color: #6bd3ff;
         }
 
         .footer-links a:hover {
@@ -1332,7 +1333,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 Time Today. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff4d4d;"></i> for time enthusiasts</p>
+                <p>&copy; <span id="currentYear">2025</span> Time Today. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff4d4d;"></i> for time enthusiasts</p>
             </div>
         </div>
     </footer>
@@ -1459,13 +1460,19 @@
                 
                 // Add animation class
                 const timeElement = document.getElementById('localTime');
-                timeElement.classList.add('time-update');
-                setTimeout(() => {
-                    timeElement.classList.remove('time-update');
-                }, 500);
+                if (timeElement) {
+                    timeElement.classList.add('time-update');
+                    setTimeout(() => {
+                        timeElement.classList.remove('time-update');
+                    }, 500);
+                    
+                    timeElement.textContent = timeString;
+                }
                 
-                timeElement.textContent = timeString;
-                document.getElementById('localDate').textContent = dateString;
+                const dateElement = document.getElementById('localDate');
+                if (dateElement) {
+                    dateElement.textContent = dateString;
+                }
                 
                 // Calculate UTC offset properly for Islamabad
                 const islamabadDateTimeFormat = new Intl.DateTimeFormat('en-US', {
@@ -1474,24 +1481,40 @@
                 });
                 const parts = islamabadDateTimeFormat.formatToParts(now);
                 const offsetPart = parts.find(part => part.type === 'timeZoneName');
-                const offsetString = offsetPart.value.replace('GMT', 'UTC');
-                document.getElementById('utcOffset').textContent = offsetString;
+                if (offsetPart) {
+                    const offsetString = offsetPart.value.replace('GMT', 'UTC');
+                    const utcOffsetElement = document.getElementById('utcOffset');
+                    if (utcOffsetElement) {
+                        utcOffsetElement.textContent = offsetString;
+                    }
+                }
                 
                 // Pakistan does not observe daylight saving
-                document.getElementById('dst').textContent = 'Not observed (PKT all year)';
+                const dstElement = document.getElementById('dst');
+                if (dstElement) {
+                    dstElement.textContent = 'Not observed (PKT all year)';
+                }
                 
                 // Update time comparisons
                 updateTimeComparisons(now);
                 
-                // Update current year in footer
-                document.getElementById('currentYear').textContent = now.getFullYear();
+                // Update current year in footer (only if element exists)
+                const currentYearElement = document.getElementById('currentYear');
+                if (currentYearElement) {
+                    currentYearElement.textContent = now.getFullYear();
+                }
                 
                 // Clear any previous errors
-                document.getElementById('timeError').style.display = 'none';
+                const timeErrorElement = document.getElementById('timeError');
+                if (timeErrorElement) {
+                    timeErrorElement.style.display = 'none';
+                }
             } catch (error) {
-                document.getElementById('timeError').style.display = 'block';
-                document.getElementById('timeError').textContent = 
-                    'Error updating time: ' + error.message;
+                const timeErrorElement = document.getElementById('timeError');
+                if (timeErrorElement) {
+                    timeErrorElement.style.display = 'block';
+                    timeErrorElement.textContent = 'Error updating time: ' + error.message;
+                }
             }
         }
 
@@ -1516,26 +1539,29 @@
                 }
             } catch (error) {
                 console.error('Error fetching sunrise/sunset data:', error);
-                document.getElementById('sunriseSunset').innerHTML = `
-                    <i class="fas fa-exclamation-triangle"></i> 
-                    Could not load sunrise/sunset times. Showing approximate values.
-                `;
-                
-                // Fallback to approximate values for Islamabad
-                const month = new Date().getMonth();
-                let sunrise, sunset;
-                
-                if (month >= 4 && month <= 9) { // Summer months
-                    sunrise = '5:00 AM';
-                    sunset = '7:15 PM';
-                } else {
-                    sunrise = '6:45 AM';
-                    sunset = '5:30 PM';
+                const sunriseSunsetElement = document.getElementById('sunriseSunset');
+                if (sunriseSunsetElement) {
+                    sunriseSunsetElement.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        Could not load sunrise/sunset times. Showing approximate values.
+                    `;
+                    
+                    // Fallback to approximate values for Islamabad
+                    const month = new Date().getMonth();
+                    let sunrise, sunset;
+                    
+                    if (month >= 4 && month <= 9) { // Summer months
+                        sunrise = '5:00 AM';
+                        sunset = '7:15 PM';
+                    } else {
+                        sunrise = '6:45 AM';
+                        sunset = '5:30 PM';
+                    }
+                    
+                    sunriseSunsetElement.innerHTML += `
+                        <br>Approximate: Sunrise ~${sunrise}, Sunset ~${sunset}
+                    `;
                 }
-                
-                document.getElementById('sunriseSunset').innerHTML += `
-                    <br>Approximate: Sunrise ~${sunrise}, Sunset ~${sunset}
-                `;
             }
         }
 
@@ -1553,11 +1579,14 @@
             const daylightHours = Math.floor(daylightMs / (1000 * 60 * 60));
             const daylightMinutes = Math.floor((daylightMs % (1000 * 60 * 60)) / (1000 * 60));
             
-            document.getElementById('sunriseSunset').innerHTML = `
-                <i class="fas fa-sunrise"></i> Sunrise: ${sunriseStr} | 
-                <i class="fas fa-sunset"></i> Sunset: ${sunsetStr}<br>
-                <i class="fas fa-sun"></i> Daylight: ${daylightHours}h ${daylightMinutes}m
-            `;
+            const sunriseSunsetElement = document.getElementById('sunriseSunset');
+            if (sunriseSunsetElement) {
+                sunriseSunsetElement.innerHTML = `
+                    <i class="fas fa-sunrise"></i> Sunrise: ${sunriseStr} | 
+                    <i class="fas fa-sunset"></i> Sunset: ${sunsetStr}<br>
+                    <i class="fas fa-sun"></i> Daylight: ${daylightHours}h ${daylightMinutes}m
+                `;
+            }
         }
 
         // Get weather data from free API (using Open-Meteo)
@@ -1579,12 +1608,19 @@
                 const dailyData = await dailyResponse.json();
                 
                 updateWeatherUI(currentData, dailyData);
-                document.getElementById('weatherError').style.display = 'none';
+                
+                const weatherErrorElement = document.getElementById('weatherError');
+                if (weatherErrorElement) {
+                    weatherErrorElement.style.display = 'none';
+                }
             } catch (error) {
                 console.error('Error fetching weather data:', error);
-                document.getElementById('weatherError').style.display = 'block';
-                document.getElementById('weatherError').textContent = 
-                    'Weather data temporarily unavailable. Please try again later.';
+                const weatherErrorElement = document.getElementById('weatherError');
+                if (weatherErrorElement) {
+                    weatherErrorElement.style.display = 'block';
+                    weatherErrorElement.textContent = 
+                        'Weather data temporarily unavailable. Please try again later.';
+                }
                 
                 // Fallback to mock data for Islamabad
                 const mockWeather = {
@@ -1608,6 +1644,7 @@
 
         function updateWeatherUI(currentData, dailyData) {
             const container = document.getElementById('weatherContainer');
+            if (!container) return;
             
             // Clear previous content
             container.innerHTML = '';
@@ -1690,11 +1727,12 @@
             });
             
             // Update sunrise/sunset if the other API failed
-            if (document.getElementById('sunriseSunset').textContent.includes('Loading')) {
+            const sunriseSunsetElement = document.getElementById('sunriseSunset');
+            if (sunriseSunsetElement && sunriseSunsetElement.textContent.includes('Loading')) {
                 try {
                     const sunrise = dailyData.daily.sunrise[0].split('T')[1].substring(0, 5);
                     const sunset = dailyData.daily.sunset[0].split('T')[1].substring(0, 5);
-                    document.getElementById('sunriseSunset').innerHTML = `
+                    sunriseSunsetElement.innerHTML = `
                         <i class="fas fa-sunrise"></i> Sunrise: ${sunrise} | 
                         <i class="fas fa-sunset"></i> Sunset: ${sunset}
                     `;
@@ -1707,32 +1745,38 @@
         // Update time comparisons with other cities
         function updateTimeComparisons(now) {
             const container = document.getElementById('timeComparison');
+            if (!container) return;
+            
             container.innerHTML = '';
             
             locationConfig.timeComparisons.forEach(city => {
-                const timeOptions = {
-                    timeZone: city.timezone,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: true
-                };
-                
-                const timeString = now.toLocaleTimeString('en-US', timeOptions);
-                const dateOptions = { timeZone: city.timezone, weekday: 'short' };
-                const dayString = now.toLocaleDateString('en-US', dateOptions);
-                
-                const diffHours = getTimezoneDiffHours(locationConfig.timezone, city.timezone);
-                
-                const item = document.createElement('div');
-                item.className = 'info-item';
-                item.innerHTML = `
-                    <strong>${city.city}</strong>
-                    <div>${timeString}</div>
-                    <div>${dayString}</div>
-                    <div style="font-size:0.9em;color:#666;">${diffHours > 0 ? '+' : ''}${diffHours} hours</div>
-                `;
-                container.appendChild(item);
+                try {
+                    const timeOptions = {
+                        timeZone: city.timezone,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: true
+                    };
+                    
+                    const timeString = now.toLocaleTimeString('en-US', timeOptions);
+                    const dateOptions = { timeZone: city.timezone, weekday: 'short' };
+                    const dayString = now.toLocaleDateString('en-US', dateOptions);
+                    
+                    const diffHours = getTimezoneDiffHours(locationConfig.timezone, city.timezone);
+                    
+                    const item = document.createElement('div');
+                    item.className = 'info-item';
+                    item.innerHTML = `
+                        <strong>${city.city}</strong>
+                        <div>${timeString}</div>
+                        <div>${dayString}</div>
+                        <div style="font-size:0.9em;color:#666;">${diffHours > 0 ? '+' : ''}${diffHours} hours</div>
+                    `;
+                    container.appendChild(item);
+                } catch (error) {
+                    console.error(`Error creating time comparison for ${city.city}:`, error);
+                }
             });
         }
 
@@ -1759,61 +1803,65 @@
             const menuToggle = document.getElementById('mobile-menu');
             const navList = document.querySelector('.nav-list');
             
-            menuToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navList.classList.toggle('active');
-                
-                // Toggle body overflow when menu is open
-                if (navList.classList.contains('active')) {
-                    document.body.classList.add('menu-open');
-                } else {
-                    document.body.classList.remove('menu-open');
-                }
-            });
-            
-            // Mobile dropdown functionality
-            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-                toggle.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        const dropdown = this.closest('.dropdown');
-                        dropdown.classList.toggle('active');
-                    }
-                });
-            });
-            
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-list a:not(.dropdown-toggle)').forEach(link => {
-                link.addEventListener('click', function() {
+            if (menuToggle && navList) {
+                menuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navList.classList.toggle('active');
+                    
+                    // Toggle body overflow when menu is open
                     if (navList.classList.contains('active')) {
-                        menuToggle.classList.remove('active');
-                        navList.classList.remove('active');
+                        document.body.classList.add('menu-open');
+                    } else {
                         document.body.classList.remove('menu-open');
                     }
                 });
-            });
-            
-            // Set active page in navigation
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            document.querySelectorAll('.nav-list a').forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.classList.add('active');
-                }
-            });
+                
+                // Mobile dropdown functionality
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                    toggle.addEventListener('click', function(e) {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            const dropdown = this.closest('.dropdown');
+                            dropdown.classList.toggle('active');
+                        }
+                    });
+                });
+                
+                // Close menu when clicking on a link
+                document.querySelectorAll('.nav-list a:not(.dropdown-toggle)').forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (navList.classList.contains('active')) {
+                            menuToggle.classList.remove('active');
+                            navList.classList.remove('active');
+                            document.body.classList.remove('menu-open');
+                        }
+                    });
+                });
+                
+                // Set active page in navigation
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                document.querySelectorAll('.nav-list a').forEach(link => {
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                    }
+                });
+            }
         });
 
         // DARK MODE SCRIPT
         const modeToggle = document.getElementById('mode-toggle');
-        const modeIcon = modeToggle.querySelector('i');
+        const modeIcon = modeToggle ? modeToggle.querySelector('i') : null;
         const modeText = document.querySelector('.mode-text');
 
         function updateModeText(isDark) {
-            if (isDark) {
-                modeIcon.classList.replace('fa-moon', 'fa-sun');
-                modeText.textContent = 'Light Mode';
-            } else {
-                modeIcon.classList.replace('fa-sun', 'fa-moon');
-                modeText.textContent = 'Dark Mode';
+            if (modeIcon && modeText) {
+                if (isDark) {
+                    modeIcon.classList.replace('fa-moon', 'fa-sun');
+                    modeText.textContent = 'Light Mode';
+                } else {
+                    modeIcon.classList.replace('fa-sun', 'fa-moon');
+                    modeText.textContent = 'Dark Mode';
+                }
             }
         }
 
@@ -1829,22 +1877,26 @@
         }
 
         // Toggle mode & save preference
-        modeToggle.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('night-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            updateModeText(isDark);
-        });
+        if (modeToggle) {
+            modeToggle.addEventListener('click', () => {
+                const isDark = document.body.classList.toggle('night-mode');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateModeText(isDark);
+            });
+        }
 
         // Initial updates when page loads
-        window.addEventListener('DOMContentLoaded', loadMode);
-        updateClock();
-        getWeatherData();
-        getSunriseSunsetData();
-        
-        // Set up regular updates
-        setInterval(updateClock, 1000); // Update time every second
-        setInterval(getWeatherData, 3600000); // Update weather every hour
-        setInterval(getSunriseSunsetData, 86400000); // Update sunrise/sunset daily
+        window.addEventListener('DOMContentLoaded', function() {
+            loadMode();
+            updateClock();
+            getWeatherData();
+            getSunriseSunsetData();
+            
+            // Set up regular updates
+            setInterval(updateClock, 1000); // Update time every second
+            setInterval(getWeatherData, 3600000); // Update weather every hour
+            setInterval(getSunriseSunsetData, 86400000); // Update sunrise/sunset daily
+        });
     </script>
 </body>
 </html>
